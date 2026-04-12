@@ -144,6 +144,13 @@
   const panelContent = document.getElementById('detail-content');
   const panelClose   = document.getElementById('detail-close');
 
+  /** Escape a string for safe DOM text insertion. */
+  function esc(str) {
+    const d = document.createElement('span');
+    d.textContent = String(str);
+    return d.innerHTML;
+  }
+
   function openDetailPanel(item) {
     if (!panel || !panelContent) return;
 
@@ -159,17 +166,19 @@
     }[item.crimeType] ?? item.crimeType;
 
     const sourceLabel = item.source === 'SEEDED' ? 'Seeded dataset' : 'User report';
+    // crimeType and source are validated by DB CHECK constraints — safe for class names.
     const badgeClass  = 'badge badge-' + item.crimeType.replace('_', '-');
     const srcClass    = 'badge badge-' + item.source.toLowerCase().replace('_', '-');
 
+    // Use esc() for any field that comes from user-supplied or seed data.
     panelContent.innerHTML = `
       <span class="${badgeClass}" aria-label="Crime type: ${crimeLabel}">${crimeLabel.toUpperCase()}</span>
       <span class="${srcClass}" aria-label="Source: ${sourceLabel}">${sourceLabel.toUpperCase()}</span>
       <p style="margin-top:0.75rem; font-size:0.8rem; color:var(--pico-secondary)">
-        ${date}<br>${item.city}
+        ${esc(date)}<br>${esc(item.city)}
       </p>
-      <p>${item.description}</p>
-      <a href="/incidents/${item.id}">View full details →</a>
+      <p>${esc(item.description)}</p>
+      <a href="/incidents/${esc(item.id)}">View full details →</a>
     `;
 
     panel.classList.remove('detail-panel--closed');
