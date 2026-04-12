@@ -1,0 +1,34 @@
+{
+  "name": "crimelens",
+  "version": "0.1.0",
+  "description": "Map-first crime-awareness web app for five European cities",
+  "scripts": {
+    "dev": "bun run --watch src/app.ts",
+    "start": "bun run src/app.ts",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:migrate": "drizzle-kit migrate",
+    "db:generate": "drizzle-kit generate",
+    "seed": "bun run seed/run.ts",
+    "check": "biome check .",
+    "format": "biome format --write .",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@elysiajs/html": "^1.1.0",
+    "@elysiajs/static": "^1.1.0",
+    "@kitajs/html": "^4.0.0",
+    "drizzle-orm": "^0.40.0",
+    "elysia": "^1.2.0",
+    "pino": "^9.5.0",
+    "pino-pretty": "^11.2.0",
+    "postgres": "^3.4.4",
+    "uuidv7": "^1.0.2"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@kitajs/ts-html-plugin": "^4.0.0",
+    "@types/bun": "latest",
+    "drizzle-kit": "^0.30.0"
+  }
+}

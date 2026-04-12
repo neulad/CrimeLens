@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react",
+    "jsxFactory": "Html.createElement",
+    "jsxFragmentFactory": "Html.Fragment",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "lib": ["ESNext"],
+    "types": ["bun-types"],
+    "plugins": [{ "name": "@kitajs/ts-html-plugin" }],
+    "paths": {
+      "~/*": ["./src/*"]
+    }
+  },
+  "include": ["src", "seed", "test", "drizzle.config.ts"]
+}

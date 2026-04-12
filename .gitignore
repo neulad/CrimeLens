@@ -1,0 +1,19 @@
+node_modules/
+
+# Environment — never commit real secrets
+.env
+*.env.local
+
+# Build artefacts
+dist/
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+.idea/
+
+# Bun lock — keep bun.lockb in git for reproducible installs
+# (do NOT add bun.lockb here)
