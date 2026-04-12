@@ -1,4 +1,5 @@
-import type Html from '@kitajs/html';
+// biome-ignore lint/style/useImportType: Html.createElement is the JSX factory — runtime value, not type-only
+import Html from '@kitajs/html';
 
 // ---------------------------------------------------------------------------
 // Types
