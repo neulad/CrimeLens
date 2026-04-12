@@ -1,12 +1,12 @@
-import { Elysia } from 'elysia';
 import { html } from '@elysiajs/html';
 import { staticPlugin } from '@elysiajs/static';
+import { Elysia } from 'elysia';
 import { env } from './env';
 import { logger } from './lib/logger';
-import { pagesRoutes } from './modules/pages/routes';
 import { authRoutes } from './modules/auth/routes';
 import { incidentsRoutes } from './modules/incidents/routes';
 import { lostFoundRoutes } from './modules/lost-and-found/routes';
+import { pagesRoutes } from './modules/pages/routes';
 
 const app = new Elysia()
   // Enable @kitajs/html JSX responses
@@ -21,5 +21,14 @@ const app = new Elysia()
   .listen(env.PORT);
 
 logger.info(`CrimeLens listening on http://localhost:${env.PORT}`);
+
+// Graceful shutdown — let in-flight requests finish before the process exits.
+const shutdown = async () => {
+  logger.info('Shutting down…');
+  await app.stop();
+  process.exit(0);
+};
+process.on('SIGTERM', shutdown);
+process.on('SIGINT', shutdown);
 
 export type App = typeof app;
