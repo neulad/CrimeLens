@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: crimelens_db
+    environment:
+      POSTGRES_DB: crimelens
+      POSTGRES_USER: crimelens
+      POSTGRES_PASSWORD: crimelens
+    ports:
+      - '5432:5432'
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U crimelens -d crimelens']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pg_data:
