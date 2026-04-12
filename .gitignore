@@ -15,5 +15,8 @@ Thumbs.db
 .vscode/settings.json
 .idea/
 
+# Claude Code session files
+.claude/
+
 # Bun lock — keep bun.lockb in git for reproducible installs
 # (do NOT add bun.lockb here)
