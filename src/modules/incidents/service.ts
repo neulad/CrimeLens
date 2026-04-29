@@ -1,4 +1,4 @@
-import { getBboxIncidents, type BboxParams, type IncidentRow } from './queries';
+import { type BboxParams, type IncidentRow, getBboxIncidents } from './queries';
 
 export interface ListByBboxParams {
   west: number;
@@ -12,13 +12,18 @@ export interface ListByBboxParams {
   limit?: number;
 }
 
-const VALID_CRIME_TYPES = new Set(['pickpocketing', 'bag_snatching', 'theft_from_vehicle', 'other']);
+const VALID_CRIME_TYPES = new Set([
+  'pickpocketing',
+  'bag_snatching',
+  'theft_from_vehicle',
+  'other',
+]);
 
 function parseSince(since?: string): Date {
   if (!since || since === 'all') return new Date(0);
   if (since === '30d') return daysAgo(30);
   if (since === '90d') return daysAgo(90);
-  if (since === '1y')  return daysAgo(365);
+  if (since === '1y') return daysAgo(365);
   const d = new Date(since);
   return Number.isNaN(d.getTime()) ? new Date(0) : d;
 }
@@ -35,9 +40,9 @@ export async function listByBbox(params: ListByBboxParams): Promise<IncidentRow[
     : undefined;
 
   const query: BboxParams = {
-    west:  params.west,
+    west: params.west,
     south: params.south,
-    east:  params.east,
+    east: params.east,
     north: params.north,
     types: types && types.length > 0 ? types : undefined,
     since: parseSince(params.since),

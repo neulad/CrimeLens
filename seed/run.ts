@@ -29,6 +29,7 @@ async function seed() {
   const CHUNK = 100;
   for (let i = 0; i < rows.length; i += CHUNK) {
     const chunk = rows.slice(i, i + CHUNK);
+    // biome-ignore lint/suspicious/noExplicitAny: sql`` expressions in values() don't satisfy Drizzle's value type
     await (db.insert(incidents) as any).values(
       chunk.map((row) => ({
         id: row.id,

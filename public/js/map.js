@@ -12,29 +12,28 @@
  * bootstraps the map and proves that Leaflet loads and renders.
  */
 
-(function () {
-  'use strict';
-
+(() => {
   // ── Constants ─────────────────────────────────────────────────────────────
 
   const EUROPE_CENTER = [48.5, 10.0];
-  const EUROPE_ZOOM   = 5;
-  const TILE_URL      = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-  const TILE_ATTR     = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+  const EUROPE_ZOOM = 5;
+  const TILE_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+  const TILE_ATTR =
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
   // Crime-type → fill colour (matches CSS badge tokens)
   const TYPE_COLOR = {
-    pickpocketing:      '#d97706',
-    bag_snatching:      '#dc2626',
+    pickpocketing: '#d97706',
+    bag_snatching: '#dc2626',
     theft_from_vehicle: '#2563eb',
-    other:              '#9ca3af',
+    other: '#9ca3af',
   };
 
   // ── Map init ──────────────────────────────────────────────────────────────
 
   const map = L.map('map', {
     center: EUROPE_CENTER,
-    zoom:   EUROPE_ZOOM,
+    zoom: EUROPE_ZOOM,
     zoomControl: true,
   });
 
@@ -60,9 +59,9 @@
     return L.divIcon({
       html: svg,
       className: '',
-      iconSize:   [18, 24],
+      iconSize: [18, 24],
       iconAnchor: [9, 24],
-      popupAnchor:[0, -24],
+      popupAnchor: [0, -24],
     });
   }
 
@@ -71,12 +70,13 @@
   let fetchController = null;
 
   function getFilterParams() {
-    const form    = document.querySelector('.filter-form');
+    const form = document.querySelector('.filter-form');
     if (!form) return new URLSearchParams();
 
-    const checked = [...form.querySelectorAll('input[type=checkbox]:checked')]
-      .map(el => el.value);
-    const since   = form.querySelector('select[name=since]')?.value ?? 'all';
+    const checked = [...form.querySelectorAll('input[type=checkbox]:checked')].map(
+      (el) => el.value,
+    );
+    const since = form.querySelector('select[name=since]')?.value ?? 'all';
 
     const params = new URLSearchParams();
     if (checked.length) params.set('types', checked.join(','));
@@ -110,7 +110,7 @@
       url.search = params.toString();
       window.history.replaceState({}, '', url);
 
-      const res = await fetch('/api/incidents?' + params.toString(), {
+      const res = await fetch(`/api/incidents?${params.toString()}`, {
         signal: fetchController.signal,
       });
 
@@ -131,18 +131,20 @@
   function renderMarkers(items) {
     clusterGroup.clearLayers();
 
-    items.forEach(function (item) {
+    for (const item of items) {
       const marker = L.marker([item.lat, item.lng], { icon: pinIcon(item.crimeType) });
-      marker.on('click', function () { openDetailPanel(item); });
+      marker.on('click', () => {
+        openDetailPanel(item);
+      });
       clusterGroup.addLayer(marker);
-    });
+    }
   }
 
   // ── Detail panel ──────────────────────────────────────────────────────────
 
-  const panel        = document.getElementById('detail-panel');
+  const panel = document.getElementById('detail-panel');
   const panelContent = document.getElementById('detail-content');
-  const panelClose   = document.getElementById('detail-close');
+  const panelClose = document.getElementById('detail-close');
 
   /** Escape a string for safe DOM text insertion. */
   function esc(str) {
@@ -155,20 +157,23 @@
     if (!panel || !panelContent) return;
 
     const date = new Date(item.occurredAt).toLocaleDateString('en-GB', {
-      day: 'numeric', month: 'short', year: 'numeric',
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
     });
 
-    const crimeLabel = {
-      pickpocketing:      'Pickpocketing',
-      bag_snatching:      'Bag snatching',
-      theft_from_vehicle: 'Vehicle theft',
-      other:              'Other',
-    }[item.crimeType] ?? item.crimeType;
+    const crimeLabel =
+      {
+        pickpocketing: 'Pickpocketing',
+        bag_snatching: 'Bag snatching',
+        theft_from_vehicle: 'Vehicle theft',
+        other: 'Other',
+      }[item.crimeType] ?? item.crimeType;
 
     const sourceLabel = item.source === 'SEEDED' ? 'Seeded dataset' : 'User report';
     // crimeType and source are validated by DB CHECK constraints — safe for class names.
-    const badgeClass  = 'badge badge-' + item.crimeType.replace('_', '-');
-    const srcClass    = 'badge badge-' + item.source.toLowerCase().replace('_', '-');
+    const badgeClass = `badge badge-${item.crimeType.replace('_', '-')}`;
+    const srcClass = `badge badge-${item.source.toLowerCase().replace('_', '-')}`;
 
     // Use esc() for any field that comes from user-supplied or seed data.
     panelContent.innerHTML = `
@@ -202,14 +207,14 @@
 
   const filterForm = document.querySelector('.filter-form');
   if (filterForm) {
-    filterForm.addEventListener('change', function () {
+    filterForm.addEventListener('change', () => {
       loadIncidents();
     });
   }
 
   // Re-fetch on map move (debounced)
   let moveTimer = null;
-  map.on('moveend', function () {
+  map.on('moveend', () => {
     clearTimeout(moveTimer);
     moveTimer = setTimeout(loadIncidents, 300);
   });
@@ -217,7 +222,7 @@
   // ── Boot ──────────────────────────────────────────────────────────────────
 
   // Initial load — deferred until tiles have settled
-  map.whenReady(function () {
+  map.whenReady(() => {
     loadIncidents();
   });
 })();

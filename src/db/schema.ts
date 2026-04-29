@@ -1,5 +1,5 @@
-import { check, customType, index, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
+import { check, customType, index, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
 // PostGIS geometry(Point, 4326) — Drizzle doesn't ship this natively.
 // The migration hands the actual SQL; here we only need the TS type wrapper.

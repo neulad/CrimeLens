@@ -6,10 +6,7 @@ export const incidentsRoutes = new Elysia().get(
   '/api/incidents',
   async ({ query, error }) => {
     const bboxParts = query.bbox.split(',').map(Number);
-    if (
-      bboxParts.length !== 4 ||
-      bboxParts.some((n) => Number.isNaN(n))
-    ) {
+    if (bboxParts.length !== 4 || bboxParts.some((n) => Number.isNaN(n))) {
       return error(400, { message: 'bbox must be W,S,E,N (four floats)' });
     }
 
@@ -37,7 +34,7 @@ export const incidentsRoutes = new Elysia().get(
   },
   {
     query: t.Object({
-      bbox:  t.String({ description: 'W,S,E,N bounding box' }),
+      bbox: t.String({ description: 'W,S,E,N bounding box' }),
       types: t.Optional(t.String()),
       since: t.Optional(t.String()),
       limit: t.Optional(t.Number({ minimum: 1, maximum: 1000, default: 500 })),
