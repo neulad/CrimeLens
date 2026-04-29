@@ -1,1 +1,5002 @@
-[]
+[
+  {
+    "id": "22426741-6ef7-4ff6-b21c-643404f0ff97",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-01-30T20:57:12Z",
+    "lat": 41.361351,
+    "lng": 2.162151,
+    "city": "Barcelona",
+    "description": "Handbag grabbed and thief fled into alleyway.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "2af90400-7339-4ea3-9ebc-59cec1796451",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-05-19T08:51:48Z",
+    "lat": 41.404709,
+    "lng": 2.152747,
+    "city": "Barcelona",
+    "description": "Window smashed, laptop bag taken from back seat.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "e004b280-13a7-456d-9b78-7cf71ba0ba8c",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-08-03T10:33:19Z",
+    "lat": 41.371733,
+    "lng": 2.178501,
+    "city": "Barcelona",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "37e59590-8c30-40c1-a5b0-a9bc78cd9a85",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2026-01-18T15:18:41Z",
+    "lat": 41.38256,
+    "lng": 2.16231,
+    "city": "Barcelona",
+    "description": "Shoulder bag ripped from victim at outdoor cafe.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "4b1ff6b6-77bb-46e7-beaa-e05e6c4fe3eb",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2026-03-07T15:19:12Z",
+    "lat": 41.377113,
+    "lng": 2.156174,
+    "city": "Barcelona",
+    "description": "Rental car broken into, valuables from glove compartment taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "1cce9b26-1288-4e24-80fc-5fbd57abaaa6",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-04-06T19:11:44Z",
+    "lat": 41.379096,
+    "lng": 2.166349,
+    "city": "Barcelona",
+    "description": "Victim distracted by someone asking for directions; wallet gone.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5c6b97ed-9561-43f9-8a82-1ae09d618052",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2026-03-16T07:42:32Z",
+    "lat": 41.396587,
+    "lng": 2.175211,
+    "city": "Barcelona",
+    "description": "Bag left visible on passenger seat \u2014 window broken, bag stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "73290731-ec81-4cd1-a6cb-30dbce395cc0",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-01-27T10:57:34Z",
+    "lat": 41.374759,
+    "lng": 2.179832,
+    "city": "Barcelona",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "6c71b20d-6b07-4916-b45b-e7fcafd05333",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-02-02T10:22:44Z",
+    "lat": 41.395329,
+    "lng": 2.150691,
+    "city": "Barcelona",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "7233dcc6-3eaf-4fcb-a6ac-54686b28900f",
+    "crimeType": "other",
+    "occurredAt": "2025-04-26T13:10:26Z",
+    "lat": 41.402866,
+    "lng": 2.191724,
+    "city": "Barcelona",
+    "description": "Personal belongings taken from unattended bag in hotel lobby.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ced0e43d-0967-4479-817d-40e336630b65",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-01-23T09:22:48Z",
+    "lat": 41.378342,
+    "lng": 2.166909,
+    "city": "Barcelona",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "03dcdb13-ed90-4d33-ab18-33bb92876135",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-09-12T16:45:19Z",
+    "lat": 41.394277,
+    "lng": 2.15197,
+    "city": "Barcelona",
+    "description": "Camera equipment stolen from locked vehicle overnight.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "56733d69-09fc-4984-839c-f0d95c16de4e",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2026-03-25T06:42:50Z",
+    "lat": 41.36827,
+    "lng": 2.167373,
+    "city": "Barcelona",
+    "description": "Travel documents and cash taken from parked car.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "c98eba85-b788-47de-81d9-e7a323700e85",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-11-24T11:58:52Z",
+    "lat": 41.371081,
+    "lng": 2.164614,
+    "city": "Barcelona",
+    "description": "Window smashed, laptop bag taken from back seat.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "770c9af1-a392-4321-bfbe-df1198bc30f2",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-02-24T04:28:35Z",
+    "lat": 41.361705,
+    "lng": 2.164173,
+    "city": "Barcelona",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "1b280440-1fa6-4e3f-8314-11a0635978ca",
+    "crimeType": "other",
+    "occurredAt": "2025-01-25T02:15:29Z",
+    "lat": 41.388459,
+    "lng": 2.184296,
+    "city": "Barcelona",
+    "description": "Personal belongings taken from unattended bag in hotel lobby.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b3bb876a-35f1-42c7-840f-91fdedbc9e3a",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-02-22T14:59:22Z",
+    "lat": 41.405827,
+    "lng": 2.171343,
+    "city": "Barcelona",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5d415deb-7ef2-4097-9e2b-896bfd616f4a",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-05-22T22:11:48Z",
+    "lat": 41.387049,
+    "lng": 2.185751,
+    "city": "Barcelona",
+    "description": "Camera equipment stolen from locked vehicle overnight.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "49b6446f-57c4-4358-aba1-45c8d4589642",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-07-06T04:49:57Z",
+    "lat": 41.371066,
+    "lng": 2.198277,
+    "city": "Barcelona",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "c3549ca7-ffd2-42b1-9ae6-df5fce7f5488",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2024-12-27T08:24:14Z",
+    "lat": 41.403155,
+    "lng": 2.156042,
+    "city": "Barcelona",
+    "description": "Travel documents and cash taken from parked car.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "9f263333-2d19-4a05-a7c5-6ff83d66e916",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2026-03-28T21:10:28Z",
+    "lat": 41.363276,
+    "lng": 2.167481,
+    "city": "Barcelona",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "3da97860-29e3-4fd8-9e6e-7ec16a7ca6fb",
+    "crimeType": "other",
+    "occurredAt": "2025-10-29T12:20:19Z",
+    "lat": 41.403139,
+    "lng": 2.148974,
+    "city": "Barcelona",
+    "description": "Fraudulent vendor at market, overcharged and card skimmed.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "50f17f9c-6dd2-42d7-949a-b3a6a578b4ee",
+    "crimeType": "other",
+    "occurredAt": "2025-04-04T17:39:33Z",
+    "lat": 41.397644,
+    "lng": 2.18683,
+    "city": "Barcelona",
+    "description": "Card-cloning suspected at ATM; fraudulent transactions found later.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "2d1f2744-dfe2-4f76-af27-d360cd4427ad",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2026-01-22T05:10:36Z",
+    "lat": 41.382786,
+    "lng": 2.196091,
+    "city": "Barcelona",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "46507786-7b3b-4024-85c8-7c9344ac7651",
+    "crimeType": "other",
+    "occurredAt": "2024-11-28T02:24:26Z",
+    "lat": 41.398198,
+    "lng": 2.173784,
+    "city": "Barcelona",
+    "description": "Fraudulent vendor at market, overcharged and card skimmed.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "37f801bf-70bb-423e-b48b-072ab8c9e1d5",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-12-23T10:48:20Z",
+    "lat": 41.392047,
+    "lng": 2.178849,
+    "city": "Barcelona",
+    "description": "Victim felt a hand in their bag and turned to find phone missing.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "57d31dc5-d5a2-4e2b-9f8a-fbbb09a4d7b1",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-10-01T07:29:38Z",
+    "lat": 41.399031,
+    "lng": 2.174918,
+    "city": "Barcelona",
+    "description": "Bag pulled from victim at bus stop by two individuals.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "9df039a4-b10f-45ba-b206-1c43e8bbb782",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2026-03-22T23:39:04Z",
+    "lat": 41.365693,
+    "lng": 2.166549,
+    "city": "Barcelona",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "cf1a0c47-65cb-4de0-aa5e-691dbfa3a1be",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-11-13T00:01:56Z",
+    "lat": 41.372144,
+    "lng": 2.176768,
+    "city": "Barcelona",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "712dec23-cd55-4ba3-ae2e-2e3d5d3c0d56",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2024-12-08T15:57:56Z",
+    "lat": 41.408999,
+    "lng": 2.175035,
+    "city": "Barcelona",
+    "description": "Travel documents and cash taken from parked car.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "eb083406-e2b5-4ebc-a8bd-16216028df18",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2026-01-20T08:21:45Z",
+    "lat": 41.38759,
+    "lng": 2.161653,
+    "city": "Barcelona",
+    "description": "Laptop bag grabbed from cafe chair while victim used restroom.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "7f788b66-764f-4787-a313-31d9e371ff5a",
+    "crimeType": "other",
+    "occurredAt": "2025-10-12T16:01:31Z",
+    "lat": 41.406546,
+    "lng": 2.186163,
+    "city": "Barcelona",
+    "description": "Fraudulent vendor at market, overcharged and card skimmed.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "7d045d7f-f62c-4e62-936e-60366bbc3a6d",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-05-28T04:51:48Z",
+    "lat": 41.409857,
+    "lng": 2.180894,
+    "city": "Barcelona",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b34e804f-a46a-47a5-b412-86aac9614c55",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-10-12T11:37:58Z",
+    "lat": 41.372495,
+    "lng": 2.151601,
+    "city": "Barcelona",
+    "description": "Bag snatched as victim exited ATM.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "a560b2b4-2531-4a4f-bd68-82f35eff8d66",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-11-02T03:28:54Z",
+    "lat": 41.36046,
+    "lng": 2.183792,
+    "city": "Barcelona",
+    "description": "Handbag grabbed and thief fled into alleyway.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "135bbe22-e101-4526-8c38-c081054c3862",
+    "crimeType": "other",
+    "occurredAt": "2025-02-07T22:48:45Z",
+    "lat": 41.403082,
+    "lng": 2.151943,
+    "city": "Barcelona",
+    "description": "Fraudulent vendor at market, overcharged and card skimmed.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0e0e123f-d995-450f-b475-b51008fa3ea9",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2026-01-25T18:44:52Z",
+    "lat": 41.387062,
+    "lng": 2.184568,
+    "city": "Barcelona",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "691432b3-4d76-4119-9683-b50d23aa24a7",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-11-21T12:02:42Z",
+    "lat": 41.383749,
+    "lng": 2.168753,
+    "city": "Barcelona",
+    "description": "Phone snatched from hand while victim was texting.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "e2123e6d-3fe5-4e36-a6d4-cfa94bfab21c",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-10-30T13:51:33Z",
+    "lat": 41.380655,
+    "lng": 2.191592,
+    "city": "Barcelona",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "8a1dc6fc-bbff-4d36-bba8-33c2c18537a2",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-11-29T15:51:41Z",
+    "lat": 41.396511,
+    "lng": 2.18843,
+    "city": "Barcelona",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "713cfc18-9917-427f-bc26-0ab2d888935b",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-03-02T02:03:20Z",
+    "lat": 41.382531,
+    "lng": 2.169494,
+    "city": "Barcelona",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "cb3b8d11-440e-47dd-82fc-7297f723b574",
+    "crimeType": "other",
+    "occurredAt": "2026-01-11T08:35:24Z",
+    "lat": 41.363869,
+    "lng": 2.188801,
+    "city": "Barcelona",
+    "description": "Distraction theft at restaurant; phone taken from table.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "fe573e96-99e9-4a01-96ee-bf43923fb9c5",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-03-14T01:43:37Z",
+    "lat": 41.410064,
+    "lng": 2.190201,
+    "city": "Barcelona",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "17439b35-7d1b-45c7-92fa-a0b70e65379d",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-05-07T23:13:55Z",
+    "lat": 41.384382,
+    "lng": 2.159087,
+    "city": "Barcelona",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b38e8a47-ff5d-4a3a-9d78-af88cb606d0a",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-02-18T21:05:34Z",
+    "lat": 41.360208,
+    "lng": 2.167921,
+    "city": "Barcelona",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b834b709-9ce7-4176-92e1-23c719e51ef1",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-12-02T17:10:10Z",
+    "lat": 41.39493,
+    "lng": 2.184925,
+    "city": "Barcelona",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "67df9ccb-021f-4d2c-9a64-3786b259514f",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-08-13T05:34:42Z",
+    "lat": 41.374935,
+    "lng": 2.196835,
+    "city": "Barcelona",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "c289abaf-0187-405e-8928-3f4ba2104618",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-06-18T07:50:12Z",
+    "lat": 41.37578,
+    "lng": 2.150907,
+    "city": "Barcelona",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "54c159c6-6c27-42a6-a65c-331e571f9130",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-01-10T11:03:01Z",
+    "lat": 41.408139,
+    "lng": 2.152406,
+    "city": "Barcelona",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "9c7d3ce7-a8f3-4d07-bb75-bb342376c6f0",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-02-27T02:40:32Z",
+    "lat": 41.403191,
+    "lng": 2.168589,
+    "city": "Barcelona",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "f9067ae4-5657-46ba-8861-425089ec4991",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-05-17T21:31:23Z",
+    "lat": 41.389826,
+    "lng": 2.179369,
+    "city": "Barcelona",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "64cf38e2-2173-440a-bfa8-f3d3993bf452",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-10-01T16:05:21Z",
+    "lat": 41.375918,
+    "lng": 2.161438,
+    "city": "Barcelona",
+    "description": "Bag pulled from victim at bus stop by two individuals.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "25fffd10-29f9-49ec-82ee-f940d12adcbc",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-03-13T19:09:42Z",
+    "lat": 41.379889,
+    "lng": 2.181985,
+    "city": "Barcelona",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "69a81dbe-d474-449d-a43b-b2cc68dbf868",
+    "crimeType": "other",
+    "occurredAt": "2025-09-05T03:40:15Z",
+    "lat": 41.406887,
+    "lng": 2.148866,
+    "city": "Barcelona",
+    "description": "Items left at beach taken while victim swam.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "281cea45-3aa2-42ee-9402-49b66cda8a5f",
+    "crimeType": "other",
+    "occurredAt": "2025-02-22T19:11:10Z",
+    "lat": 41.363763,
+    "lng": 2.159058,
+    "city": "Barcelona",
+    "description": "Card-cloning suspected at ATM; fraudulent transactions found later.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "c7c34d8b-a693-4696-94bc-96ae9eb3e08b",
+    "crimeType": "other",
+    "occurredAt": "2024-12-26T03:06:52Z",
+    "lat": 41.404064,
+    "lng": 2.166876,
+    "city": "Barcelona",
+    "description": "Pickpocket working in pairs near popular viewpoint.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "a354bc67-ce96-41fe-b4f8-f2b1663e4340",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-12-15T16:14:15Z",
+    "lat": 41.375226,
+    "lng": 2.197593,
+    "city": "Barcelona",
+    "description": "Bag snatched from victim shoulder by passing scooter.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "81dcbce9-632d-4603-95e4-9cd1ad4b5e7a",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2024-11-26T13:23:51Z",
+    "lat": 41.38783,
+    "lng": 2.194988,
+    "city": "Barcelona",
+    "description": "Luggage stolen from car boot during brief cafe stop.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "e96dbd53-0208-4f88-9e8c-b81758452afe",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-12-24T20:59:21Z",
+    "lat": 41.404586,
+    "lng": 2.185521,
+    "city": "Barcelona",
+    "description": "Victim distracted by someone asking for directions; wallet gone.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "3f766008-0579-467c-914d-1d341a3cbc4a",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-09-12T07:03:15Z",
+    "lat": 41.395981,
+    "lng": 2.15858,
+    "city": "Barcelona",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "3eaedc23-bd42-492b-ab4e-17a76e57200a",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-10-28T17:40:07Z",
+    "lat": 41.372656,
+    "lng": 2.193808,
+    "city": "Barcelona",
+    "description": "Laptop bag grabbed from cafe chair while victim used restroom.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "663f2245-d7a9-4d6d-a71b-f13ec6f4083f",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2024-12-11T10:15:39Z",
+    "lat": 41.362304,
+    "lng": 2.165078,
+    "city": "Barcelona",
+    "description": "Rental car broken into, valuables from glove compartment taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "700c928e-e6cf-4925-b025-5e7900f37a43",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-08-03T06:07:24Z",
+    "lat": 41.382192,
+    "lng": 2.183683,
+    "city": "Barcelona",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "bedb26c8-95e1-47c2-ab54-05d0da0603d1",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-07-25T21:24:54Z",
+    "lat": 41.404255,
+    "lng": 2.193596,
+    "city": "Barcelona",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "bb8f5aad-dba0-47fb-8374-6c6fd5f85e8a",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-03-18T07:25:02Z",
+    "lat": 41.367505,
+    "lng": 2.154772,
+    "city": "Barcelona",
+    "description": "Bag snatched from victim shoulder by passing scooter.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "a241cbde-50a2-4691-9fe9-e65bb232cb49",
+    "crimeType": "other",
+    "occurredAt": "2024-11-26T03:00:27Z",
+    "lat": 41.370604,
+    "lng": 2.160876,
+    "city": "Barcelona",
+    "description": "Pickpocket working in pairs near popular viewpoint.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "8c3cb874-33bf-47cf-9272-427a4eba92ca",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-11-14T05:09:16Z",
+    "lat": 41.403836,
+    "lng": 2.197092,
+    "city": "Barcelona",
+    "description": "Bag snatched as victim exited ATM.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "deb703e3-1592-4a91-8f7f-d10c25a57b6e",
+    "crimeType": "other",
+    "occurredAt": "2026-01-25T06:04:40Z",
+    "lat": 41.40891,
+    "lng": 2.188939,
+    "city": "Barcelona",
+    "description": "Distraction theft at restaurant; phone taken from table.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "9363dab6-cb5b-4cd6-b39b-a89668e0e80f",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-05-13T19:05:21Z",
+    "lat": 41.406324,
+    "lng": 2.187519,
+    "city": "Barcelona",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "10d4f284-02c8-493a-bddb-555981f5d635",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-01-20T04:52:24Z",
+    "lat": 41.399469,
+    "lng": 2.153805,
+    "city": "Barcelona",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "198b476e-aeb4-47c2-8aab-665473df3d69",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-03-16T15:13:16Z",
+    "lat": 41.400929,
+    "lng": 2.171415,
+    "city": "Barcelona",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "84dc196a-f0bd-497b-ab00-b5f0bfd4a5e4",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-03-02T02:48:52Z",
+    "lat": 41.393102,
+    "lng": 2.168323,
+    "city": "Barcelona",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "d087616a-3b1d-4f6a-814e-46b6ec87137a",
+    "crimeType": "other",
+    "occurredAt": "2025-05-07T05:23:07Z",
+    "lat": 41.374056,
+    "lng": 2.180474,
+    "city": "Barcelona",
+    "description": "Pickpocket working in pairs near popular viewpoint.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "556c85a5-a7a8-428d-ab1c-40469ac2c96c",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2026-03-14T20:07:46Z",
+    "lat": 41.407062,
+    "lng": 2.154167,
+    "city": "Barcelona",
+    "description": "Shoulder bag ripped from victim at outdoor cafe.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "09bcd739-e901-44ef-a508-a3f56fa0173f",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-08-22T17:28:11Z",
+    "lat": 41.409278,
+    "lng": 2.150313,
+    "city": "Barcelona",
+    "description": "Bag pulled from victim at bus stop by two individuals.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "63efd5e5-1d67-4304-ba96-cd840c39361a",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-07-07T05:41:15Z",
+    "lat": 41.375784,
+    "lng": 2.17871,
+    "city": "Barcelona",
+    "description": "Bag left visible on passenger seat \u2014 window broken, bag stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "a4d5456b-6b77-40e1-bf12-ace43112bc91",
+    "crimeType": "other",
+    "occurredAt": "2025-05-27T02:05:51Z",
+    "lat": 41.369604,
+    "lng": 2.150619,
+    "city": "Barcelona",
+    "description": "Items left at beach taken while victim swam.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "75a739f9-4b1a-408e-ae79-b5a96b33ce70",
+    "crimeType": "other",
+    "occurredAt": "2025-11-10T02:30:49Z",
+    "lat": 41.387023,
+    "lng": 2.184371,
+    "city": "Barcelona",
+    "description": "Fraudulent vendor at market, overcharged and card skimmed.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "307163cf-47b0-4067-add9-373c0f86c3c5",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-02-15T17:46:52Z",
+    "lat": 41.381665,
+    "lng": 2.195844,
+    "city": "Barcelona",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "d0211e69-f3bd-4e95-b6d1-7a4e8cd355ef",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-03-13T23:25:22Z",
+    "lat": 41.402501,
+    "lng": 2.184388,
+    "city": "Barcelona",
+    "description": "Victim distracted by someone asking for directions; wallet gone.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "e4fa051e-30b7-4bca-854f-6ad17f6a9fbf",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-07-30T17:01:15Z",
+    "lat": 41.376409,
+    "lng": 2.18326,
+    "city": "Barcelona",
+    "description": "Luggage stolen from car boot during brief cafe stop.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "2a6d3181-9b5e-4e44-af12-8b9e904115ec",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2026-02-05T22:21:49Z",
+    "lat": 41.407118,
+    "lng": 2.182266,
+    "city": "Barcelona",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "1ac9a7f1-0939-41c6-a1f2-0607ee3691aa",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-01-23T18:14:02Z",
+    "lat": 41.401786,
+    "lng": 2.163594,
+    "city": "Barcelona",
+    "description": "Bag pulled from victim at bus stop by two individuals.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "50530301-f68e-425d-bc8f-2ccd8af7588d",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-06-16T08:37:54Z",
+    "lat": 41.382208,
+    "lng": 2.159085,
+    "city": "Barcelona",
+    "description": "Shoulder bag ripped from victim at outdoor cafe.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "da58f612-5ca0-4cb9-9871-211a48ab960f",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-09-04T02:47:36Z",
+    "lat": 41.374289,
+    "lng": 2.181593,
+    "city": "Barcelona",
+    "description": "Window smashed, laptop bag taken from back seat.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "9e56bbd3-1c5f-4fde-96d2-99756249c570",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-01-31T15:41:28Z",
+    "lat": 41.397657,
+    "lng": 2.18204,
+    "city": "Barcelona",
+    "description": "Luggage stolen from car boot during brief cafe stop.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "278e6492-b3a9-4f5f-a2c9-77fc255c26bd",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-08-30T18:08:02Z",
+    "lat": 41.362411,
+    "lng": 2.197597,
+    "city": "Barcelona",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b91976aa-af61-49a4-b637-19854e176ec8",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-10-28T05:12:17Z",
+    "lat": 41.404407,
+    "lng": 2.177184,
+    "city": "Barcelona",
+    "description": "Laptop bag grabbed from cafe chair while victim used restroom.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "7dfa12e7-9104-4cd4-9b55-398f2836dc99",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-10-04T00:39:33Z",
+    "lat": 41.372299,
+    "lng": 2.181203,
+    "city": "Barcelona",
+    "description": "Handbag grabbed and thief fled into alleyway.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "efa6dc3f-f85c-4770-848e-47b17b1fcb59",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-10-15T23:13:40Z",
+    "lat": 41.371042,
+    "lng": 2.188605,
+    "city": "Barcelona",
+    "description": "Bag left visible on passenger seat \u2014 window broken, bag stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "7b18063f-1ef0-47b3-99c3-e54d56be9e2a",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-06-07T05:28:32Z",
+    "lat": 41.37256,
+    "lng": 2.190817,
+    "city": "Barcelona",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "1306a28f-9943-4657-b26e-33167310005f",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2026-03-03T17:19:08Z",
+    "lat": 41.409495,
+    "lng": 2.178173,
+    "city": "Barcelona",
+    "description": "Bag left visible on passenger seat \u2014 window broken, bag stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "e57ea49a-4dab-4d66-8379-92d04946d021",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-12-28T11:46:42Z",
+    "lat": 41.396064,
+    "lng": 2.173639,
+    "city": "Barcelona",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "08245ff0-fe78-400a-93f1-02c8a741853d",
+    "crimeType": "other",
+    "occurredAt": "2025-02-19T12:26:45Z",
+    "lat": 41.397283,
+    "lng": 2.172134,
+    "city": "Barcelona",
+    "description": "Street scam resulting in cash loss near monument.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "c97d0dd8-4072-48db-b552-af0e8967916e",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-06-22T14:09:33Z",
+    "lat": 41.373966,
+    "lng": 2.187284,
+    "city": "Barcelona",
+    "description": "Luggage stolen from car boot during brief cafe stop.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5b59a0ab-937a-4ac7-a474-612387056d4b",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-02-26T08:33:17Z",
+    "lat": 41.363974,
+    "lng": 2.162686,
+    "city": "Barcelona",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "82aefe44-2e9c-400d-83fe-c64efbeae09b",
+    "crimeType": "other",
+    "occurredAt": "2025-04-28T03:17:40Z",
+    "lat": 41.364129,
+    "lng": 2.155942,
+    "city": "Barcelona",
+    "description": "Street scam resulting in cash loss near monument.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0f77ecd1-128a-408a-a55f-9a470c2eff29",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-07-24T06:22:34Z",
+    "lat": 41.363311,
+    "lng": 2.16878,
+    "city": "Barcelona",
+    "description": "Bag left visible on passenger seat \u2014 window broken, bag stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "c8922b29-c5c7-45d6-99f9-839a00713d39",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-11-25T07:24:13Z",
+    "lat": 41.401745,
+    "lng": 2.167874,
+    "city": "Barcelona",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "fa5dd602-73ed-4ac8-98eb-4400e5f99240",
+    "crimeType": "other",
+    "occurredAt": "2024-10-04T05:15:44Z",
+    "lat": 41.39838,
+    "lng": 2.167419,
+    "city": "Barcelona",
+    "description": "Card-cloning suspected at ATM; fraudulent transactions found later.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ce99d7a3-cc4c-4821-acee-ae9cd0da6f5c",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-12-31T07:23:18Z",
+    "lat": 48.851099,
+    "lng": 2.371782,
+    "city": "Paris",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5facdf3a-7328-4236-a809-a62e331749f0",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-01-29T09:56:20Z",
+    "lat": 48.858907,
+    "lng": 2.357363,
+    "city": "Paris",
+    "description": "Luggage stolen from car boot during brief cafe stop.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "40568c0e-374b-4727-b8f5-6bbae9e42a3a",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-10-01T04:55:11Z",
+    "lat": 48.855882,
+    "lng": 2.346643,
+    "city": "Paris",
+    "description": "Phone snatched from hand while victim was texting.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "9704c694-caa8-4767-900f-60acf1c4e166",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2026-03-20T11:22:50Z",
+    "lat": 48.873625,
+    "lng": 2.373177,
+    "city": "Paris",
+    "description": "Camera equipment stolen from locked vehicle overnight.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "c4030eda-92da-4317-80d0-c419d4d76f5e",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-10-15T19:08:42Z",
+    "lat": 48.851301,
+    "lng": 2.35542,
+    "city": "Paris",
+    "description": "Phone snatched from hand while victim was texting.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "eef63fbd-5194-4284-bd06-a63c4a9bdcc7",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-04-25T23:46:37Z",
+    "lat": 48.854685,
+    "lng": 2.329714,
+    "city": "Paris",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "f6d7b3b6-1c76-4814-88e3-6e39413a0829",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-03-01T22:16:28Z",
+    "lat": 48.848475,
+    "lng": 2.371182,
+    "city": "Paris",
+    "description": "Laptop bag grabbed from cafe chair while victim used restroom.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "652c75a8-bdc3-4b45-b129-337743d47d77",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-07-22T12:32:49Z",
+    "lat": 48.835695,
+    "lng": 2.328169,
+    "city": "Paris",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "14d769bb-a1ce-48af-8ac8-3b08a7195c8f",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-10-22T23:32:33Z",
+    "lat": 48.835031,
+    "lng": 2.375064,
+    "city": "Paris",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "78b8893b-05b8-47ce-894d-c648b29d1960",
+    "crimeType": "other",
+    "occurredAt": "2024-12-23T04:49:05Z",
+    "lat": 48.841568,
+    "lng": 2.328219,
+    "city": "Paris",
+    "description": "Street scam resulting in cash loss near monument.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "1ed5be0b-eb66-436d-9908-cafea10afd7b",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-06-11T21:48:19Z",
+    "lat": 48.837319,
+    "lng": 2.374588,
+    "city": "Paris",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "2ce47e59-7fdb-4b55-bb37-222b6d1f29a2",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-11-13T08:49:03Z",
+    "lat": 48.839989,
+    "lng": 2.357562,
+    "city": "Paris",
+    "description": "Window smashed, laptop bag taken from back seat.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "399dae3b-3fce-4cf3-8fc0-630e7397bfe1",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-08-12T23:05:05Z",
+    "lat": 48.839788,
+    "lng": 2.342752,
+    "city": "Paris",
+    "description": "Rental car broken into, valuables from glove compartment taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "a9c1b5eb-4e9e-416b-abae-9fede32cdccb",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2026-02-27T01:01:50Z",
+    "lat": 48.877001,
+    "lng": 2.345965,
+    "city": "Paris",
+    "description": "Bag snatched as victim exited ATM.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "fd0d7ba5-6756-4b85-bd2e-d76d6866f4bc",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-11-25T15:18:52Z",
+    "lat": 48.866131,
+    "lng": 2.358562,
+    "city": "Paris",
+    "description": "Victim distracted by someone asking for directions; wallet gone.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "404f98c0-ff01-4e59-8e7d-0d63d0ba3836",
+    "crimeType": "other",
+    "occurredAt": "2026-03-22T04:17:46Z",
+    "lat": 48.861621,
+    "lng": 2.333253,
+    "city": "Paris",
+    "description": "Pickpocket working in pairs near popular viewpoint.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "7d1c0aa9-63cb-4f8a-8a74-736d696ae26b",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-11-07T15:36:32Z",
+    "lat": 48.858237,
+    "lng": 2.360276,
+    "city": "Paris",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "f3e2c179-0a89-4942-b641-b5d6d1d96277",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-05-25T16:53:26Z",
+    "lat": 48.852603,
+    "lng": 2.35171,
+    "city": "Paris",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "10f26f21-e48e-4b1b-a624-cc408b4eb0b7",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-05-26T18:37:24Z",
+    "lat": 48.873035,
+    "lng": 2.362565,
+    "city": "Paris",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "cade127a-836a-4dd8-b165-0bcd9b47c041",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-06-11T19:42:21Z",
+    "lat": 48.877581,
+    "lng": 2.365932,
+    "city": "Paris",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ce8f4f24-9556-4c36-85a1-b000bab92dc4",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-03-02T07:04:32Z",
+    "lat": 48.843875,
+    "lng": 2.373931,
+    "city": "Paris",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "c5b6fad6-062a-4a91-bee4-3c49ba0267d8",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-04-25T22:16:33Z",
+    "lat": 48.854835,
+    "lng": 2.357717,
+    "city": "Paris",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b2ee7524-d1b0-4448-8731-3c8fa4309032",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-04-12T17:37:34Z",
+    "lat": 48.847851,
+    "lng": 2.351577,
+    "city": "Paris",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ee531cad-2c76-40fb-9acf-ac291e33ffe2",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-02-28T20:13:24Z",
+    "lat": 48.875616,
+    "lng": 2.362259,
+    "city": "Paris",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "eb72429f-6476-47eb-8e04-af48253ffb69",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-05-10T21:50:02Z",
+    "lat": 48.841153,
+    "lng": 2.339268,
+    "city": "Paris",
+    "description": "Bag snatched as victim exited ATM.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "84a95422-0f65-41c5-8b06-a361daa460e7",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-12-07T22:35:32Z",
+    "lat": 48.863895,
+    "lng": 2.351741,
+    "city": "Paris",
+    "description": "Window smashed, laptop bag taken from back seat.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "495f1fd7-ac8f-4e29-9ee8-0ccbe4774ebc",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-09-28T12:31:55Z",
+    "lat": 48.85182,
+    "lng": 2.339365,
+    "city": "Paris",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0ab1b479-9cd2-488b-9260-ad58464475fb",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-11-12T06:44:16Z",
+    "lat": 48.858146,
+    "lng": 2.348475,
+    "city": "Paris",
+    "description": "Bag pulled from victim at bus stop by two individuals.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b905e342-4675-4529-b68e-f6519083908e",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-02-03T20:58:13Z",
+    "lat": 48.854287,
+    "lng": 2.342531,
+    "city": "Paris",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "c47b8e8b-963b-4549-96f9-abd1ea71f9ef",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-10-12T19:54:11Z",
+    "lat": 48.868744,
+    "lng": 2.374744,
+    "city": "Paris",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "7f49d698-a399-43bf-ae0a-634c34ceef89",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-03-18T05:27:30Z",
+    "lat": 48.85581,
+    "lng": 2.363429,
+    "city": "Paris",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "69636482-363e-4e06-92a1-cc8ca136f0bb",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-03-11T18:00:49Z",
+    "lat": 48.880626,
+    "lng": 2.368831,
+    "city": "Paris",
+    "description": "Bag pulled from victim at bus stop by two individuals.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ad826ec7-69f7-41ec-8f63-220a15ea8ffa",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-02-27T18:34:32Z",
+    "lat": 48.832307,
+    "lng": 2.353907,
+    "city": "Paris",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0b2f7eeb-7840-4fd7-a8b9-fa405a9c29c3",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2026-01-18T04:18:55Z",
+    "lat": 48.866471,
+    "lng": 2.333514,
+    "city": "Paris",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0525f5df-85d3-4be7-8536-4dc680020aa8",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-06-19T09:04:15Z",
+    "lat": 48.832213,
+    "lng": 2.341417,
+    "city": "Paris",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "1e122b1a-4a7e-43cd-ba57-cef62735c75d",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-06-18T20:09:47Z",
+    "lat": 48.834169,
+    "lng": 2.374253,
+    "city": "Paris",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "95001c4e-20a9-4b12-a570-38ce46171f0a",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-10-30T06:29:35Z",
+    "lat": 48.835304,
+    "lng": 2.358672,
+    "city": "Paris",
+    "description": "Shoulder bag ripped from victim at outdoor cafe.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "8569eb4e-0d38-4a5e-89f3-64416ad1d2a2",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-02-13T12:17:39Z",
+    "lat": 48.879056,
+    "lng": 2.331459,
+    "city": "Paris",
+    "description": "Camera equipment stolen from locked vehicle overnight.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5f136c99-bbda-4f09-bfb2-9c636c3ae34d",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-02-01T05:24:15Z",
+    "lat": 48.861916,
+    "lng": 2.366737,
+    "city": "Paris",
+    "description": "Camera equipment stolen from locked vehicle overnight.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "084cfd94-9eb6-4347-b4c6-21c5ff3a476d",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-08-18T08:02:00Z",
+    "lat": 48.877025,
+    "lng": 2.342068,
+    "city": "Paris",
+    "description": "Phone snatched from hand while victim was texting.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "8c75e72b-f1ad-4472-ad47-ca92d67ea045",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-11-09T02:07:48Z",
+    "lat": 48.862651,
+    "lng": 2.357682,
+    "city": "Paris",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b9421618-eb2f-4570-bf37-522fd8cf8dad",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-02-08T23:11:35Z",
+    "lat": 48.844832,
+    "lng": 2.331259,
+    "city": "Paris",
+    "description": "Handbag grabbed and thief fled into alleyway.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "964636dd-31eb-467d-b00a-bb8ddf5eec98",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-06-14T13:43:59Z",
+    "lat": 48.852026,
+    "lng": 2.361669,
+    "city": "Paris",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0184e2c3-e784-4afe-a97e-caddf8cf0f80",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-06-05T21:37:35Z",
+    "lat": 48.866948,
+    "lng": 2.362349,
+    "city": "Paris",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "4c7614d6-f8e3-4c6b-a0b4-3405d027f3cf",
+    "crimeType": "other",
+    "occurredAt": "2025-09-27T00:08:33Z",
+    "lat": 48.870991,
+    "lng": 2.358453,
+    "city": "Paris",
+    "description": "Street scam resulting in cash loss near monument.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "c012a664-678b-4b41-bc04-dd7881a819b6",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2026-02-08T23:49:24Z",
+    "lat": 48.858828,
+    "lng": 2.359582,
+    "city": "Paris",
+    "description": "Shoulder bag ripped from victim at outdoor cafe.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "7454951c-c62a-45e2-8e88-b8df93eb5574",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-11-13T22:20:31Z",
+    "lat": 48.839896,
+    "lng": 2.342581,
+    "city": "Paris",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "17f45c1d-d0d0-4019-8f1a-e76fba91ced3",
+    "crimeType": "other",
+    "occurredAt": "2025-03-16T00:48:39Z",
+    "lat": 48.853558,
+    "lng": 2.350635,
+    "city": "Paris",
+    "description": "Personal belongings taken from unattended bag in hotel lobby.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "7fa69627-c398-4543-86a6-3fc4c64d7ae2",
+    "crimeType": "other",
+    "occurredAt": "2024-11-13T22:06:36Z",
+    "lat": 48.856624,
+    "lng": 2.35189,
+    "city": "Paris",
+    "description": "Distraction theft at restaurant; phone taken from table.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "50c5a565-9f8e-4257-873e-3bbaa2a1eed6",
+    "crimeType": "other",
+    "occurredAt": "2024-10-15T02:56:00Z",
+    "lat": 48.868327,
+    "lng": 2.357386,
+    "city": "Paris",
+    "description": "Street scam resulting in cash loss near monument.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5e5e726d-7349-4c75-a46f-a61e344cac68",
+    "crimeType": "other",
+    "occurredAt": "2026-03-04T03:06:12Z",
+    "lat": 48.873398,
+    "lng": 2.35596,
+    "city": "Paris",
+    "description": "Pickpocket working in pairs near popular viewpoint.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "38f2103a-af49-4ba8-89c4-7ff5f1cbd1ef",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-11-17T22:08:48Z",
+    "lat": 48.845076,
+    "lng": 2.329212,
+    "city": "Paris",
+    "description": "Bag left visible on passenger seat \u2014 window broken, bag stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "d96ff82c-a781-483e-bce1-ae2fcf927288",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2026-03-29T07:58:24Z",
+    "lat": 48.853711,
+    "lng": 2.341108,
+    "city": "Paris",
+    "description": "Laptop bag grabbed from cafe chair while victim used restroom.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "05e3d1d9-3905-4cd4-aad7-cbadf17f2c3c",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-04-08T23:40:54Z",
+    "lat": 48.856186,
+    "lng": 2.331762,
+    "city": "Paris",
+    "description": "Bag pulled from victim at bus stop by two individuals.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "df7cb0fa-29d3-4941-b989-d3a8704eedd6",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-05-13T18:11:50Z",
+    "lat": 48.83683,
+    "lng": 2.335241,
+    "city": "Paris",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "7a7def0f-cd4e-4704-9f03-ad90a9203f00",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-07-28T08:27:57Z",
+    "lat": 48.87886,
+    "lng": 2.367878,
+    "city": "Paris",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b9283ccf-ed8d-466d-8261-85648b7d780c",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-11-26T19:28:04Z",
+    "lat": 48.84422,
+    "lng": 2.332996,
+    "city": "Paris",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ae9866e3-1cf5-4ce8-bc17-7c3c62b70227",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-06-10T05:44:16Z",
+    "lat": 48.831658,
+    "lng": 2.370668,
+    "city": "Paris",
+    "description": "Window smashed, laptop bag taken from back seat.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "16dea938-91f5-433f-8355-bb7f8ed02a0a",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-09-07T11:21:22Z",
+    "lat": 48.849689,
+    "lng": 2.365022,
+    "city": "Paris",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "bf2e571e-48a5-499c-985d-790931258068",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-05-28T05:04:23Z",
+    "lat": 48.859061,
+    "lng": 2.373584,
+    "city": "Paris",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "50ab13ef-d0a0-417b-ae11-7c8dceb98761",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-02-08T15:45:14Z",
+    "lat": 48.880257,
+    "lng": 2.357644,
+    "city": "Paris",
+    "description": "Victim felt a hand in their bag and turned to find phone missing.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "f1ce2c5b-a1cb-4842-8a48-c9c6ae3a6cee",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-01-31T16:28:38Z",
+    "lat": 48.832284,
+    "lng": 2.3476,
+    "city": "Paris",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0c9f5f56-43c0-4ea9-acb0-e04e96e65029",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-06-30T02:42:45Z",
+    "lat": 48.837473,
+    "lng": 2.368807,
+    "city": "Paris",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "47c76386-0c71-4b9a-9cfc-33bebd3421db",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2026-03-20T05:07:32Z",
+    "lat": 48.845271,
+    "lng": 2.368936,
+    "city": "Paris",
+    "description": "Bag snatched as victim exited ATM.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "4885d915-5208-4a3f-b1df-b59cd2716cb6",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-08-24T06:14:38Z",
+    "lat": 48.838832,
+    "lng": 2.336731,
+    "city": "Paris",
+    "description": "Shoulder bag ripped from victim at outdoor cafe.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "262f71ee-d0c8-4cff-8945-f54b323f0ddb",
+    "crimeType": "other",
+    "occurredAt": "2025-05-15T13:24:19Z",
+    "lat": 48.845412,
+    "lng": 2.3667,
+    "city": "Paris",
+    "description": "Pickpocket working in pairs near popular viewpoint.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5de44ae5-9783-4922-932b-b94dd6b5e49d",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-03-13T00:16:33Z",
+    "lat": 48.872627,
+    "lng": 2.341342,
+    "city": "Paris",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "92f55f0f-c11f-4cfd-af74-02da3622a99a",
+    "crimeType": "other",
+    "occurredAt": "2025-03-31T12:17:35Z",
+    "lat": 48.853927,
+    "lng": 2.351417,
+    "city": "Paris",
+    "description": "Pickpocket working in pairs near popular viewpoint.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b25ca230-44d5-4972-9034-47db31908209",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-01-12T00:06:02Z",
+    "lat": 48.854367,
+    "lng": 2.343289,
+    "city": "Paris",
+    "description": "Bag snatched as victim exited ATM.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "d0b73572-3c82-46f9-873d-0ca6e63c3598",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-10-24T19:57:15Z",
+    "lat": 48.843278,
+    "lng": 2.365977,
+    "city": "Paris",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "631a72cc-5e22-4e78-ac32-186840b612aa",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-09-28T08:58:42Z",
+    "lat": 48.87217,
+    "lng": 2.346504,
+    "city": "Paris",
+    "description": "Bicycle accessories removed from parked bike in secure area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "1c4b8743-335d-47ff-b3fd-f953f3099e52",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2024-12-08T22:19:52Z",
+    "lat": 48.839205,
+    "lng": 2.375441,
+    "city": "Paris",
+    "description": "Camera equipment stolen from locked vehicle overnight.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "2753c34f-6f64-4ef5-baac-87ef9e21f612",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-11-24T10:37:19Z",
+    "lat": 48.836618,
+    "lng": 2.369452,
+    "city": "Paris",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "bff4c2b3-2746-4ed4-a1e2-d635aa438407",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-03-14T14:18:49Z",
+    "lat": 48.838808,
+    "lng": 2.370747,
+    "city": "Paris",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "92421b77-f8cc-4e8f-a80c-793205f70e41",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-10-14T05:12:03Z",
+    "lat": 48.88006,
+    "lng": 2.344128,
+    "city": "Paris",
+    "description": "Handbag grabbed and thief fled into alleyway.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "47659d61-f037-4999-8cb0-e90203dbe545",
+    "crimeType": "other",
+    "occurredAt": "2025-04-26T11:38:35Z",
+    "lat": 48.874217,
+    "lng": 2.370167,
+    "city": "Paris",
+    "description": "Card-cloning suspected at ATM; fraudulent transactions found later.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "05d880f5-fce9-4e8c-a3dc-668da7792c65",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-07-23T09:28:25Z",
+    "lat": 48.875972,
+    "lng": 2.351597,
+    "city": "Paris",
+    "description": "Handbag grabbed and thief fled into alleyway.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "2d14b895-a410-4c24-9be0-31cf3b928c88",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-02-02T04:58:48Z",
+    "lat": 48.86582,
+    "lng": 2.341569,
+    "city": "Paris",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "dc2c28bc-1537-4c01-9f86-5b6960d8c371",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2026-01-20T10:16:41Z",
+    "lat": 48.836522,
+    "lng": 2.358887,
+    "city": "Paris",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "1d932414-cdba-4726-a177-6d108a46873f",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-03-27T02:36:20Z",
+    "lat": 48.846573,
+    "lng": 2.328647,
+    "city": "Paris",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "00eddc08-9ba7-4b0b-a3d9-727e42e78b9a",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-07-18T00:24:12Z",
+    "lat": 48.850342,
+    "lng": 2.334478,
+    "city": "Paris",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "e188cb2e-896d-4286-9aa7-b0fd253f3b73",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-08-29T18:46:49Z",
+    "lat": 48.840603,
+    "lng": 2.335953,
+    "city": "Paris",
+    "description": "Bag left visible on passenger seat \u2014 window broken, bag stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "d059da95-932d-41de-9125-bfb162a069a0",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-12-18T03:24:52Z",
+    "lat": 48.843641,
+    "lng": 2.372841,
+    "city": "Paris",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "32b4fd6d-d731-4c65-9eaf-b495b0da18e7",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2026-02-03T19:17:50Z",
+    "lat": 48.854579,
+    "lng": 2.360542,
+    "city": "Paris",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "c577775b-d545-4219-a89f-70b1d1d40862",
+    "crimeType": "other",
+    "occurredAt": "2025-05-30T04:25:37Z",
+    "lat": 48.865481,
+    "lng": 2.335099,
+    "city": "Paris",
+    "description": "Card-cloning suspected at ATM; fraudulent transactions found later.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "742687cd-e1bc-4318-b3d5-bc944e4c5403",
+    "crimeType": "other",
+    "occurredAt": "2025-10-12T21:52:05Z",
+    "lat": 48.846558,
+    "lng": 2.375301,
+    "city": "Paris",
+    "description": "Personal belongings taken from unattended bag in hotel lobby.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "8d6679bc-93d9-46d6-ba6b-244f3dfefd0e",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-06-21T19:57:30Z",
+    "lat": 48.841561,
+    "lng": 2.346435,
+    "city": "Paris",
+    "description": "Luggage stolen from car boot during brief cafe stop.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "7d2bbe85-9205-4926-a50e-4986e75bdde0",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-10-17T19:21:11Z",
+    "lat": 48.849548,
+    "lng": 2.341994,
+    "city": "Paris",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "9adaafca-647a-4d1a-97d2-22df95342ed4",
+    "crimeType": "other",
+    "occurredAt": "2025-08-05T23:56:01Z",
+    "lat": 48.864511,
+    "lng": 2.340924,
+    "city": "Paris",
+    "description": "Fraudulent vendor at market, overcharged and card skimmed.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "809510d8-9a0c-4451-b510-8805db931684",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-11-11T20:44:09Z",
+    "lat": 48.88028,
+    "lng": 2.372731,
+    "city": "Paris",
+    "description": "Bicycle accessories removed from parked bike in secure area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "c7a2b0fd-7d60-43e1-9b68-a14cf685cce2",
+    "crimeType": "other",
+    "occurredAt": "2025-08-28T10:58:47Z",
+    "lat": 48.84591,
+    "lng": 2.367143,
+    "city": "Paris",
+    "description": "Card-cloning suspected at ATM; fraudulent transactions found later.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "57f8c32a-a958-48b8-916d-573337684216",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-11-17T13:05:06Z",
+    "lat": 48.841107,
+    "lng": 2.339731,
+    "city": "Paris",
+    "description": "Victim felt a hand in their bag and turned to find phone missing.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "41ed7a18-3c67-449c-b438-98db0450d33a",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-03-18T16:15:23Z",
+    "lat": 48.87677,
+    "lng": 2.359517,
+    "city": "Paris",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "31ad1429-7da6-4400-a288-18305c31c0c6",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-02-09T15:45:46Z",
+    "lat": 48.849843,
+    "lng": 2.333771,
+    "city": "Paris",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "e3db1577-1bd5-4d68-84fe-ec4fc9e53301",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-07-22T12:23:57Z",
+    "lat": 48.840382,
+    "lng": 2.333808,
+    "city": "Paris",
+    "description": "Rental car broken into, valuables from glove compartment taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "cb38f878-28e4-45c3-8b7c-bd0dcd3c5f1c",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-02-18T07:20:09Z",
+    "lat": 48.877274,
+    "lng": 2.368724,
+    "city": "Paris",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0093a022-59da-4fc7-a040-54b2b775f03b",
+    "crimeType": "other",
+    "occurredAt": "2025-12-14T02:39:47Z",
+    "lat": 48.846357,
+    "lng": 2.37072,
+    "city": "Paris",
+    "description": "Personal belongings taken from unattended bag in hotel lobby.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "3339f1dc-616b-4a00-9dcf-2f1ca0b527ec",
+    "crimeType": "other",
+    "occurredAt": "2026-01-13T15:16:56Z",
+    "lat": 48.838638,
+    "lng": 2.375525,
+    "city": "Paris",
+    "description": "Fraudulent vendor at market, overcharged and card skimmed.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "453a354f-11f6-41ed-a376-425d2f27a553",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-08-01T07:01:28Z",
+    "lat": 48.851471,
+    "lng": 2.369487,
+    "city": "Paris",
+    "description": "Window smashed, laptop bag taken from back seat.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "9cb51e78-70d9-4979-8508-21c130177781",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-06-06T07:30:57Z",
+    "lat": 48.832296,
+    "lng": 2.354029,
+    "city": "Paris",
+    "description": "Travel documents and cash taken from parked car.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "9ee2d10c-b215-4ced-a0a0-60a1d6dd5bc0",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-09-14T15:32:58Z",
+    "lat": 41.890908,
+    "lng": 12.490451,
+    "city": "Rome",
+    "description": "Rental car broken into, valuables from glove compartment taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "9b76f0cf-5458-4d76-a02c-fe6e7da0be4b",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-01-26T19:00:48Z",
+    "lat": 41.889491,
+    "lng": 12.472651,
+    "city": "Rome",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "9660e625-8dc3-4082-811a-da88b82a080d",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-09-12T22:19:58Z",
+    "lat": 41.908304,
+    "lng": 12.503783,
+    "city": "Rome",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "89b9a687-f239-4293-8670-e507c2ed1959",
+    "crimeType": "other",
+    "occurredAt": "2024-12-16T07:38:16Z",
+    "lat": 41.89291,
+    "lng": 12.491815,
+    "city": "Rome",
+    "description": "Distraction theft at restaurant; phone taken from table.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b49a2d28-49e1-45fe-bbd6-1d81673d1e5c",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-01-28T10:38:45Z",
+    "lat": 41.902431,
+    "lng": 12.47626,
+    "city": "Rome",
+    "description": "Victim felt a hand in their bag and turned to find phone missing.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "15697957-30e3-443e-a670-2d7faec4bd77",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-10-16T06:43:34Z",
+    "lat": 41.896351,
+    "lng": 12.518869,
+    "city": "Rome",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b2c58736-6a43-4fd7-8916-dde131c10b1e",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-05-15T12:38:48Z",
+    "lat": 41.914913,
+    "lng": 12.479126,
+    "city": "Rome",
+    "description": "Handbag grabbed and thief fled into alleyway.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "dd283c2f-b761-4ce3-b2a6-c521968cefa4",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-03-02T17:42:53Z",
+    "lat": 41.908583,
+    "lng": 12.518353,
+    "city": "Rome",
+    "description": "Travel documents and cash taken from parked car.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "9c7af180-82a8-4633-9867-14f66fcf5274",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-01-11T01:49:09Z",
+    "lat": 41.899969,
+    "lng": 12.518928,
+    "city": "Rome",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "3e87fcaa-fa4d-4a08-91ba-a57805b9604c",
+    "crimeType": "other",
+    "occurredAt": "2025-09-18T01:48:37Z",
+    "lat": 41.896167,
+    "lng": 12.516485,
+    "city": "Rome",
+    "description": "Distraction theft at restaurant; phone taken from table.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "99e5e87a-8664-4c45-85c8-675936a1d80a",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-01-07T00:37:36Z",
+    "lat": 41.88729,
+    "lng": 12.477508,
+    "city": "Rome",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0d0012ba-bd98-496c-94cf-8fad909d50ce",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-03-15T05:12:24Z",
+    "lat": 41.888405,
+    "lng": 12.503375,
+    "city": "Rome",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ecd691c6-8dcd-4a62-b11b-b28eda24fe0d",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-08-05T06:13:47Z",
+    "lat": 41.889978,
+    "lng": 12.477696,
+    "city": "Rome",
+    "description": "Window smashed, laptop bag taken from back seat.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "45f3c60d-c707-427b-bf46-faac51474afb",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-12-18T22:14:46Z",
+    "lat": 41.90551,
+    "lng": 12.500719,
+    "city": "Rome",
+    "description": "Luggage stolen from car boot during brief cafe stop.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "7bcf12b6-a758-433b-b708-4541f7e58277",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-10-02T13:09:25Z",
+    "lat": 41.885178,
+    "lng": 12.516427,
+    "city": "Rome",
+    "description": "Victim felt a hand in their bag and turned to find phone missing.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b09c6968-8ba4-4789-b3d2-6e23c150fe77",
+    "crimeType": "other",
+    "occurredAt": "2024-11-30T00:28:29Z",
+    "lat": 41.904811,
+    "lng": 12.511326,
+    "city": "Rome",
+    "description": "Pickpocket working in pairs near popular viewpoint.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "a43e0409-e6a2-44ad-ae14-658b67655043",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-02-07T21:51:20Z",
+    "lat": 41.878543,
+    "lng": 12.510899,
+    "city": "Rome",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "c6670cd1-6a70-422b-b57e-a90bc74a4588",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-05-18T20:16:01Z",
+    "lat": 41.891068,
+    "lng": 12.477738,
+    "city": "Rome",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "267d6c4a-9f73-470e-a6c3-fe313344dd2f",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-07-08T05:28:12Z",
+    "lat": 41.901612,
+    "lng": 12.510301,
+    "city": "Rome",
+    "description": "Window smashed, laptop bag taken from back seat.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "c5f51aa8-de2d-47b6-a92e-ce0ec6b67b1e",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-11-02T01:47:32Z",
+    "lat": 41.888877,
+    "lng": 12.502155,
+    "city": "Rome",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "d3ae7be0-7347-4cd1-a682-fce66802f449",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-06-19T12:34:44Z",
+    "lat": 41.926001,
+    "lng": 12.474441,
+    "city": "Rome",
+    "description": "Laptop bag grabbed from cafe chair while victim used restroom.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b2cebb69-8087-4405-a314-fd8f6ff6995d",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-05-31T04:26:26Z",
+    "lat": 41.883198,
+    "lng": 12.50702,
+    "city": "Rome",
+    "description": "Handbag grabbed and thief fled into alleyway.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "e029269f-49e6-46d5-aeb3-1d6af27b6113",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-09-06T21:03:23Z",
+    "lat": 41.885217,
+    "lng": 12.47771,
+    "city": "Rome",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "3e949e36-ee52-4a75-beef-baa76bb4af86",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-07-17T16:25:00Z",
+    "lat": 41.894059,
+    "lng": 12.521131,
+    "city": "Rome",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "9c861a6b-a059-45f1-835a-624a3ecdd6e1",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-12-02T11:16:55Z",
+    "lat": 41.89931,
+    "lng": 12.511055,
+    "city": "Rome",
+    "description": "Bag snatched as victim exited ATM.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "47f0139c-32ae-4583-ae51-c441cf97ab9b",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-12-26T18:30:05Z",
+    "lat": 41.922205,
+    "lng": 12.492091,
+    "city": "Rome",
+    "description": "Laptop bag grabbed from cafe chair while victim used restroom.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "1f90d2fc-3aa7-4360-8f2c-bb519671d907",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-09-29T03:34:24Z",
+    "lat": 41.882554,
+    "lng": 12.492738,
+    "city": "Rome",
+    "description": "Bag pulled from victim at bus stop by two individuals.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "63ec3c77-ba60-4ad9-8d85-37ae56c53de2",
+    "crimeType": "other",
+    "occurredAt": "2024-11-19T19:24:34Z",
+    "lat": 41.912141,
+    "lng": 12.495113,
+    "city": "Rome",
+    "description": "Distraction theft at restaurant; phone taken from table.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0389ce23-44e1-47d3-9da6-9ca326eb2408",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-12-18T05:25:28Z",
+    "lat": 41.882628,
+    "lng": 12.50834,
+    "city": "Rome",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "6b7946a1-b6a7-46e5-b35e-9050846189af",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-10-01T19:51:13Z",
+    "lat": 41.925631,
+    "lng": 12.499484,
+    "city": "Rome",
+    "description": "Phone snatched from hand while victim was texting.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "29d8f010-c6ee-452d-923b-6c0292f45f13",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-01-17T23:28:46Z",
+    "lat": 41.911067,
+    "lng": 12.508914,
+    "city": "Rome",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "13fac4e0-bad2-48bb-acc3-1f4dc8f4ab5e",
+    "crimeType": "other",
+    "occurredAt": "2025-08-12T13:02:39Z",
+    "lat": 41.907821,
+    "lng": 12.488982,
+    "city": "Rome",
+    "description": "Street scam resulting in cash loss near monument.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "05fad2e0-ac33-4fb6-b84f-32c2554e439b",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-04-10T03:53:37Z",
+    "lat": 41.901909,
+    "lng": 12.513764,
+    "city": "Rome",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ca824c2c-d640-473b-92dd-30f97e7f139c",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-12-15T17:49:43Z",
+    "lat": 41.91593,
+    "lng": 12.500105,
+    "city": "Rome",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "f5a6e127-80fb-4cf9-8fea-a034d67a5e75",
+    "crimeType": "other",
+    "occurredAt": "2025-09-16T21:55:47Z",
+    "lat": 41.918721,
+    "lng": 12.502079,
+    "city": "Rome",
+    "description": "Distraction theft at restaurant; phone taken from table.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "df5cfb86-73d7-47e7-a067-016cdf32238f",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-10-16T19:24:08Z",
+    "lat": 41.910692,
+    "lng": 12.506074,
+    "city": "Rome",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "10968112-7027-421c-86c8-7fb392f4a4e3",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2024-10-04T08:00:36Z",
+    "lat": 41.893249,
+    "lng": 12.488391,
+    "city": "Rome",
+    "description": "Bicycle accessories removed from parked bike in secure area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "60552abe-a224-4669-9976-18e78647d92a",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-11-09T13:39:30Z",
+    "lat": 41.910667,
+    "lng": 12.474879,
+    "city": "Rome",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "d7c7c8a6-6a3c-4468-ac98-d0ad051131dc",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-06-05T16:34:27Z",
+    "lat": 41.904324,
+    "lng": 12.49021,
+    "city": "Rome",
+    "description": "Victim felt a hand in their bag and turned to find phone missing.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b9ae668e-65ab-4f13-9b95-e3ab60fd8d46",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-08-06T21:44:45Z",
+    "lat": 41.91388,
+    "lng": 12.510242,
+    "city": "Rome",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "4dcf5b1e-38aa-474e-abdc-ea91bf3b9630",
+    "crimeType": "other",
+    "occurredAt": "2024-10-28T04:05:15Z",
+    "lat": 41.885579,
+    "lng": 12.509122,
+    "city": "Rome",
+    "description": "Distraction theft at restaurant; phone taken from table.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "8b39c65d-d7be-463d-8be3-28bfbdc52242",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-05-30T08:32:49Z",
+    "lat": 41.910897,
+    "lng": 12.495683,
+    "city": "Rome",
+    "description": "Victim distracted by someone asking for directions; wallet gone.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "e42a30ac-4330-4ee5-9840-b584e3f9920d",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-11-30T13:05:58Z",
+    "lat": 41.903417,
+    "lng": 12.488659,
+    "city": "Rome",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "bbda9459-7106-4ec3-b4bc-f379ee541e3c",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-05-04T19:31:53Z",
+    "lat": 41.911157,
+    "lng": 12.473671,
+    "city": "Rome",
+    "description": "Bag snatched from victim shoulder by passing scooter.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b6ae9e0a-6937-4194-9fae-e0f557a73eb5",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-12-14T22:19:29Z",
+    "lat": 41.892871,
+    "lng": 12.481962,
+    "city": "Rome",
+    "description": "Victim distracted by someone asking for directions; wallet gone.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "bc696ab9-28c0-4c3e-adc0-1a8ad8843455",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-05-24T03:18:11Z",
+    "lat": 41.883799,
+    "lng": 12.496269,
+    "city": "Rome",
+    "description": "Victim felt a hand in their bag and turned to find phone missing.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5f61fb9e-f8d7-46d1-b1db-4d85a3f4c54f",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-12-30T00:16:24Z",
+    "lat": 41.912984,
+    "lng": 12.496413,
+    "city": "Rome",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "6d4cd0b5-0e03-499e-a2fe-8c7d897a67b9",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-10-11T05:35:20Z",
+    "lat": 41.920888,
+    "lng": 12.473515,
+    "city": "Rome",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "73d85cbc-93a0-406f-be79-9e1aa3548337",
+    "crimeType": "other",
+    "occurredAt": "2025-10-23T09:16:27Z",
+    "lat": 41.906588,
+    "lng": 12.50007,
+    "city": "Rome",
+    "description": "Personal belongings taken from unattended bag in hotel lobby.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "8042cd27-55a0-43c7-a034-ae1f855647c3",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-01-02T20:13:34Z",
+    "lat": 41.898052,
+    "lng": 12.51971,
+    "city": "Rome",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "7a7fea4f-3421-4fe1-beda-80ac8fa52537",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-05-27T10:40:16Z",
+    "lat": 41.912281,
+    "lng": 12.489493,
+    "city": "Rome",
+    "description": "Handbag grabbed and thief fled into alleyway.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "fbabe61a-055c-4a62-94b8-30a22c86e692",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-05-05T02:07:36Z",
+    "lat": 41.907244,
+    "lng": 12.497598,
+    "city": "Rome",
+    "description": "Victim distracted by someone asking for directions; wallet gone.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "2ccaef78-8b95-4448-9e05-4dda0966ca5a",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2024-11-11T16:52:31Z",
+    "lat": 41.888879,
+    "lng": 12.510356,
+    "city": "Rome",
+    "description": "Travel documents and cash taken from parked car.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "71569595-c58e-4d75-8c50-84802d012e74",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-04-09T18:12:48Z",
+    "lat": 41.903298,
+    "lng": 12.516696,
+    "city": "Rome",
+    "description": "Victim felt a hand in their bag and turned to find phone missing.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "8d07a889-d317-4ece-9dd2-d14ba7a71620",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-08-25T21:50:10Z",
+    "lat": 41.885122,
+    "lng": 12.481264,
+    "city": "Rome",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "6c682320-9700-4d7c-acf2-7cca792ee4de",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-11-16T22:15:29Z",
+    "lat": 41.916442,
+    "lng": 12.496106,
+    "city": "Rome",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "95e7627d-5710-4131-add6-1dbd215721b5",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-09-12T20:56:57Z",
+    "lat": 41.924008,
+    "lng": 12.499625,
+    "city": "Rome",
+    "description": "Bag pulled from victim at bus stop by two individuals.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "2f33b15d-09e4-47dd-9f01-f70f8cde3248",
+    "crimeType": "other",
+    "occurredAt": "2024-11-07T06:49:23Z",
+    "lat": 41.909161,
+    "lng": 12.478948,
+    "city": "Rome",
+    "description": "Personal belongings taken from unattended bag in hotel lobby.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "261c7b85-c15e-4d94-ab8c-6d21e02fe8c1",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-04-11T03:51:03Z",
+    "lat": 41.917616,
+    "lng": 12.500971,
+    "city": "Rome",
+    "description": "Handbag grabbed and thief fled into alleyway.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "bb7d95e8-b11f-439e-9dec-e8baec91c976",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-12-29T02:33:09Z",
+    "lat": 41.900396,
+    "lng": 12.474245,
+    "city": "Rome",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "3ccc3030-6a14-4e49-8df1-a09b4dbddeb3",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-08-21T08:49:18Z",
+    "lat": 41.926668,
+    "lng": 12.475915,
+    "city": "Rome",
+    "description": "Laptop bag grabbed from cafe chair while victim used restroom.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "e2a0b90d-5fb6-45df-87ec-1fa953dd90a0",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2026-02-02T03:34:08Z",
+    "lat": 41.905516,
+    "lng": 12.510991,
+    "city": "Rome",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "2df0c5a4-8737-4b30-8bda-814f4a368bc2",
+    "crimeType": "other",
+    "occurredAt": "2025-08-27T07:59:47Z",
+    "lat": 41.906383,
+    "lng": 12.480812,
+    "city": "Rome",
+    "description": "Items left at beach taken while victim swam.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "59ea7154-ab1b-4d53-b3f4-09596ecb009e",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-02-03T22:09:28Z",
+    "lat": 41.880894,
+    "lng": 12.476575,
+    "city": "Rome",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "8ea5ec4c-c971-4fac-a507-1ab9cb96abb8",
+    "crimeType": "other",
+    "occurredAt": "2024-10-22T08:55:06Z",
+    "lat": 41.882016,
+    "lng": 12.503706,
+    "city": "Rome",
+    "description": "Fraudulent vendor at market, overcharged and card skimmed.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "998a9a0a-f9dc-43ca-9820-a4238efbfe62",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-12-26T16:12:37Z",
+    "lat": 41.899771,
+    "lng": 12.497537,
+    "city": "Rome",
+    "description": "Bag pulled from victim at bus stop by two individuals.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b3147402-09e0-4bcd-b06c-5a4dedad9192",
+    "crimeType": "other",
+    "occurredAt": "2025-10-06T16:16:32Z",
+    "lat": 41.897171,
+    "lng": 12.510123,
+    "city": "Rome",
+    "description": "Distraction theft at restaurant; phone taken from table.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "15282889-1c10-49a6-b6cc-84dac06bfb28",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2024-11-21T14:24:21Z",
+    "lat": 41.910165,
+    "lng": 12.474696,
+    "city": "Rome",
+    "description": "Travel documents and cash taken from parked car.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b3657d7d-dc8d-4a50-af99-92bc6c0a4af2",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-03-11T13:37:44Z",
+    "lat": 41.8904,
+    "lng": 12.513978,
+    "city": "Rome",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "3baa02e2-6f10-487e-8cf1-3be9e8ce3670",
+    "crimeType": "other",
+    "occurredAt": "2024-12-17T05:16:38Z",
+    "lat": 41.894468,
+    "lng": 12.500537,
+    "city": "Rome",
+    "description": "Card-cloning suspected at ATM; fraudulent transactions found later.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "91c1e731-327a-42d6-8b18-d3b770c25e91",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-12-10T09:46:57Z",
+    "lat": 41.910603,
+    "lng": 12.504507,
+    "city": "Rome",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "fa352a48-0aba-49bd-aef1-a44661c60c6e",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-12-18T23:58:24Z",
+    "lat": 41.896634,
+    "lng": 12.510983,
+    "city": "Rome",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "37dbf557-3a23-41bc-a4b6-9774009c284a",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-10-10T22:53:34Z",
+    "lat": 41.911323,
+    "lng": 12.496824,
+    "city": "Rome",
+    "description": "Victim distracted by someone asking for directions; wallet gone.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "dc912aad-7373-4e40-9328-532c9ce469bb",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-06-23T12:05:38Z",
+    "lat": 41.88851,
+    "lng": 12.518783,
+    "city": "Rome",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "45e31e4c-d469-4def-98d7-b305ffffc2b0",
+    "crimeType": "other",
+    "occurredAt": "2025-12-05T07:31:36Z",
+    "lat": 41.885547,
+    "lng": 12.48619,
+    "city": "Rome",
+    "description": "Items left at beach taken while victim swam.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "1d50f850-0ca2-4eea-852f-ffc7ea528642",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2024-10-21T14:38:35Z",
+    "lat": 41.919556,
+    "lng": 12.515584,
+    "city": "Rome",
+    "description": "Rental car broken into, valuables from glove compartment taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "239d2b52-5d1c-42f6-b243-eee552b3d981",
+    "crimeType": "other",
+    "occurredAt": "2024-12-24T05:19:41Z",
+    "lat": 41.908702,
+    "lng": 12.501262,
+    "city": "Rome",
+    "description": "Street scam resulting in cash loss near monument.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "09d576c2-e16e-429f-ae6f-4aee602e73c0",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2024-12-30T09:13:30Z",
+    "lat": 41.916355,
+    "lng": 12.511852,
+    "city": "Rome",
+    "description": "Bag left visible on passenger seat \u2014 window broken, bag stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "27e1def2-4d1c-4dc5-b33c-2f6839a6ff60",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-03-14T09:29:20Z",
+    "lat": 41.896015,
+    "lng": 12.507379,
+    "city": "Rome",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b3f8ae7c-f3fe-4be4-8e10-6a3513537893",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-07-19T13:40:55Z",
+    "lat": 41.915227,
+    "lng": 12.493846,
+    "city": "Rome",
+    "description": "Victim distracted by someone asking for directions; wallet gone.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "79ecc33c-7972-49df-a876-e75a922a4c28",
+    "crimeType": "other",
+    "occurredAt": "2025-01-14T22:23:16Z",
+    "lat": 41.917019,
+    "lng": 12.516599,
+    "city": "Rome",
+    "description": "Fraudulent vendor at market, overcharged and card skimmed.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b48507ef-a6ff-4e03-9e6a-384614f99873",
+    "crimeType": "other",
+    "occurredAt": "2025-03-03T20:20:12Z",
+    "lat": 41.927022,
+    "lng": 12.494484,
+    "city": "Rome",
+    "description": "Personal belongings taken from unattended bag in hotel lobby.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b9fc1799-f53b-4d12-b535-f55a897255f9",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-01-18T00:50:20Z",
+    "lat": 41.898733,
+    "lng": 12.479503,
+    "city": "Rome",
+    "description": "Shoulder bag ripped from victim at outdoor cafe.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "d066b6b9-b2b9-4f47-aaf4-51bc4d8b83b9",
+    "crimeType": "other",
+    "occurredAt": "2025-04-21T16:21:48Z",
+    "lat": 41.880409,
+    "lng": 12.49543,
+    "city": "Rome",
+    "description": "Distraction theft at restaurant; phone taken from table.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "dce782b9-9e74-4394-a124-2a707accd74c",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2024-11-15T19:05:58Z",
+    "lat": 41.903595,
+    "lng": 12.477634,
+    "city": "Rome",
+    "description": "Luggage stolen from car boot during brief cafe stop.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "65fbb5c8-0202-4c78-a1e0-8685830f016b",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-05-27T20:38:25Z",
+    "lat": 41.923065,
+    "lng": 12.478767,
+    "city": "Rome",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "7083fd24-2904-4496-9b17-e678f3cdfcb5",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-05-15T12:48:32Z",
+    "lat": 41.922031,
+    "lng": 12.517924,
+    "city": "Rome",
+    "description": "Bag left visible on passenger seat \u2014 window broken, bag stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "13e2ebcb-cb88-49ff-be34-e413c84774e8",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-04-23T16:51:20Z",
+    "lat": 41.889589,
+    "lng": 12.521126,
+    "city": "Rome",
+    "description": "Bag snatched from victim shoulder by passing scooter.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "04e4f793-7056-4d05-b7d9-35ed0e1c0b3d",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-04-02T01:38:41Z",
+    "lat": 41.882754,
+    "lng": 12.507135,
+    "city": "Rome",
+    "description": "Victim felt a hand in their bag and turned to find phone missing.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ecafcc72-b586-4699-b27e-b0edfbfcd9b1",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-10-16T01:19:38Z",
+    "lat": 41.892144,
+    "lng": 12.512888,
+    "city": "Rome",
+    "description": "Victim felt a hand in their bag and turned to find phone missing.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "f9562abe-71db-4a6a-be5b-e4e4231f2803",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2026-02-07T14:21:23Z",
+    "lat": 41.901256,
+    "lng": 12.502167,
+    "city": "Rome",
+    "description": "Window smashed, laptop bag taken from back seat.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "a7faff5c-cf4e-45e6-bd9d-8f8a99769d20",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-11-02T01:41:04Z",
+    "lat": 41.919548,
+    "lng": 12.49884,
+    "city": "Rome",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0be6c62d-2dbb-4816-8a6c-00dab16f5d5a",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-12-06T12:42:02Z",
+    "lat": 41.916609,
+    "lng": 12.483282,
+    "city": "Rome",
+    "description": "Bag snatched as victim exited ATM.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "d29f4dc2-53cc-43b7-972b-528e2c8cb25b",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-11-30T12:40:54Z",
+    "lat": 41.917495,
+    "lng": 12.494256,
+    "city": "Rome",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "6742d9ac-2718-43b5-832b-039e5c213d05",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-02-10T02:21:26Z",
+    "lat": 41.878622,
+    "lng": 12.497169,
+    "city": "Rome",
+    "description": "Shoulder bag ripped from victim at outdoor cafe.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "d7e4bc53-5c1e-4dea-84de-782ed31d5bb1",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-08-08T13:58:38Z",
+    "lat": 41.877878,
+    "lng": 12.489041,
+    "city": "Rome",
+    "description": "Victim felt a hand in their bag and turned to find phone missing.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "8c5cc4fd-a628-4e5b-b28b-2433c1a0933d",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2024-11-06T22:52:11Z",
+    "lat": 41.882081,
+    "lng": 12.520133,
+    "city": "Rome",
+    "description": "Camera equipment stolen from locked vehicle overnight.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "fd6668ca-c4b0-46ed-b52c-8cf626a60baf",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-10-12T02:27:38Z",
+    "lat": 41.917121,
+    "lng": 12.496781,
+    "city": "Rome",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "88f36683-7334-4135-a132-6b20afede90b",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-11-13T00:50:11Z",
+    "lat": 41.897144,
+    "lng": 12.490065,
+    "city": "Rome",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "7b3c6be8-9575-4cdb-958c-cda27237ebd6",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-09-09T00:40:45Z",
+    "lat": 41.89504,
+    "lng": 12.508047,
+    "city": "Rome",
+    "description": "Bicycle accessories removed from parked bike in secure area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "18aede3b-8865-4217-b81a-9343101f11f8",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-04-11T08:31:36Z",
+    "lat": 50.088334,
+    "lng": 14.41947,
+    "city": "Prague",
+    "description": "Bag pulled from victim at bus stop by two individuals.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "1bbaefdf-8a5f-47a3-9b27-962538dae6a1",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-06-11T16:25:06Z",
+    "lat": 50.059254,
+    "lng": 14.451757,
+    "city": "Prague",
+    "description": "Travel documents and cash taken from parked car.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "be6be374-38ce-4707-a930-52a8a2c5c135",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-10-26T23:03:15Z",
+    "lat": 50.059614,
+    "lng": 14.419543,
+    "city": "Prague",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "10d9d444-5d37-436a-9cff-cf95b71e567a",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-01-27T15:23:49Z",
+    "lat": 50.06058,
+    "lng": 14.452355,
+    "city": "Prague",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "8bf6aa40-a450-45a2-91fc-da0310d9ab44",
+    "crimeType": "other",
+    "occurredAt": "2025-07-24T11:52:27Z",
+    "lat": 50.076269,
+    "lng": 14.462256,
+    "city": "Prague",
+    "description": "Card-cloning suspected at ATM; fraudulent transactions found later.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "450e170d-5de7-4a44-a06f-8a48be29dd10",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-01-14T17:27:47Z",
+    "lat": 50.082845,
+    "lng": 14.427106,
+    "city": "Prague",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "59545c6e-64ab-43e1-b6f0-3e28bcba8a7f",
+    "crimeType": "other",
+    "occurredAt": "2025-04-19T22:31:23Z",
+    "lat": 50.067096,
+    "lng": 14.419024,
+    "city": "Prague",
+    "description": "Personal belongings taken from unattended bag in hotel lobby.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "64424418-7828-489b-a1f9-c8f750e67378",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2026-03-16T15:40:25Z",
+    "lat": 50.095232,
+    "lng": 14.432132,
+    "city": "Prague",
+    "description": "Bag left visible on passenger seat \u2014 window broken, bag stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "24020436-8b1f-4110-abb5-8e2363bf5c1b",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-02-23T15:06:28Z",
+    "lat": 50.068867,
+    "lng": 14.452665,
+    "city": "Prague",
+    "description": "Window smashed, laptop bag taken from back seat.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "c2c44d1d-f329-4964-86b2-f6c509dcc018",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-12-23T23:57:36Z",
+    "lat": 50.054446,
+    "lng": 14.442923,
+    "city": "Prague",
+    "description": "Camera equipment stolen from locked vehicle overnight.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "1cb8ae20-2e00-49cf-887b-bcbe6ae9ef35",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-03-11T10:03:57Z",
+    "lat": 50.05563,
+    "lng": 14.429196,
+    "city": "Prague",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "aa37dde8-15c1-4101-a43e-3214109145e5",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-04-10T22:40:18Z",
+    "lat": 50.071806,
+    "lng": 14.447288,
+    "city": "Prague",
+    "description": "Bag snatched from victim shoulder by passing scooter.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "2ed7381f-c2a1-4c39-92fc-b4c821b05dad",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-05-26T11:27:37Z",
+    "lat": 50.09608,
+    "lng": 14.443543,
+    "city": "Prague",
+    "description": "Travel documents and cash taken from parked car.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "39fd2398-3201-4c22-8251-08d30b5ab5af",
+    "crimeType": "other",
+    "occurredAt": "2025-09-14T01:57:51Z",
+    "lat": 50.097895,
+    "lng": 14.416552,
+    "city": "Prague",
+    "description": "Card-cloning suspected at ATM; fraudulent transactions found later.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "73a81b22-30f5-41c6-98a9-b322f938e709",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-10-18T00:04:00Z",
+    "lat": 50.087995,
+    "lng": 14.420799,
+    "city": "Prague",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "6c2e77cb-f0f2-43f9-b7fd-ce649bb5b953",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-04-19T00:22:05Z",
+    "lat": 50.053862,
+    "lng": 14.451726,
+    "city": "Prague",
+    "description": "Phone snatched from hand while victim was texting.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "eab77dfc-cc1a-467d-a42c-83bedc56bfa7",
+    "crimeType": "other",
+    "occurredAt": "2025-06-03T15:47:07Z",
+    "lat": 50.052119,
+    "lng": 14.420472,
+    "city": "Prague",
+    "description": "Card-cloning suspected at ATM; fraudulent transactions found later.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ac61007d-519a-4bb2-821d-630c1e6cb8bc",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-07-17T02:02:32Z",
+    "lat": 50.088654,
+    "lng": 14.441496,
+    "city": "Prague",
+    "description": "Phone snatched from hand while victim was texting.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0831423d-e7c2-4b4b-b4fd-1214d67a36bc",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-10-15T03:34:06Z",
+    "lat": 50.064434,
+    "lng": 14.460826,
+    "city": "Prague",
+    "description": "Victim felt a hand in their bag and turned to find phone missing.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5b993d41-1c37-4072-9115-39db709323fa",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-02-20T22:19:17Z",
+    "lat": 50.069849,
+    "lng": 14.440884,
+    "city": "Prague",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b352e1c9-9155-4498-a90f-b63b1bbb26dc",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-10-14T21:55:20Z",
+    "lat": 50.061229,
+    "lng": 14.443394,
+    "city": "Prague",
+    "description": "Bag left visible on passenger seat \u2014 window broken, bag stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "db98472a-1caf-4fc7-b0be-0aca3c0bb655",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-01-03T06:29:20Z",
+    "lat": 50.057286,
+    "lng": 14.416503,
+    "city": "Prague",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "cda1ff23-d00f-4348-85fe-c16e400f4a57",
+    "crimeType": "other",
+    "occurredAt": "2026-03-23T16:04:27Z",
+    "lat": 50.091026,
+    "lng": 14.461178,
+    "city": "Prague",
+    "description": "Fraudulent vendor at market, overcharged and card skimmed.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "1ac7dd53-9fb8-404c-9bd6-bcd814f82628",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-01-30T16:00:37Z",
+    "lat": 50.053747,
+    "lng": 14.439909,
+    "city": "Prague",
+    "description": "Victim felt a hand in their bag and turned to find phone missing.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "7710d526-199e-4a04-b3df-c396709fc64f",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-12-08T08:35:50Z",
+    "lat": 50.096866,
+    "lng": 14.444685,
+    "city": "Prague",
+    "description": "Camera equipment stolen from locked vehicle overnight.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "bdb8fa7f-d3dc-4d34-9773-b539d05d4240",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-02-07T06:11:27Z",
+    "lat": 50.099757,
+    "lng": 14.452403,
+    "city": "Prague",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "f5faf623-915a-46ae-bc2a-406029b6035d",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-12-13T19:10:59Z",
+    "lat": 50.078201,
+    "lng": 14.431246,
+    "city": "Prague",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "e2d8736f-f3f9-485e-a51a-b31f878ee7f7",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-05-06T09:29:18Z",
+    "lat": 50.094712,
+    "lng": 14.416087,
+    "city": "Prague",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ac3e3628-6b51-4cbf-b23a-9db81511482c",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-11-10T06:25:45Z",
+    "lat": 50.088958,
+    "lng": 14.453967,
+    "city": "Prague",
+    "description": "Bag pulled from victim at bus stop by two individuals.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5b9d3767-948e-474b-b0bd-d4c7930e0bf6",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-04-07T02:31:18Z",
+    "lat": 50.072999,
+    "lng": 14.446805,
+    "city": "Prague",
+    "description": "Shoulder bag ripped from victim at outdoor cafe.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b3b2b6ec-abfa-496c-a7d1-e409bb0a0473",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2026-01-18T01:02:42Z",
+    "lat": 50.056952,
+    "lng": 14.437943,
+    "city": "Prague",
+    "description": "Bicycle accessories removed from parked bike in secure area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5608519c-5816-40c8-83ab-7938c450cd83",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-03-26T04:08:47Z",
+    "lat": 50.058151,
+    "lng": 14.421033,
+    "city": "Prague",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "a04c7260-f5d7-4bea-b083-3e0021bb7e8e",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-01-05T21:06:55Z",
+    "lat": 50.097545,
+    "lng": 14.457546,
+    "city": "Prague",
+    "description": "Victim distracted by someone asking for directions; wallet gone.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "06947fb8-4d92-4a05-bf2f-cbb8666840e2",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-09-07T06:17:34Z",
+    "lat": 50.098318,
+    "lng": 14.426523,
+    "city": "Prague",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "9a71d16e-4e6c-48d6-a03f-45d7b185dcfc",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2026-02-27T02:49:04Z",
+    "lat": 50.075629,
+    "lng": 14.421232,
+    "city": "Prague",
+    "description": "Shoulder bag ripped from victim at outdoor cafe.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "a8b21e29-885a-497f-9f0c-38073d80a5d8",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-04-03T08:10:01Z",
+    "lat": 50.081724,
+    "lng": 14.4579,
+    "city": "Prague",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "fb28afe2-a8c5-42b1-a129-5dceeffb5ed9",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-03-02T21:45:28Z",
+    "lat": 50.093689,
+    "lng": 14.416861,
+    "city": "Prague",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "a2759e67-e523-4ca3-b139-c6cbe62ebcb2",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-09-03T11:41:34Z",
+    "lat": 50.06104,
+    "lng": 14.441407,
+    "city": "Prague",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "56ad5b08-d0d0-4f71-ae0a-1d9af6522167",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2026-03-07T07:56:37Z",
+    "lat": 50.081858,
+    "lng": 14.427284,
+    "city": "Prague",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0179b919-4d45-49e7-b272-1636a57949b9",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-06-05T15:14:32Z",
+    "lat": 50.090867,
+    "lng": 14.433105,
+    "city": "Prague",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "37783380-b383-491a-afd3-acfdfe4c211f",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-04-04T17:53:00Z",
+    "lat": 50.071281,
+    "lng": 14.436022,
+    "city": "Prague",
+    "description": "Victim felt a hand in their bag and turned to find phone missing.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5f4483aa-150c-4a04-a220-c9f75e4fc23c",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-01-13T23:37:35Z",
+    "lat": 50.086418,
+    "lng": 14.44951,
+    "city": "Prague",
+    "description": "Phone snatched from hand while victim was texting.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "8930baf1-5a64-49cf-b70f-4c552d2b6e79",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-03-24T05:41:40Z",
+    "lat": 50.069027,
+    "lng": 14.440883,
+    "city": "Prague",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "f04d0955-d139-4bcd-bd1d-affb6b7dcb40",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-10-28T15:07:54Z",
+    "lat": 50.07298,
+    "lng": 14.419844,
+    "city": "Prague",
+    "description": "Phone snatched from hand while victim was texting.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "f0919720-fa5e-4721-9b40-91d881853830",
+    "crimeType": "other",
+    "occurredAt": "2026-02-05T15:52:51Z",
+    "lat": 50.071407,
+    "lng": 14.460934,
+    "city": "Prague",
+    "description": "Pickpocket working in pairs near popular viewpoint.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "429f3768-8ca7-4558-b5ec-98c0ae86ae08",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-11-21T15:56:32Z",
+    "lat": 50.079384,
+    "lng": 14.428436,
+    "city": "Prague",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "36136d3e-d20f-415f-9682-26da090bcb70",
+    "crimeType": "other",
+    "occurredAt": "2025-06-29T13:32:24Z",
+    "lat": 50.073841,
+    "lng": 14.456754,
+    "city": "Prague",
+    "description": "Distraction theft at restaurant; phone taken from table.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "07693457-75da-4c77-a8ac-fb688856b8bd",
+    "crimeType": "other",
+    "occurredAt": "2025-01-26T11:15:09Z",
+    "lat": 50.075772,
+    "lng": 14.461134,
+    "city": "Prague",
+    "description": "Card-cloning suspected at ATM; fraudulent transactions found later.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5b4d8a2b-9ae9-4c81-b703-f42cc7ea4761",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-01-04T04:42:06Z",
+    "lat": 50.064568,
+    "lng": 14.442676,
+    "city": "Prague",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ba016525-8108-46e5-ae47-738940ba32be",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-12-13T03:05:00Z",
+    "lat": 50.050909,
+    "lng": 14.418175,
+    "city": "Prague",
+    "description": "Victim distracted by someone asking for directions; wallet gone.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "4cf1b081-ed2f-40e8-83c8-b0d18427c1d8",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-05-07T17:13:17Z",
+    "lat": 50.088693,
+    "lng": 14.431097,
+    "city": "Prague",
+    "description": "Camera equipment stolen from locked vehicle overnight.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "6ea4031e-9757-451e-be8d-3a2a72d87101",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-04-29T22:42:54Z",
+    "lat": 50.068626,
+    "lng": 14.42723,
+    "city": "Prague",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "dea1b03e-abcc-414a-ae84-ec22e780394b",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-10-07T11:56:37Z",
+    "lat": 50.064486,
+    "lng": 14.462255,
+    "city": "Prague",
+    "description": "Window smashed, laptop bag taken from back seat.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "f91caea8-c98d-473b-8152-b0ea914cb04e",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-03-23T18:51:55Z",
+    "lat": 50.055334,
+    "lng": 14.43146,
+    "city": "Prague",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "e4deed09-99b8-4589-a36d-4b8ff4882f57",
+    "crimeType": "other",
+    "occurredAt": "2025-07-05T23:32:29Z",
+    "lat": 50.088248,
+    "lng": 14.422753,
+    "city": "Prague",
+    "description": "Items left at beach taken while victim swam.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "31bd11ec-8750-4676-9280-774048eadde1",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-12-13T23:10:06Z",
+    "lat": 50.052446,
+    "lng": 14.44848,
+    "city": "Prague",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "85986d15-278b-41ea-af58-b168aa513be1",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-03-29T01:39:52Z",
+    "lat": 50.080813,
+    "lng": 14.438575,
+    "city": "Prague",
+    "description": "Bag pulled from victim at bus stop by two individuals.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "96c1f6a5-e604-4e54-a30b-f4fa3f9d13d9",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-03-13T09:10:00Z",
+    "lat": 50.100031,
+    "lng": 14.449766,
+    "city": "Prague",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "1249e610-1c75-4955-9b27-43a0a39e7e50",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-08-04T08:33:34Z",
+    "lat": 50.075986,
+    "lng": 14.437292,
+    "city": "Prague",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "bb1e0481-3c2c-42bc-94f0-be92ccf0d4e8",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2026-03-20T00:35:01Z",
+    "lat": 50.068918,
+    "lng": 14.44649,
+    "city": "Prague",
+    "description": "Camera equipment stolen from locked vehicle overnight.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "8f715e3a-8396-4799-aa65-6e45b13c8f80",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-09-09T13:49:45Z",
+    "lat": 50.095438,
+    "lng": 14.456405,
+    "city": "Prague",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "afe75607-3449-4d06-826e-bd886b38d306",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-11-28T18:49:37Z",
+    "lat": 50.098854,
+    "lng": 14.451945,
+    "city": "Prague",
+    "description": "Bag snatched as victim exited ATM.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "757ba6a1-57a1-468f-8c1f-14607190f7cb",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-09-09T10:44:48Z",
+    "lat": 50.079676,
+    "lng": 14.421326,
+    "city": "Prague",
+    "description": "Camera equipment stolen from locked vehicle overnight.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "04f4ecde-9159-452b-a3de-b6c513de5dd1",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-02-10T05:44:37Z",
+    "lat": 50.06951,
+    "lng": 14.453883,
+    "city": "Prague",
+    "description": "Camera equipment stolen from locked vehicle overnight.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ff906f3d-9eeb-4ff0-bccd-2b712de24e64",
+    "crimeType": "other",
+    "occurredAt": "2025-03-21T06:37:34Z",
+    "lat": 50.055995,
+    "lng": 14.413747,
+    "city": "Prague",
+    "description": "Street scam resulting in cash loss near monument.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "d0070073-7e06-45b6-af30-a1f568e615e9",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-08-30T20:48:30Z",
+    "lat": 50.060695,
+    "lng": 14.437891,
+    "city": "Prague",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "589d9cdb-35bd-40ee-b9e7-cc1812c337de",
+    "crimeType": "other",
+    "occurredAt": "2024-12-15T09:25:58Z",
+    "lat": 50.087292,
+    "lng": 14.415914,
+    "city": "Prague",
+    "description": "Street scam resulting in cash loss near monument.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "9f5b5624-4159-4743-81c5-d52de5e0c9f2",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-04-24T17:54:42Z",
+    "lat": 50.100406,
+    "lng": 14.436719,
+    "city": "Prague",
+    "description": "Shoulder bag ripped from victim at outdoor cafe.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "93e3a520-4270-4c55-a04a-5afb190de184",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-10-05T00:34:54Z",
+    "lat": 50.077156,
+    "lng": 14.440114,
+    "city": "Prague",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "3812e815-3129-4214-807d-eb92507dca31",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-08-01T17:10:02Z",
+    "lat": 50.060113,
+    "lng": 14.425126,
+    "city": "Prague",
+    "description": "Bag snatched as victim exited ATM.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ae5c5f1f-228f-4d45-8272-ed818d200190",
+    "crimeType": "other",
+    "occurredAt": "2025-10-20T21:01:18Z",
+    "lat": 50.099613,
+    "lng": 14.451359,
+    "city": "Prague",
+    "description": "Fraudulent vendor at market, overcharged and card skimmed.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "498b9f94-2d08-4feb-9363-42b5332217d4",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2026-02-22T19:12:34Z",
+    "lat": 50.066352,
+    "lng": 14.43024,
+    "city": "Prague",
+    "description": "Bicycle accessories removed from parked bike in secure area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "1bd38de5-603b-4970-86c8-153d79122852",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-07-24T13:58:23Z",
+    "lat": 50.064889,
+    "lng": 14.441474,
+    "city": "Prague",
+    "description": "Bag left visible on passenger seat \u2014 window broken, bag stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "a8f64bde-4a87-4c09-8ca5-733e8632308e",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-03-08T14:05:29Z",
+    "lat": 50.09823,
+    "lng": 14.453031,
+    "city": "Prague",
+    "description": "Rental car broken into, valuables from glove compartment taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "57816457-d28c-453e-83c6-e538063f2923",
+    "crimeType": "other",
+    "occurredAt": "2025-09-24T03:51:27Z",
+    "lat": 50.054451,
+    "lng": 14.459,
+    "city": "Prague",
+    "description": "Fraudulent vendor at market, overcharged and card skimmed.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "8a4e2e7f-afcc-4af2-8b80-2441988a8289",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2026-02-22T10:20:44Z",
+    "lat": 50.060603,
+    "lng": 14.439729,
+    "city": "Prague",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "500c74e3-ecea-44a7-87e7-b26af67aef22",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-02-10T09:10:12Z",
+    "lat": 50.081284,
+    "lng": 14.442142,
+    "city": "Prague",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b39545f0-9bc0-4eaa-9722-a659f7b8aef5",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-03-30T08:10:03Z",
+    "lat": 50.062142,
+    "lng": 14.41781,
+    "city": "Prague",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "e04976cd-f0c1-4987-9c7b-eb627f5f04fd",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-07-28T11:49:12Z",
+    "lat": 50.089038,
+    "lng": 14.413059,
+    "city": "Prague",
+    "description": "Victim felt a hand in their bag and turned to find phone missing.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "29f8806b-b029-4ad8-a8e8-d82c3967c545",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-06-18T16:29:07Z",
+    "lat": 50.097252,
+    "lng": 14.45672,
+    "city": "Prague",
+    "description": "Bag snatched as victim exited ATM.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "270343f8-41a2-4b09-9d1e-8dda9cb2d2cc",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2024-11-02T07:15:59Z",
+    "lat": 50.064862,
+    "lng": 14.427071,
+    "city": "Prague",
+    "description": "Bicycle accessories removed from parked bike in secure area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "f724c772-37ef-4503-a6c8-179caae06a58",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-10-30T19:44:02Z",
+    "lat": 50.079207,
+    "lng": 14.439558,
+    "city": "Prague",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ce44c1ff-2474-4e70-992c-08d860fa044f",
+    "crimeType": "other",
+    "occurredAt": "2025-01-04T23:32:06Z",
+    "lat": 50.059253,
+    "lng": 14.456912,
+    "city": "Prague",
+    "description": "Distraction theft at restaurant; phone taken from table.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "3f9f2495-e3d9-4bf4-bbfe-af9bfc44e68e",
+    "crimeType": "other",
+    "occurredAt": "2026-02-24T09:19:15Z",
+    "lat": 50.07035,
+    "lng": 14.437569,
+    "city": "Prague",
+    "description": "Pickpocket working in pairs near popular viewpoint.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "e265fde0-9ed5-48a9-84c3-54ad70e39994",
+    "crimeType": "other",
+    "occurredAt": "2025-08-07T02:34:20Z",
+    "lat": 50.094337,
+    "lng": 14.413263,
+    "city": "Prague",
+    "description": "Distraction theft at restaurant; phone taken from table.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5e06ec51-2d5c-4dc3-aa6d-3fa3bbd6d96b",
+    "crimeType": "other",
+    "occurredAt": "2025-09-16T03:45:28Z",
+    "lat": 50.067252,
+    "lng": 14.435517,
+    "city": "Prague",
+    "description": "Items left at beach taken while victim swam.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "681769e1-08ca-40ef-9a1f-759e7a191670",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-06-13T12:56:38Z",
+    "lat": 50.097428,
+    "lng": 14.455353,
+    "city": "Prague",
+    "description": "Bag snatched as victim exited ATM.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "43e9624d-f28c-4a49-aa81-a1b4ff4fd754",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-09-19T23:07:51Z",
+    "lat": 50.067034,
+    "lng": 14.449356,
+    "city": "Prague",
+    "description": "Travel documents and cash taken from parked car.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "cbbc5e16-a2ac-4726-abf4-35f82218497b",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-08-07T00:12:18Z",
+    "lat": 50.087331,
+    "lng": 14.452338,
+    "city": "Prague",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "1b9dd820-1c60-46e4-aadb-8abe6966973e",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-12-26T12:52:28Z",
+    "lat": 50.093307,
+    "lng": 14.457652,
+    "city": "Prague",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "3e2d171e-2688-4965-b6ae-2876871b3993",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-03-21T00:00:09Z",
+    "lat": 50.070542,
+    "lng": 14.417569,
+    "city": "Prague",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ae5d0a17-84d0-4730-a78f-81c864d9eff1",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-02-06T14:16:13Z",
+    "lat": 50.062902,
+    "lng": 14.425839,
+    "city": "Prague",
+    "description": "Victim distracted by someone asking for directions; wallet gone.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "914c99d9-c0ea-4fc0-89a7-4ae450fd082b",
+    "crimeType": "other",
+    "occurredAt": "2024-10-07T05:51:13Z",
+    "lat": 50.065597,
+    "lng": 14.448944,
+    "city": "Prague",
+    "description": "Fraudulent vendor at market, overcharged and card skimmed.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0b531129-f0a9-4525-9e0f-3873dc9be48c",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-06-12T02:32:09Z",
+    "lat": 50.062315,
+    "lng": 14.446189,
+    "city": "Prague",
+    "description": "Victim felt a hand in their bag and turned to find phone missing.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "a20c5b84-3f2b-4256-97db-abe648c41c19",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-10-20T03:24:40Z",
+    "lat": 50.075626,
+    "lng": 14.457556,
+    "city": "Prague",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "f50ec437-40e6-4462-9b06-978a8f61d2b8",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-04-19T16:17:43Z",
+    "lat": 50.082436,
+    "lng": 14.459832,
+    "city": "Prague",
+    "description": "Luggage stolen from car boot during brief cafe stop.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0e224c21-c03a-4320-b245-13c5f2616396",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-11-13T06:19:02Z",
+    "lat": 50.057178,
+    "lng": 14.420459,
+    "city": "Prague",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "9397d299-d7c3-47a3-b4c3-65a65c52613e",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-11-18T12:19:16Z",
+    "lat": 50.085597,
+    "lng": 14.45844,
+    "city": "Prague",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "4e15590e-108d-49a6-b1be-b9635e479c95",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-12-04T21:42:19Z",
+    "lat": 50.084517,
+    "lng": 14.442591,
+    "city": "Prague",
+    "description": "Camera equipment stolen from locked vehicle overnight.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5e2833a3-d0a3-4965-b13a-76962e4db2b6",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-08-05T00:52:00Z",
+    "lat": 50.085688,
+    "lng": 14.416705,
+    "city": "Prague",
+    "description": "Bag snatched from victim shoulder by passing scooter.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "12e6e93d-7106-4651-bc21-3ee1061a8622",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-07-21T00:23:40Z",
+    "lat": 52.387744,
+    "lng": 4.889208,
+    "city": "Amsterdam",
+    "description": "Luggage stolen from car boot during brief cafe stop.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "9dc25cf8-27f6-450b-8f03-f6b381738de5",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-01-21T03:34:51Z",
+    "lat": 52.368617,
+    "lng": 4.884912,
+    "city": "Amsterdam",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "fbeeac56-eed6-4ad0-a19c-77cd8679d2ef",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-10-31T09:03:05Z",
+    "lat": 52.387544,
+    "lng": 4.901374,
+    "city": "Amsterdam",
+    "description": "Shoulder bag ripped from victim at outdoor cafe.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "4e27f051-ed04-4b2d-98b9-ad18702a56c5",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-06-10T11:00:19Z",
+    "lat": 52.36544,
+    "lng": 4.881987,
+    "city": "Amsterdam",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "a39342cf-1db3-45c8-a14c-67112f2098b4",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-11-12T05:01:18Z",
+    "lat": 52.362397,
+    "lng": 4.919923,
+    "city": "Amsterdam",
+    "description": "Camera equipment stolen from locked vehicle overnight.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "95ffdfcb-664b-461c-a37f-db33554edb4c",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-07-23T11:24:23Z",
+    "lat": 52.363785,
+    "lng": 4.914119,
+    "city": "Amsterdam",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "8353dac8-d7a3-4b50-9795-825ae9df0057",
+    "crimeType": "other",
+    "occurredAt": "2024-10-18T07:51:13Z",
+    "lat": 52.346051,
+    "lng": 4.925789,
+    "city": "Amsterdam",
+    "description": "Personal belongings taken from unattended bag in hotel lobby.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "83e82c5f-5529-46b5-8a64-d798de3ce0ea",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-11-03T04:36:34Z",
+    "lat": 52.349371,
+    "lng": 4.911176,
+    "city": "Amsterdam",
+    "description": "Phone snatched from hand while victim was texting.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "c2b84da1-783f-4374-ba75-5a1c85586aae",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-02-13T17:52:33Z",
+    "lat": 52.387167,
+    "lng": 4.901527,
+    "city": "Amsterdam",
+    "description": "Phone snatched from hand while victim was texting.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "585b6daf-3ebb-4873-ab98-9d6c70f6bb4b",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-07-22T10:59:26Z",
+    "lat": 52.376737,
+    "lng": 4.91219,
+    "city": "Amsterdam",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "4b0f2f6c-66f9-490a-bb30-70d117f10e53",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-12-09T12:45:22Z",
+    "lat": 52.392242,
+    "lng": 4.898753,
+    "city": "Amsterdam",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b4be2768-59b1-47c1-8d1d-b8a6788d71b1",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-06-10T19:12:11Z",
+    "lat": 52.380409,
+    "lng": 4.928025,
+    "city": "Amsterdam",
+    "description": "Travel documents and cash taken from parked car.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "6ba4c8f2-3ad9-4916-a603-d325b9113021",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-02-13T03:23:51Z",
+    "lat": 52.369197,
+    "lng": 4.920268,
+    "city": "Amsterdam",
+    "description": "Bag pulled from victim at bus stop by two individuals.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "2608d16f-96fb-4f10-9bfd-9537505de64f",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-11-22T22:58:48Z",
+    "lat": 52.352024,
+    "lng": 4.92286,
+    "city": "Amsterdam",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b642615d-af3f-4bd8-ad3a-f1d038ca3107",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2026-01-26T12:44:48Z",
+    "lat": 52.363562,
+    "lng": 4.917403,
+    "city": "Amsterdam",
+    "description": "Window smashed, laptop bag taken from back seat.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0ad3b595-ca86-431e-823b-a6b0427c9bd8",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-06-01T18:09:49Z",
+    "lat": 52.345965,
+    "lng": 4.908797,
+    "city": "Amsterdam",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "3fde3686-57cf-4f27-b29f-f8f6b41f0cb8",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-07-22T17:00:45Z",
+    "lat": 52.344812,
+    "lng": 4.901048,
+    "city": "Amsterdam",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ff41895b-7059-400d-9a4b-56f486a5ab55",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-02-13T08:28:00Z",
+    "lat": 52.392274,
+    "lng": 4.890808,
+    "city": "Amsterdam",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "d24c7ed9-d5fd-4232-8ee1-eeab72beea68",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-03-25T01:59:44Z",
+    "lat": 52.372496,
+    "lng": 4.912727,
+    "city": "Amsterdam",
+    "description": "Victim distracted by someone asking for directions; wallet gone.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "dce21048-5cdf-48c7-82d6-cc3573777539",
+    "crimeType": "other",
+    "occurredAt": "2025-05-14T19:17:34Z",
+    "lat": 52.391885,
+    "lng": 4.905163,
+    "city": "Amsterdam",
+    "description": "Card-cloning suspected at ATM; fraudulent transactions found later.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "6b47a943-bc0a-4833-983d-c67904ec9f14",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-02-10T17:18:49Z",
+    "lat": 52.390026,
+    "lng": 4.923086,
+    "city": "Amsterdam",
+    "description": "Phone snatched from hand while victim was texting.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "f189f2a3-a0ef-4721-8612-11640376bded",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-09-17T06:00:49Z",
+    "lat": 52.344944,
+    "lng": 4.896321,
+    "city": "Amsterdam",
+    "description": "Laptop bag grabbed from cafe chair while victim used restroom.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ae54a52e-de9c-47b9-b9fb-525539b69ab2",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2024-12-21T11:20:51Z",
+    "lat": 52.358537,
+    "lng": 4.899916,
+    "city": "Amsterdam",
+    "description": "Bag left visible on passenger seat \u2014 window broken, bag stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "4ceaa8c5-f67d-4998-96e5-b8b6cdc8cb6d",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-02-01T00:54:53Z",
+    "lat": 52.369496,
+    "lng": 4.891148,
+    "city": "Amsterdam",
+    "description": "Victim felt a hand in their bag and turned to find phone missing.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "76e7616a-94eb-47ff-a8ed-4022f90e4aa0",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2026-03-13T09:52:12Z",
+    "lat": 52.388337,
+    "lng": 4.907219,
+    "city": "Amsterdam",
+    "description": "Camera equipment stolen from locked vehicle overnight.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "e2f99152-c17f-4248-a7c1-5864b8c5d790",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-03-30T07:45:58Z",
+    "lat": 52.362021,
+    "lng": 4.89185,
+    "city": "Amsterdam",
+    "description": "Handbag grabbed and thief fled into alleyway.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "f09ab07f-7381-4478-992b-b6c8b668cdc9",
+    "crimeType": "other",
+    "occurredAt": "2025-10-31T14:57:29Z",
+    "lat": 52.384957,
+    "lng": 4.883723,
+    "city": "Amsterdam",
+    "description": "Street scam resulting in cash loss near monument.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "305b0f3e-22f6-4061-be40-56355f6f76cf",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-10-22T14:13:52Z",
+    "lat": 52.361458,
+    "lng": 4.909348,
+    "city": "Amsterdam",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "de2fb4e0-f5db-489d-9f55-4771890ed5b4",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-08-02T03:10:35Z",
+    "lat": 52.380685,
+    "lng": 4.915315,
+    "city": "Amsterdam",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "9b8c11b8-290f-4460-ac38-4f4eabd0f0f5",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-02-09T07:27:34Z",
+    "lat": 52.387952,
+    "lng": 4.894259,
+    "city": "Amsterdam",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "050d0f47-1f8b-4049-911e-6a984ed84990",
+    "crimeType": "other",
+    "occurredAt": "2026-03-30T18:23:29Z",
+    "lat": 52.390704,
+    "lng": 4.884966,
+    "city": "Amsterdam",
+    "description": "Personal belongings taken from unattended bag in hotel lobby.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0f162978-a333-4779-bca9-142da052d6ad",
+    "crimeType": "other",
+    "occurredAt": "2025-05-05T13:27:59Z",
+    "lat": 52.377381,
+    "lng": 4.914288,
+    "city": "Amsterdam",
+    "description": "Street scam resulting in cash loss near monument.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "00ef890d-538f-4561-ab44-9fc3ec653e22",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-07-19T08:57:04Z",
+    "lat": 52.381376,
+    "lng": 4.898133,
+    "city": "Amsterdam",
+    "description": "Bag pulled from victim at bus stop by two individuals.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ad2b9ca3-03a1-4bac-9004-25a870d523b8",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-06-12T10:31:02Z",
+    "lat": 52.360582,
+    "lng": 4.923241,
+    "city": "Amsterdam",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "37bd575f-9407-48ce-8899-8b675ecf1041",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-03-20T20:31:48Z",
+    "lat": 52.358612,
+    "lng": 4.889256,
+    "city": "Amsterdam",
+    "description": "Window smashed, laptop bag taken from back seat.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5d4b5744-2dd3-44bb-bf48-d1832c7e49fc",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-02-20T09:11:02Z",
+    "lat": 52.353664,
+    "lng": 4.886396,
+    "city": "Amsterdam",
+    "description": "Laptop bag grabbed from cafe chair while victim used restroom.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "739dd232-688f-4268-80d0-ddc2a4065156",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-08-08T02:31:18Z",
+    "lat": 52.35241,
+    "lng": 4.890601,
+    "city": "Amsterdam",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "acceb343-783c-4d84-9b8d-e5564f358942",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-02-18T12:00:35Z",
+    "lat": 52.37533,
+    "lng": 4.913342,
+    "city": "Amsterdam",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "4656c02c-745c-412d-afbe-aa580f5c452e",
+    "crimeType": "other",
+    "occurredAt": "2024-12-31T20:32:01Z",
+    "lat": 52.374685,
+    "lng": 4.90363,
+    "city": "Amsterdam",
+    "description": "Pickpocket working in pairs near popular viewpoint.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "132b5371-2b4c-4eb2-ba75-6f06ed8d9f30",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-01-09T11:45:43Z",
+    "lat": 52.349598,
+    "lng": 4.906427,
+    "city": "Amsterdam",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "1c2b22ce-f9b0-4ec9-b41c-2018b3634341",
+    "crimeType": "other",
+    "occurredAt": "2026-01-02T03:09:12Z",
+    "lat": 52.390462,
+    "lng": 4.905297,
+    "city": "Amsterdam",
+    "description": "Distraction theft at restaurant; phone taken from table.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "a36f91e4-0cb2-4caa-8697-989c04240ecb",
+    "crimeType": "other",
+    "occurredAt": "2025-05-14T03:59:15Z",
+    "lat": 52.376011,
+    "lng": 4.917317,
+    "city": "Amsterdam",
+    "description": "Pickpocket working in pairs near popular viewpoint.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "6b064ed9-afc7-4161-b045-12132aba026d",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-01-28T10:06:09Z",
+    "lat": 52.345998,
+    "lng": 4.886651,
+    "city": "Amsterdam",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "705b7acf-a351-4fb3-8bd3-d047619edbdd",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-09-02T14:52:10Z",
+    "lat": 52.373492,
+    "lng": 4.912438,
+    "city": "Amsterdam",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5100abfc-062b-41fd-a9b6-06b5f771c5e7",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-05-13T14:10:47Z",
+    "lat": 52.343387,
+    "lng": 4.905711,
+    "city": "Amsterdam",
+    "description": "Window smashed, laptop bag taken from back seat.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "f6293255-71ea-42d6-8ad1-b6c137e5d8c6",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-10-10T08:38:11Z",
+    "lat": 52.356337,
+    "lng": 4.927974,
+    "city": "Amsterdam",
+    "description": "Laptop bag grabbed from cafe chair while victim used restroom.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "9ef7c4a7-297b-4de2-9067-25794072335a",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2024-11-22T14:05:49Z",
+    "lat": 52.388089,
+    "lng": 4.884451,
+    "city": "Amsterdam",
+    "description": "Luggage stolen from car boot during brief cafe stop.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "7906ce5d-cacc-419a-9089-568be0d13257",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-04-12T12:35:46Z",
+    "lat": 52.373589,
+    "lng": 4.891721,
+    "city": "Amsterdam",
+    "description": "Phone snatched from hand while victim was texting.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0c2627b1-84b8-43f6-a87e-cfdb595a9aed",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-02-10T18:59:46Z",
+    "lat": 52.390565,
+    "lng": 4.90205,
+    "city": "Amsterdam",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "1b15fdd7-ecf0-4d7d-a944-619b002f9c68",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-03-26T10:54:19Z",
+    "lat": 52.384003,
+    "lng": 4.883131,
+    "city": "Amsterdam",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "e9db8a2a-9615-47e3-ad3d-75d2cac89102",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-10-31T15:19:48Z",
+    "lat": 52.361563,
+    "lng": 4.906735,
+    "city": "Amsterdam",
+    "description": "Wallet taken from front pocket in a crowded area.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "6b7d0713-5d3f-4641-b8ce-ea41daf231e9",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-09-18T02:51:52Z",
+    "lat": 52.346734,
+    "lng": 4.921366,
+    "city": "Amsterdam",
+    "description": "Rental car broken into, valuables from glove compartment taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ac6b6a40-19a7-488c-8a2e-4c98793edb24",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-07-16T08:59:52Z",
+    "lat": 52.385498,
+    "lng": 4.883868,
+    "city": "Amsterdam",
+    "description": "Bag snatched from victim shoulder by passing scooter.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "4e0fa882-f6c8-4e87-855e-8776647fdec4",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-08-06T11:08:22Z",
+    "lat": 52.387664,
+    "lng": 4.913714,
+    "city": "Amsterdam",
+    "description": "Victim distracted by someone asking for directions; wallet gone.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "6437ad26-cce7-48e7-8fcc-a049275a908d",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-02-04T00:34:47Z",
+    "lat": 52.346317,
+    "lng": 4.925379,
+    "city": "Amsterdam",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "fc0ca71c-0c8c-474b-acc3-eb9fe90615b5",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2024-10-09T13:11:01Z",
+    "lat": 52.351568,
+    "lng": 4.921621,
+    "city": "Amsterdam",
+    "description": "Luggage stolen from car boot during brief cafe stop.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "7a5e9d99-09e0-4305-9c56-2d63542e90ef",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-05-06T11:16:15Z",
+    "lat": 52.380213,
+    "lng": 4.914736,
+    "city": "Amsterdam",
+    "description": "Handbag grabbed and thief fled into alleyway.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "8c6c454d-35c6-45d7-9f6f-73daa9b1cdaf",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-01-07T19:05:36Z",
+    "lat": 52.370798,
+    "lng": 4.907435,
+    "city": "Amsterdam",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "243bcd94-324f-4f05-9066-022b3f007e9f",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-03-24T17:00:54Z",
+    "lat": 52.38038,
+    "lng": 4.886098,
+    "city": "Amsterdam",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b3285dd8-ca6a-4d0a-b8f4-c7b739b04feb",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-05-27T15:36:16Z",
+    "lat": 52.391316,
+    "lng": 4.881785,
+    "city": "Amsterdam",
+    "description": "Handbag grabbed and thief fled into alleyway.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "49d6147c-1ca1-47a5-8d85-87139cbe1d45",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-05-05T14:23:48Z",
+    "lat": 52.38105,
+    "lng": 4.926843,
+    "city": "Amsterdam",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b8e83729-2e7f-49d4-a297-b975621f2c25",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-06-25T20:52:03Z",
+    "lat": 52.356266,
+    "lng": 4.928729,
+    "city": "Amsterdam",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "2fe53116-a0f8-4918-ba6e-65401e134e86",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-08-16T21:18:27Z",
+    "lat": 52.361371,
+    "lng": 4.888387,
+    "city": "Amsterdam",
+    "description": "Laptop bag grabbed from cafe chair while victim used restroom.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "844cdb5f-bc5a-46ac-b3e0-4aab071ee052",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-10-25T08:34:27Z",
+    "lat": 52.373531,
+    "lng": 4.919003,
+    "city": "Amsterdam",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "33e7c2d3-bfa5-4172-bb02-b9af1501b8a6",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2024-12-24T05:38:39Z",
+    "lat": 52.3616,
+    "lng": 4.918295,
+    "city": "Amsterdam",
+    "description": "Phone snatched from hand while victim was texting.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ad5f867b-e41b-4fee-b9e1-4ae26f0ec9b9",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-03-18T07:32:12Z",
+    "lat": 52.347928,
+    "lng": 4.87936,
+    "city": "Amsterdam",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "c8d8ff01-3f20-4def-99af-108c49714fc4",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-05-24T07:33:20Z",
+    "lat": 52.347712,
+    "lng": 4.883465,
+    "city": "Amsterdam",
+    "description": "Camera equipment stolen from locked vehicle overnight.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "79400070-87c6-434c-84ed-7405498bc0c4",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-04-12T05:41:34Z",
+    "lat": 52.363002,
+    "lng": 4.880413,
+    "city": "Amsterdam",
+    "description": "Handbag grabbed and thief fled into alleyway.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "b40ca072-b747-42c7-9b3b-ba549153f4e3",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-10-07T17:42:41Z",
+    "lat": 52.381822,
+    "lng": 4.922286,
+    "city": "Amsterdam",
+    "description": "Laptop bag grabbed from cafe chair while victim used restroom.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "85a63d2d-1819-45b1-807f-47facfc52050",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2026-02-07T05:50:24Z",
+    "lat": 52.346835,
+    "lng": 4.924157,
+    "city": "Amsterdam",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "741ef445-70fc-4161-8095-5589b62a8e47",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2024-12-15T19:21:36Z",
+    "lat": 52.351079,
+    "lng": 4.898137,
+    "city": "Amsterdam",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "231aac79-907d-4144-9924-00ac81295ccd",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-02-28T16:12:15Z",
+    "lat": 52.349897,
+    "lng": 4.88746,
+    "city": "Amsterdam",
+    "description": "Victim distracted by someone asking for directions; wallet gone.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "bb3ac291-76b5-465a-9ee8-79187291513a",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-02-12T15:18:58Z",
+    "lat": 52.346446,
+    "lng": 4.891685,
+    "city": "Amsterdam",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "1282e5b0-f33f-427d-bdb7-fbf1223ad07b",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-03-16T08:14:18Z",
+    "lat": 52.352377,
+    "lng": 4.884449,
+    "city": "Amsterdam",
+    "description": "Laptop bag grabbed from cafe chair while victim used restroom.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "e79ffd92-b2bb-4abc-abc2-317e5aa001ee",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-03-29T22:18:52Z",
+    "lat": 52.37361,
+    "lng": 4.919304,
+    "city": "Amsterdam",
+    "description": "Bag dipped on public transport, card and cash taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "835c0e1b-924b-4d82-b926-bfffcf4a1240",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-08-21T12:55:29Z",
+    "lat": 52.383777,
+    "lng": 4.911652,
+    "city": "Amsterdam",
+    "description": "Daypack grabbed from tourist at monument, thief ran on foot.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "f5a6d060-8e2b-46c9-9256-d0f1d29944bd",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-03-21T13:03:27Z",
+    "lat": 52.389964,
+    "lng": 4.889143,
+    "city": "Amsterdam",
+    "description": "Phone snatched from hand while victim was texting.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0fd4ffa3-5ebd-40ea-9471-060e270c5e4c",
+    "crimeType": "other",
+    "occurredAt": "2025-06-26T02:09:35Z",
+    "lat": 52.357172,
+    "lng": 4.913848,
+    "city": "Amsterdam",
+    "description": "Items left at beach taken while victim swam.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "6fd8f00c-84d0-461e-836c-816f7b1a2550",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-12-04T01:59:42Z",
+    "lat": 52.358894,
+    "lng": 4.893115,
+    "city": "Amsterdam",
+    "description": "Rental car broken into, valuables from glove compartment taken.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "ce11ea2d-5edf-4ac8-b0fd-08a57da0452e",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-07-25T21:55:24Z",
+    "lat": 52.370793,
+    "lng": 4.908711,
+    "city": "Amsterdam",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "94ea0504-c170-40d7-ae29-cd890d32d817",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-01-23T11:13:57Z",
+    "lat": 52.378961,
+    "lng": 4.926249,
+    "city": "Amsterdam",
+    "description": "Victim distracted by someone asking for directions; wallet gone.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5b6a4378-b4b0-4e69-a79b-d1d8ff1427e7",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-12-09T02:16:40Z",
+    "lat": 52.346058,
+    "lng": 4.921489,
+    "city": "Amsterdam",
+    "description": "Travel documents and cash taken from parked car.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "2dfa31fe-3efa-48db-ae54-59dc79d81754",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-09-25T15:07:10Z",
+    "lat": 52.374267,
+    "lng": 4.891201,
+    "city": "Amsterdam",
+    "description": "Laptop bag grabbed from cafe chair while victim used restroom.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "0247859b-3bf9-416b-9d5b-39f92501f566",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-06-19T15:53:29Z",
+    "lat": 52.346298,
+    "lng": 4.928635,
+    "city": "Amsterdam",
+    "description": "Bag left visible on passenger seat \u2014 window broken, bag stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "c588f120-399f-48e2-b67d-0aa9cdf76836",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-05-17T09:24:44Z",
+    "lat": 52.388775,
+    "lng": 4.922582,
+    "city": "Amsterdam",
+    "description": "Bag snatched from victim shoulder by passing scooter.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "88740e3b-843d-4387-bc8a-0cabf8b98e3d",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-07-21T03:36:57Z",
+    "lat": 52.360576,
+    "lng": 4.923875,
+    "city": "Amsterdam",
+    "description": "Travel documents and cash taken from parked car.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "dec0e93a-a655-4e0b-8783-7c4dcb706fe8",
+    "crimeType": "other",
+    "occurredAt": "2025-09-28T22:08:55Z",
+    "lat": 52.348068,
+    "lng": 4.891512,
+    "city": "Amsterdam",
+    "description": "Street scam resulting in cash loss near monument.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "80d5a0a7-249d-47fd-9da3-e15eab968867",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-10-05T21:35:30Z",
+    "lat": 52.344815,
+    "lng": 4.92828,
+    "city": "Amsterdam",
+    "description": "Laptop bag grabbed from cafe chair while victim used restroom.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5d78a812-1400-477b-bdff-0f3423a328dd",
+    "crimeType": "other",
+    "occurredAt": "2024-11-27T20:17:50Z",
+    "lat": 52.35918,
+    "lng": 4.918912,
+    "city": "Amsterdam",
+    "description": "Distraction theft at restaurant; phone taken from table.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "efba7785-c69d-4a8c-b51a-e085f5827a0d",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-08-13T23:06:42Z",
+    "lat": 52.368134,
+    "lng": 4.90504,
+    "city": "Amsterdam",
+    "description": "Victim bump-and-dip at tourist attraction, phone stolen.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5cf1db8f-db56-4708-815c-dbedc911b9bf",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-10-07T00:53:42Z",
+    "lat": 52.361306,
+    "lng": 4.902253,
+    "city": "Amsterdam",
+    "description": "Cards and cash removed from handbag zip pocket on metro.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "8948edb6-d426-475e-9a07-82055c374e86",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-03-11T07:20:37Z",
+    "lat": 52.392485,
+    "lng": 4.903239,
+    "city": "Amsterdam",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "c4270ddb-ee05-408a-b79e-c0e8d6664ea7",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-03-20T07:00:39Z",
+    "lat": 52.389634,
+    "lng": 4.886184,
+    "city": "Amsterdam",
+    "description": "Wallet missing after leaving crowded market stall.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "cf0d1fcd-2aeb-4e6e-a8d2-6f57858bcd35",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2024-11-23T07:15:07Z",
+    "lat": 52.368656,
+    "lng": 4.896515,
+    "city": "Amsterdam",
+    "description": "Travel documents and cash taken from parked car.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "7b30195f-947f-405c-90ef-1d530910cf32",
+    "crimeType": "theft_from_vehicle",
+    "occurredAt": "2025-12-17T08:40:35Z",
+    "lat": 52.358545,
+    "lng": 4.894113,
+    "city": "Amsterdam",
+    "description": "Window smashed, laptop bag taken from back seat.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "254fecc7-baa4-422f-b459-8348ba329577",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-12-11T19:51:24Z",
+    "lat": 52.359754,
+    "lng": 4.884568,
+    "city": "Amsterdam",
+    "description": "Tourist had wallet removed while consulting a map.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "214858c5-bad8-4fec-b56a-878842b003b6",
+    "crimeType": "bag_snatching",
+    "occurredAt": "2025-05-21T19:08:39Z",
+    "lat": 52.370196,
+    "lng": 4.895649,
+    "city": "Amsterdam",
+    "description": "Bag snatched on busy bridge, thief vanished into crowd.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "776c4550-7bec-48e0-9f57-98769d10cac7",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-09-15T16:50:06Z",
+    "lat": 52.362852,
+    "lng": 4.888323,
+    "city": "Amsterdam",
+    "description": "Phone snatched from hand while victim was texting.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "10354ec6-93d1-4413-bce6-8c4dc0581e27",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-06-03T11:13:51Z",
+    "lat": 52.379469,
+    "lng": 4.923255,
+    "city": "Amsterdam",
+    "description": "Phone snatched from hand while victim was texting.",
+    "source": "SEEDED"
+  },
+  {
+    "id": "5037839f-98de-46f1-adc6-b6b119c576bb",
+    "crimeType": "pickpocketing",
+    "occurredAt": "2025-11-15T18:28:23Z",
+    "lat": 52.377837,
+    "lng": 4.889389,
+    "city": "Amsterdam",
+    "description": "Phone stolen from jacket pocket on busy street.",
+    "source": "SEEDED"
+  }
+]
