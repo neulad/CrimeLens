@@ -52,8 +52,8 @@ export function Layout({ title = 'CrimeLens', userEmail, head, children }: Layou
           integrity="sha384-wgw+aLYNQ7dlhK47ZPK7FRACiq7ROZwgFNg0m04avm4CaXS+Z9Y7nMu8yNjBKYC+"
           crossorigin="anonymous"
         />
-        {/* App overrides */}
-        <link rel="stylesheet" href="/css/app.css" />
+        {/* App overrides — ?v= suffix busts the 24 h static-file cache */}
+        <link rel="stylesheet" href="/css/app.css?v=2" />
         <link rel="icon" type="image/svg+xml" href="/img/favicon.svg" />
 
         {head}
@@ -191,7 +191,7 @@ export function MapPage({ userEmail }: { userEmail?: string }): string {
       </aside>
 
       {/* Map JS island — loaded last so Leaflet is available */}
-      <script src="/js/map.js" defer />
+      <script src="/js/map.js?v=2" defer />
     </Layout>
   );
 }
