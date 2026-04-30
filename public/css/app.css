@@ -229,11 +229,13 @@ body > nav {
   background: var(--badge-pickpocketing-bg);
   color: var(--badge-pickpocketing-fg);
 }
-.badge-bag {
+.badge-bag,
+.badge-bag-snatching {
   background: var(--badge-bag-bg);
   color: var(--badge-bag-fg);
 }
-.badge-vehicle {
+.badge-vehicle,
+.badge-theft-from-vehicle {
   background: var(--badge-vehicle-bg);
   color: var(--badge-vehicle-fg);
 }

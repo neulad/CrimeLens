@@ -15,6 +15,13 @@ export const incidentsRoutes = new Elysia().get(
       return status(400, { message: 'bbox coordinates out of valid range' });
     }
 
+    // Guard against NaN slipping through Elysia's t.Number coercion (e.g. limit=abc).
+    // NaN comparisons always return false so TypeBox min/max checks silently pass.
+    const limit = query.limit;
+    if (limit !== undefined && !Number.isFinite(limit)) {
+      return status(400, { message: 'limit must be a finite integer between 1 and 1000' });
+    }
+
     try {
       const items = await listByBbox({
         west,
@@ -23,7 +30,7 @@ export const incidentsRoutes = new Elysia().get(
         north,
         types: query.types,
         since: query.since,
-        limit: query.limit,
+        limit,
       });
 
       return { items };

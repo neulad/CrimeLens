@@ -171,14 +171,25 @@
       }[item.crimeType] ?? item.crimeType;
 
     const sourceLabel = item.source === 'SEEDED' ? 'Seeded dataset' : 'User report';
-    // crimeType and source are validated by DB CHECK constraints — safe for class names.
-    const badgeClass = `badge badge-${item.crimeType.replace('_', '-')}`;
-    const srcClass = `badge badge-${item.source.toLowerCase().replace('_', '-')}`;
+    // Use explicit maps so CSS class names are never silently broken by future
+    // crimeType/source value changes — String#replace only replaces the FIRST
+    // underscore and CSS uses abbreviated aliases (badge-bag, badge-vehicle).
+    const CRIME_BADGE = {
+      pickpocketing: 'badge-pickpocketing',
+      bag_snatching: 'badge-bag-snatching',
+      theft_from_vehicle: 'badge-theft-from-vehicle',
+      other: 'badge-other',
+    };
+    const SOURCE_BADGE = { SEEDED: 'badge-seeded', USER_REPORTED: 'badge-user' };
+    const badgeClass = `badge ${CRIME_BADGE[item.crimeType] ?? 'badge-other'}`;
+    const srcClass = `badge ${SOURCE_BADGE[item.source] ?? 'badge-other'}`;
+    // esc() the fallback crimeType so unknown values can't inject into aria-label.
+    const crimeLabelSafe = esc(crimeLabel);
 
     // Use esc() for any field that comes from user-supplied or seed data.
     panelContent.innerHTML = `
-      <span class="${badgeClass}" aria-label="Crime type: ${crimeLabel}">${crimeLabel.toUpperCase()}</span>
-      <span class="${srcClass}" aria-label="Source: ${sourceLabel}">${sourceLabel.toUpperCase()}</span>
+      <span class="${badgeClass}" aria-label="Crime type: ${crimeLabelSafe}">${crimeLabelSafe.toUpperCase()}</span>
+      <span class="${srcClass}" aria-label="Source: ${esc(sourceLabel)}">${esc(sourceLabel).toUpperCase()}</span>
       <p style="margin-top:0.75rem; font-size:0.8rem; color:var(--pico-secondary)">
         ${esc(date)}<br>${esc(item.city)}
       </p>
