@@ -269,3 +269,41 @@ body > nav {
   font-size: 0.875rem;
   color: var(--pico-secondary);
 }
+
+/* ── Leaflet control overrides ────────────────────────────────────────────── */
+/* Pico.css v2 globally resets <a> elements; Leaflet's zoom control uses <a>
+   tags inside .leaflet-bar, so Pico strips their border-radius, background,
+   and dimensions. Restore them here with higher specificity. */
+.leaflet-bar a,
+.leaflet-bar a:hover,
+.leaflet-bar a:focus {
+  display: block;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  text-decoration: none;
+  color: #444;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+.leaflet-bar a:hover {
+  background-color: #f4f4f4;
+}
+.leaflet-bar a:first-child {
+  border-radius: 4px 4px 0 0;
+}
+.leaflet-bar a:last-child {
+  border-bottom: none;
+  border-radius: 0 0 4px 4px;
+}
+.leaflet-bar a.leaflet-disabled {
+  cursor: default;
+  color: #bbb;
+  background-color: #f4f4f4;
+}
