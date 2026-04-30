@@ -23,8 +23,12 @@ export interface BboxParams {
 
 export async function getBboxIncidents(params: BboxParams): Promise<IncidentRow[]> {
   const { west, south, east, north, types, since, limit } = params;
-  // null → SQL NULL (no type filter); sql.array → typed text[] param
-  const typesParam = types && types.length > 0 ? sql.array(types, 'text') : null;
+  // Inject the type filter as a SQL fragment so we never pass a NULL array
+  // parameter — porsager can't infer the type of a bare NULL for text[].
+  const typeFilter =
+    types && types.length > 0
+      ? sql`AND crime_type = ANY(${sql.array(types)})`
+      : sql``;
 
   return sql<IncidentRow[]>`
     SELECT
@@ -41,8 +45,8 @@ export async function getBboxIncidents(params: BboxParams): Promise<IncidentRow[
         location,
         ST_MakeEnvelope(${west}, ${south}, ${east}, ${north}, 4326)
       )
-      AND (${typesParam} IS NULL OR crime_type = ANY(${typesParam}))
-      AND occurred_at >= ${since}
+      ${typeFilter}
+      AND occurred_at >= ${since.toISOString()}
     ORDER BY occurred_at DESC
     LIMIT ${limit}
   `;

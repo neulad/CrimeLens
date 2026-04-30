@@ -1,18 +1,18 @@
-import { Elysia, t } from 'elysia';
+import { Elysia, status, t } from 'elysia';
 import { logger } from '../../lib/logger';
 import { listByBbox } from './service';
 
 export const incidentsRoutes = new Elysia().get(
   '/api/incidents',
-  async ({ query, error }) => {
+  async ({ query }) => {
     const bboxParts = query.bbox.split(',').map(Number);
     if (bboxParts.length !== 4 || bboxParts.some((n) => Number.isNaN(n))) {
-      return error(400, { message: 'bbox must be W,S,E,N (four floats)' });
+      return status(400, { message: 'bbox must be W,S,E,N (four floats)' });
     }
 
     const [west, south, east, north] = bboxParts as [number, number, number, number];
     if (west < -180 || east > 180 || south < -90 || north > 90 || west >= east || south >= north) {
-      return error(400, { message: 'bbox coordinates out of valid range' });
+      return status(400, { message: 'bbox coordinates out of valid range' });
     }
 
     try {
@@ -29,7 +29,7 @@ export const incidentsRoutes = new Elysia().get(
       return { items };
     } catch (err) {
       logger.error(err, 'Failed to query incidents');
-      return error(500, { message: 'Internal server error' });
+      return status(500, { message: 'Internal server error' });
     }
   },
   {
