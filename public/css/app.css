@@ -273,10 +273,12 @@ body > nav {
 /* ── Leaflet control overrides ────────────────────────────────────────────── */
 /* Pico.css v2 globally resets <a> elements; Leaflet's zoom control uses <a>
    tags inside .leaflet-bar, so Pico strips their border-radius, background,
-   and dimensions. Restore them here with higher specificity. */
+   dimensions, AND applies hover transforms that cause buttons to shrink.
+   Restore everything here with higher specificity. */
 .leaflet-bar a,
 .leaflet-bar a:hover,
-.leaflet-bar a:focus {
+.leaflet-bar a:focus,
+.leaflet-bar a:active {
   display: block;
   width: 26px;
   height: 26px;
@@ -291,6 +293,11 @@ body > nav {
   margin: 0;
   font-size: 18px;
   font-weight: bold;
+  /* Cancel Pico hover/active effects */
+  transform: none;
+  transition: background-color 0.1s ease;
+  box-shadow: none;
+  outline: none;
 }
 .leaflet-bar a:hover {
   background-color: #f4f4f4;
@@ -306,4 +313,5 @@ body > nav {
   cursor: default;
   color: #bbb;
   background-color: #f4f4f4;
+  transform: none;
 }
