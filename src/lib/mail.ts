@@ -26,7 +26,7 @@ export async function sendMagicLink({ to, url }: MagicLinkPayload): Promise<void
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'CrimeLens <noreply@crimelens.app>',
+      from: 'CrimeLens <onboarding@resend.dev>',
       to: [to],
       subject: 'Your CrimeLens sign-in link',
       html: `<p>Click the link below to sign in. It expires in 15 minutes and can only be used once.</p>

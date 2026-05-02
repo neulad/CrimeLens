@@ -1,85 +1,76 @@
-import { env } from '../../env';
 import { queryClient as sql } from '../../db/client';
-import { generateToken, sha256, signSession } from '../../lib/crypto';
+import { signSession } from '../../lib/crypto';
 import { newId } from '../../lib/ids';
-import { sendMagicLink } from '../../lib/mail';
+import { env } from '../../env';
 
-const MAGIC_LINK_TTL_MS = 15 * 60 * 1000; // 15 minutes
 const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 
 // ---------------------------------------------------------------------------
-// requestLink — upsert user, create magic_link row, send email
+// register — create a new user account
 // ---------------------------------------------------------------------------
 
-export async function requestLink(email: string): Promise<void> {
+export interface RegisterParams {
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+}
+
+export async function register({
+  email,
+  firstName,
+  lastName,
+  password,
+}: RegisterParams): Promise<{ error?: string }> {
   const normalized = email.trim().toLowerCase();
 
-  // Upsert user (email is citext + unique — conflict means user exists)
-  const userId = newId();
-  await sql`
-    INSERT INTO users (id, email)
-    VALUES (${userId}::uuid, ${normalized})
-    ON CONFLICT (email) DO NOTHING
-  `;
-
-  // Re-select to get the actual id (may be the one we just inserted or a pre-existing one)
-  const [user] = await sql<{ id: string }[]>`
+  // Check if email already taken
+  const [existing] = await sql<{ id: string }[]>`
     SELECT id FROM users WHERE email = ${normalized} LIMIT 1
   `;
-  if (!user) throw new Error('User not found after upsert');
+  if (existing) {
+    return { error: 'An account with this email already exists.' };
+  }
 
-  // Generate token — store only the hash
-  const token = generateToken(32);
-  const tokenHash = sha256(token);
-  const expiresAt = new Date(Date.now() + MAGIC_LINK_TTL_MS);
+  const passwordHash = await Bun.password.hash(password, { algorithm: 'bcrypt', cost: 12 });
+  const userId = newId();
 
   await sql`
-    INSERT INTO magic_links (id, user_id, token_hash, expires_at)
+    INSERT INTO users (id, email, first_name, last_name, password_hash)
     VALUES (
-      ${newId()}::uuid,
-      ${user.id}::uuid,
-      ${tokenHash},
-      ${expiresAt.toISOString()}::timestamptz
+      ${userId}::uuid,
+      ${normalized},
+      ${firstName.trim()},
+      ${lastName.trim()},
+      ${passwordHash}
     )
   `;
 
-  const url = `${env.BASE_URL}/auth/verify?token=${encodeURIComponent(token)}`;
-  await sendMagicLink({ to: normalized, url });
+  return {};
 }
 
 // ---------------------------------------------------------------------------
-// consumeLink — validate token, mark consumed, create session
+// login — verify credentials, create session, return signed cookie value
 // ---------------------------------------------------------------------------
 
-export async function consumeLink(token: string): Promise<string | null> {
-  const tokenHash = sha256(token);
+export async function login(
+  email: string,
+  password: string,
+): Promise<string | null> {
+  const normalized = email.trim().toLowerCase();
 
-  const [link] = await sql<{
-    id: string;
-    userId: string;
-    expiresAt: string;
-    consumedAt: string | null;
-  }[]>`
-    SELECT
-      id,
-      user_id       AS "userId",
-      expires_at    AS "expiresAt",
-      consumed_at   AS "consumedAt"
-    FROM magic_links
-    WHERE token_hash = ${tokenHash}
+  const [user] = await sql<{ id: string; passwordHash: string }[]>`
+    SELECT id, password_hash AS "passwordHash"
+    FROM users
+    WHERE email = ${normalized}
     LIMIT 1
   `;
 
-  if (!link) return null;
-  if (link.consumedAt) return null; // already used
-  if (new Date(link.expiresAt) < new Date()) return null; // expired
+  if (!user) return null;
 
-  // Mark consumed — one-time use
-  await sql`
-    UPDATE magic_links SET consumed_at = NOW() WHERE id = ${link.id}::uuid
-  `;
+  const valid = await Bun.password.verify(password, user.passwordHash);
+  if (!valid) return null;
 
-  // Create session
   const sessionId = newId();
   const sessionExpiry = new Date(Date.now() + SESSION_TTL_MS);
 
@@ -87,7 +78,7 @@ export async function consumeLink(token: string): Promise<string | null> {
     INSERT INTO sessions (id, user_id, expires_at)
     VALUES (
       ${sessionId}::uuid,
-      ${link.userId}::uuid,
+      ${user.id}::uuid,
       ${sessionExpiry.toISOString()}::timestamptz
     )
   `;

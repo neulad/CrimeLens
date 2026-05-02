@@ -270,6 +270,17 @@ body > nav {
   color: var(--badge-user-fg);
 }
 
+/* ── Auth forms ───────────────────────────────────────────────────────────── */
+.auth-error {
+  color: #991b1b;
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
 /* ── Inner pages ──────────────────────────────────────────────────────────── */
 .inner-page {
   max-width: 680px;
