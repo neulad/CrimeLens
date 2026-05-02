@@ -175,20 +175,20 @@ export function MapPage({ userEmail }: { userEmail?: string }): string {
         </div>
         <div id="map" />
         <div id="map-error" hx-swap-oob="true" />
-      </div>
 
-      {/* Detail panel — hidden until a marker is clicked */}
-      <aside id="detail-panel" class="detail-panel detail-panel--closed" aria-hidden="true">
-        <button
-          type="button"
-          id="detail-close"
-          class="detail-close"
-          aria-label="Close detail panel"
-        >
-          ✕
-        </button>
-        <div id="detail-content" />
-      </aside>
+        {/* Detail panel — inside map-container so position:absolute top:0 is relative to the map, not the viewport */}
+        <aside id="detail-panel" class="detail-panel detail-panel--closed" aria-hidden="true">
+          <button
+            type="button"
+            id="detail-close"
+            class="detail-close"
+            aria-label="Close detail panel"
+          >
+            ✕
+          </button>
+          <div id="detail-content" />
+        </aside>
+      </div>
 
       {/* Map JS island — loaded last so Leaflet is available */}
       <script src="/js/map.js?v=2" defer />
