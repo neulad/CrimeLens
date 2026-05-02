@@ -1,10 +1,36 @@
 import { Elysia, status, t } from 'elysia';
 import { logger } from '../../lib/logger';
+import { getIncidentById } from './queries';
 import { listByBbox } from './service';
+import { IncidentDetailPage, IncidentNotFoundPage } from './views';
 
-export const incidentsRoutes = new Elysia().get(
-  '/api/incidents',
-  async ({ query }) => {
+export const incidentsRoutes = new Elysia()
+  // ── GET /incidents/:id — detail page ────────────────────────────────────
+  .get(
+    '/incidents/:id',
+    async ({ params, cookie }) => {
+      // Basic UUID guard to avoid hitting the DB with clearly invalid ids
+      const UUID_RE =
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      if (!UUID_RE.test(params.id)) {
+        return status(404, IncidentNotFoundPage({}));
+      }
+
+      try {
+        const incident = await getIncidentById(params.id);
+        if (!incident) return status(404, IncidentNotFoundPage({}));
+        return IncidentDetailPage({ incident });
+      } catch (err) {
+        logger.error(err, 'Failed to fetch incident detail');
+        return status(500, 'Internal server error');
+      }
+    },
+    { params: t.Object({ id: t.String() }) },
+  )
+  // ── GET /api/incidents — bbox JSON feed ──────────────────────────────────
+  .get(
+    '/api/incidents',
+    async ({ query }) => {
     const bboxParts = query.bbox.split(',').map(Number);
     if (bboxParts.length !== 4 || bboxParts.some((n) => Number.isNaN(n))) {
       return status(400, { message: 'bbox must be W,S,E,N (four floats)' });
@@ -38,13 +64,13 @@ export const incidentsRoutes = new Elysia().get(
       logger.error(err, 'Failed to query incidents');
       return status(500, { message: 'Internal server error' });
     }
-  },
-  {
-    query: t.Object({
-      bbox: t.String({ description: 'W,S,E,N bounding box' }),
-      types: t.Optional(t.String()),
-      since: t.Optional(t.String()),
-      limit: t.Optional(t.Number({ minimum: 1, maximum: 1000, default: 500 })),
-    }),
-  },
-);
+    },
+    {
+      query: t.Object({
+        bbox: t.String({ description: 'W,S,E,N bounding box' }),
+        types: t.Optional(t.String()),
+        since: t.Optional(t.String()),
+        limit: t.Optional(t.Number({ minimum: 1, maximum: 1000, default: 500 })),
+      }),
+    },
+  );
