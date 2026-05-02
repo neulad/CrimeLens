@@ -20,7 +20,7 @@ interface LayoutProps {
 
 export function Layout({ title = 'CrimeLens', userEmail, head, children }: LayoutProps): string {
   return `<!DOCTYPE html>${(
-    <html lang="en">
+    <html lang="en" data-theme="light">
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -53,7 +53,7 @@ export function Layout({ title = 'CrimeLens', userEmail, head, children }: Layou
           crossorigin="anonymous"
         />
         {/* App overrides — ?v= suffix busts the 24 h static-file cache */}
-        <link rel="stylesheet" href="/css/app.css?v=6" />
+        <link rel="stylesheet" href="/css/app.css?v=7" />
         <link rel="icon" type="image/svg+xml" href="/img/favicon.svg" />
 
         {head}

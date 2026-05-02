@@ -66,49 +66,69 @@ export function IncidentDetailPage({
 
   return (
     <InnerPage title={`${crimeLabel} — ${incident.city} | CrimeLens`} userEmail={userEmail}>
-      <hgroup>
-        <h2 safe>{crimeLabel}</h2>
-        <p safe>{incident.city}</p>
-      </hgroup>
+      {/* ── Hero ────────────────────────────────────────────────────── */}
+      <div class="incident-hero">
+        <div class="incident-hero__badges">
+          <span class={badgeClass} safe>
+            {crimeLabel.toUpperCase()}
+          </span>{' '}
+          <span class={srcClass} safe>
+            {sourceLabel.toUpperCase()}
+          </span>
+        </div>
+        <h2 class="incident-hero__title" safe>
+          {crimeLabel}
+        </h2>
+        <p class="incident-hero__meta" safe>
+          {date} &mdash; {incident.city}
+        </p>
+      </div>
 
-      <p>
-        <span class={badgeClass} safe>
-          {crimeLabel.toUpperCase()}
-        </span>{' '}
-        <span class={srcClass} safe>
-          {sourceLabel.toUpperCase()}
-        </span>
-      </p>
+      {/* ── Description card ────────────────────────────────────────── */}
+      <div class="incident-card">
+        <p class="incident-card__label">What happened</p>
+        <p class="incident-card__text" safe>
+          {incident.description}
+        </p>
+      </div>
 
-      <hr />
-
-      <dl>
-        <dt>Date &amp; time</dt>
-        <dd safe>
-          {date}, {time}
-        </dd>
-
-        <dt>City</dt>
-        <dd safe>{incident.city}</dd>
-
-        <dt>Description</dt>
-        <dd safe>{incident.description}</dd>
-
-        <dt>Coordinates</dt>
-        <dd>
-          <a href={osmUrl} target="_blank" rel="noopener noreferrer">
-            {lat}, {lng} ↗
-          </a>
-        </dd>
-
-        <dt>Source</dt>
-        <dd safe>{sourceLabel}</dd>
-
-        <dt>Incident ID</dt>
-        <dd>
-          <code safe>{incident.id}</code>
-        </dd>
-      </dl>
+      {/* ── Details grid ────────────────────────────────────────────── */}
+      <div class="incident-details">
+        <div class="incident-detail">
+          <span class="incident-detail__label">Date &amp; time</span>
+          <span class="incident-detail__value" safe>
+            {date}, {time}
+          </span>
+        </div>
+        <div class="incident-detail">
+          <span class="incident-detail__label">City</span>
+          <span class="incident-detail__value" safe>
+            {incident.city}
+          </span>
+        </div>
+        <div class="incident-detail">
+          <span class="incident-detail__label">Coordinates</span>
+          <span class="incident-detail__value">
+            <a href={osmUrl} target="_blank" rel="noopener noreferrer">
+              {lat}, {lng} ↗
+            </a>
+          </span>
+        </div>
+        <div class="incident-detail">
+          <span class="incident-detail__label">Source</span>
+          <span class="incident-detail__value" safe>
+            {sourceLabel}
+          </span>
+        </div>
+        <div class="incident-detail">
+          <span class="incident-detail__label">Incident ID</span>
+          <span class="incident-detail__value">
+            <code class="incident-id" safe>
+              {incident.id}
+            </code>
+          </span>
+        </div>
+      </div>
     </InnerPage>
   );
 }
