@@ -21,6 +21,24 @@ export interface BboxParams {
   limit: number;
 }
 
+export async function getIncidentById(id: string): Promise<IncidentRow | null> {
+  const rows = await sql<IncidentRow[]>`
+    SELECT
+      id,
+      crime_type   AS "crimeType",
+      occurred_at  AS "occurredAt",
+      city,
+      description,
+      source,
+      ST_Y(location) AS lat,
+      ST_X(location) AS lng
+    FROM incidents
+    WHERE id = ${id}::uuid
+    LIMIT 1
+  `;
+  return rows[0] ?? null;
+}
+
 export async function getBboxIncidents(params: BboxParams): Promise<IncidentRow[]> {
   const { west, south, east, north, types, since, limit } = params;
   // Inject the type filter as a SQL fragment so we never pass a NULL array
