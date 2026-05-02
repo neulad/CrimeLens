@@ -1,8 +1,14 @@
 import { Elysia, status, t } from 'elysia';
 import { logger } from '../../lib/logger';
+import { loadUser, SESSION_COOKIE } from '../auth/middleware';
 import { getIncidentById } from './queries';
 import { listByBbox } from './service';
 import { IncidentDetailPage, IncidentNotFoundPage } from './views';
+
+function cookieVal(cookie: Record<string, { value: unknown } | undefined>, name: string): string | undefined {
+  const v = cookie[name]?.value;
+  return typeof v === 'string' ? v : undefined;
+}
 
 export const incidentsRoutes = new Elysia()
   // ── GET /incidents/:id — detail page ────────────────────────────────────
@@ -17,9 +23,16 @@ export const incidentsRoutes = new Elysia()
       }
 
       try {
-        const incident = await getIncidentById(params.id);
-        if (!incident) return status(404, IncidentNotFoundPage({}));
-        return IncidentDetailPage({ incident });
+        const [incident, user] = await Promise.all([
+          getIncidentById(params.id),
+          loadUser(cookieVal(cookie, SESSION_COOKIE)),
+        ]);
+        if (!incident) {
+          return status(404, user ? IncidentNotFoundPage({ userEmail: user.email }) : IncidentNotFoundPage({}));
+        }
+        return user
+          ? IncidentDetailPage({ incident, userEmail: user.email })
+          : IncidentDetailPage({ incident });
       } catch (err) {
         logger.error(err, 'Failed to fetch incident detail');
         return status(500, 'Internal server error');

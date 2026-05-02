@@ -6,11 +6,11 @@ import Html from '@kitajs/html';
 // ---------------------------------------------------------------------------
 
 interface LayoutProps {
-  title?: string;
+  title?: string | undefined;
   /** Current user email, if authenticated */
-  userEmail?: string;
+  userEmail?: string | undefined;
   /** Extra <head> content (e.g. page-specific styles) */
-  head?: Html.Children;
+  head?: Html.Children | undefined;
   children: Html.Children;
 }
 
@@ -88,7 +88,7 @@ export function Layout({ title = 'CrimeLens', userEmail, head, children }: Layou
 // Nav
 // ---------------------------------------------------------------------------
 
-function Nav({ userEmail }: { userEmail?: string }): string {
+function Nav({ userEmail }: { userEmail?: string | undefined }): string {
   return (
     <nav class="container-fluid">
       <ul>
@@ -130,7 +130,7 @@ function Nav({ userEmail }: { userEmail?: string }): string {
 // Map page
 // ---------------------------------------------------------------------------
 
-export function MapPage({ userEmail }: { userEmail?: string }): string {
+export function MapPage({ userEmail }: { userEmail?: string | undefined }): string {
   return (
     <Layout title="CrimeLens — Crime Map" userEmail={userEmail}>
       {/* Filter bar */}
@@ -206,7 +206,7 @@ export function InnerPage({
   children,
 }: {
   title: string;
-  userEmail?: string;
+  userEmail?: string | undefined;
   children: Html.Children;
 }): string {
   return (

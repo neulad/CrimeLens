@@ -40,7 +40,7 @@ export function IncidentDetailPage({
   userEmail,
 }: {
   incident: IncidentRow;
-  userEmail?: string;
+  userEmail?: string | undefined;
 }): string {
   const crimeLabel = CRIME_LABEL[incident.crimeType] ?? incident.crimeType;
   const badgeClass = `badge ${CRIME_BADGE[incident.crimeType] ?? 'badge-other'}`;
@@ -137,7 +137,7 @@ export function IncidentDetailPage({
 // NotFoundPage  (reusable 404 shell for incidents)
 // ---------------------------------------------------------------------------
 
-export function IncidentNotFoundPage({ userEmail }: { userEmail?: string }): string {
+export function IncidentNotFoundPage({ userEmail }: { userEmail?: string | undefined }): string {
   return (
     <InnerPage title="Incident not found | CrimeLens" userEmail={userEmail}>
       <h2>Incident not found</h2>
