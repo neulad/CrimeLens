@@ -55,13 +55,23 @@ body > nav {
   font-size: 1.1rem;
 }
 
+.nav-logout-form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
 .nav-user {
   font-size: 0.875rem;
   color: var(--pico-secondary);
+  white-space: nowrap;
 }
 .nav-logout {
   padding: 0.2rem 0.75rem;
   font-size: 0.8rem;
+  white-space: nowrap;
+  margin: 0;
 }
 
 /* ── Filter bar ───────────────────────────────────────────────────────────── */

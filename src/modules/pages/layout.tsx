@@ -53,7 +53,7 @@ export function Layout({ title = 'CrimeLens', userEmail, head, children }: Layou
           crossorigin="anonymous"
         />
         {/* App overrides — ?v= suffix busts the 24 h static-file cache */}
-        <link rel="stylesheet" href="/css/app.css?v=8" />
+        <link rel="stylesheet" href="/css/app.css?v=9" />
         <link rel="icon" type="image/svg+xml" href="/img/favicon.svg" />
 
         {head}
@@ -104,11 +104,10 @@ function Nav({ userEmail }: { userEmail?: string | undefined }): string {
         </li>
         {userEmail ? (
           <li>
-            <form action="/auth/logout" method="post" style="display:inline">
+            <form action="/auth/logout" method="post" class="nav-logout-form">
               <span class="nav-user" safe>
                 {userEmail}
               </span>
-              &nbsp;
               <button type="submit" class="outline secondary nav-logout">
                 Sign out
               </button>
