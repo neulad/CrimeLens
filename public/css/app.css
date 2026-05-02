@@ -197,6 +197,16 @@ body > nav {
   padding: 1rem;
   transform: translateX(100%);
   transition: transform 0.2s ease;
+  /* Pico sets --pico-color: var(--pico-muted-color) on <aside>, turning all
+     text light gray. Override with an explicit value so the variable can't
+     poison descendant color. */
+  color: #111827;
+}
+/* Tighten Pico's paragraph margins and reset muted color inside the panel */
+.detail-panel p {
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  color: #111827;
 }
 .detail-panel--open {
   transform: translateX(0);
