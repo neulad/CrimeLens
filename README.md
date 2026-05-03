@@ -1,9 +1,8 @@
 # CrimeLens
 
-Map-first crime-awareness web app showing pickpocketing and petty-theft
-hotspots in five European cities (Barcelona, Paris, Rome, Prague, Amsterdam).
+Map-first crime-awareness web app showing pickpocketing and petty-theft hotspots in five European cities (Barcelona, Paris, Rome, Prague, Amsterdam).
 
-> **Status:** Week 4 scaffold — hello-map boots, full feature build in Weeks 5–11.
+Authenticated users can report new incidents directly from the map. Anyone can browse the Lost & Found board to post or search for lost items.
 
 ---
 
@@ -11,11 +10,11 @@ hotspots in five European cities (Barcelona, Paris, Rome, Prague, Amsterdam).
 
 ```bash
 # 1. Clone and install
-git clone <repo-url>
+git clone git@github.com:neulad/CrimeLens.git
 cd CrimeLens
 bun install
 
-# 2. Copy env template and fill in values
+# 2. Copy env template — set SESSION_SECRET to any 32+ random chars
 cp .env.example .env
 
 # 3. Start Postgres + PostGIS
@@ -24,11 +23,22 @@ docker compose up -d
 # 4. Apply database migrations
 bun run db:migrate
 
-# 5. Start the dev server (hot-reload)
+# 5. Load ~500 sample incidents
+bun run seed
+
+# 6. Start the dev server (hot-reload)
 bun run dev
 ```
 
-Open **http://localhost:3000** — you should see an empty map centred on Europe.
+Open **http://localhost:3000** — you should see an interactive map with crime pin clusters across Europe.
+
+Full setup walkthrough: [`docs/SETUP.md`](docs/SETUP.md)
+
+---
+
+## Screenshots
+
+> *(To be added — map view, detail panel, report form, Lost & Found list)*
 
 ---
 
@@ -54,34 +64,32 @@ Open **http://localhost:3000** — you should see an empty map centred on Europe
 | Layer | Choice |
 |---|---|
 | Runtime | Bun 1.x |
-| Web framework | Elysia |
+| Web framework | Elysia 1.x |
 | Templating | @kitajs/html (server-side JSX) |
 | Client interactivity | HTMX 2.x |
 | Maps | Leaflet 1.9 + leaflet.markercluster |
-| CSS | Pico.css + ~100 lines custom |
+| Geocoding | Nominatim (OpenStreetMap) — reverse geocode for report pins |
+| CSS | Pico.css v2 + custom app.css |
 | Database | PostgreSQL 16 + PostGIS 3.4 |
 | ORM / migrations | Drizzle ORM + Drizzle Kit |
-| Auth | Hand-rolled magic-link (~200 LOC) |
-| Email | Resend (prod) / console (dev) |
+| Auth | Password-based (Bun.password bcrypt, HMAC-signed sessions) |
 | Logging | pino |
-| Linter / formatter | Biome |
+| Linting / formatting | Biome |
 
-Full stack justification: `docs/03-architecture.md`.
+Full justification: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
 
 ---
 
 ## Environment variables
 
-See `.env.example` for all variables and their defaults.
-
 | Variable | Required | Description |
 |---|---|---|
-| `DATABASE_URL` | yes | Postgres connection string |
-| `SESSION_SECRET` | yes | 32+ byte HMAC secret for session cookies |
+| `DATABASE_URL` | **yes** | Postgres connection string (matches Docker Compose defaults) |
+| `SESSION_SECRET` | **yes** | 32+ byte string used to HMAC-sign session cookies |
 | `BASE_URL` | no | Public URL, default `http://localhost:3000` |
 | `PORT` | no | Server port, default `3000` |
-| `MAIL_MODE` | no | `console` (default) or `resend` |
-| `RESEND_API_KEY` | if resend | Resend API key |
+
+See `.env.example` for all variables.
 
 ---
 
@@ -89,11 +97,13 @@ See `.env.example` for all variables and their defaults.
 
 | File | Contents |
 |---|---|
-| `docs/01-mvp-scope.md` | Product scope, persona, 12-week timeline |
-| `docs/02-locked-features.md` | Locked feature list (L1–L5) |
-| `docs/03-architecture.md` | Stack decisions, data model, API routes, build order |
-| `docs/04-design.md` | UI/UX specification, design tokens, screen specs |
-| `docs/team-project-plan.pdf` | University grading rubric |
+| [`docs/SETUP.md`](docs/SETUP.md) | Step-by-step local setup, env vars, troubleshooting |
+| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Stack decisions, data flow, auth and incident-report flows |
+| [`docs/API.md`](docs/API.md) | All HTTP routes with request/response examples |
+| [`docs/DATA-MODEL.md`](docs/DATA-MODEL.md) | Schema tables, ERD, indexes |
+| [`docs/01-mvp-scope.md`](docs/01-mvp-scope.md) | Product scope, persona, 12-week timeline |
+| [`docs/02-locked-features.md`](docs/02-locked-features.md) | Locked feature list (L1–L5) |
+| [`docs/team-project-plan.pdf`](docs/team-project-plan.pdf) | University grading rubric |
 
 ---
 
@@ -103,20 +113,20 @@ See `.env.example` for all variables and their defaults.
 src/
   app.ts                 Elysia entry point
   env.ts                 Typed env loader
-  db/                    Drizzle client + schema
-  lib/                   Shared utilities (crypto, logger, mail, ids)
+  db/                    Drizzle client + schema (4 tables)
+  lib/                   Shared utilities (crypto, logger, ids)
   modules/
     pages/               Root layout + map page
-    auth/                Magic-link auth
-    incidents/           Crime incident CRUD + geospatial query
-    lost-and-found/      Lost & found list + submission
-  types/                 HTMX JSX type declarations
-seed/                    Seed script + incidents fixture
+    auth/                Password auth (register, login, logout, session middleware)
+    incidents/           Crime incident CRUD + geospatial bbox query
+    lost-and-found/      Lost & found list + submit + delete
+seed/                    Seed script + incidents fixture (~500 incidents, 5 cities)
 drizzle/                 Generated migration SQL
 public/                  Static assets (CSS, JS, images)
 test/                    Integration tests (bun:test)
+docs/                    Architecture, API, setup, and data model docs
 ```
 
 ---
 
-*University project — data is representative / partly synthetic. See About page for methodology and disclaimer.*
+*University project — incident data is representative / partly synthetic. See the About page for methodology and disclaimer.*
