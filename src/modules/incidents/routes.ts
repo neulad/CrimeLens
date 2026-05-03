@@ -1,7 +1,7 @@
 import { Elysia, status, t } from 'elysia';
 import { logger } from '../../lib/logger';
 import { loadUser, SESSION_COOKIE } from '../auth/middleware';
-import { getIncidentById } from './queries';
+import { createIncident, getIncidentById } from './queries';
 import { listByBbox } from './service';
 import { IncidentDetailPage, IncidentNotFoundPage } from './views';
 
@@ -84,6 +84,43 @@ export const incidentsRoutes = new Elysia()
         types: t.Optional(t.String()),
         since: t.Optional(t.String()),
         limit: t.Optional(t.Number({ minimum: 1, maximum: 1000, default: 500 })),
+      }),
+    },
+  )
+  // ── POST /api/incidents — create user-reported incident ───────────────────
+  .post(
+    '/api/incidents',
+    async ({ body, cookie }) => {
+      const user = await loadUser(cookieVal(cookie, SESSION_COOKIE));
+      if (!user) return status(401, { message: 'Sign in to report incidents.' });
+
+      const { lat, lng, crimeType, city, occurredAt, description } = body;
+
+      if (!description.trim()) {
+        return status(400, { message: 'Description is required.' });
+      }
+      if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+        return status(400, { message: 'Invalid coordinates.' });
+      }
+
+      try {
+        const id = await createIncident({
+          lat, lng, crimeType, city, occurredAt, description, userId: user.userId,
+        });
+        return { id };
+      } catch (err) {
+        logger.error(err, 'Failed to create incident');
+        return status(500, { message: 'Something went wrong.' });
+      }
+    },
+    {
+      body: t.Object({
+        lat: t.Number({ minimum: -90, maximum: 90 }),
+        lng: t.Number({ minimum: -180, maximum: 180 }),
+        crimeType: t.String(),
+        city: t.String(),
+        occurredAt: t.String(),
+        description: t.String(),
       }),
     },
   );

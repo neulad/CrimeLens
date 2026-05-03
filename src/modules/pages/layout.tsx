@@ -53,7 +53,7 @@ export function Layout({ title = 'CrimeLens', userEmail, head, children }: Layou
           crossorigin="anonymous"
         />
         {/* App overrides — ?v= suffix busts the 24 h static-file cache */}
-        <link rel="stylesheet" href="/css/app.css?v=10" />
+        <link rel="stylesheet" href="/css/app.css?v=11" />
         <link rel="icon" type="image/svg+xml" href="/img/favicon.svg" />
 
         {head}
@@ -129,7 +129,13 @@ function Nav({ userEmail }: { userEmail?: string | undefined }): string {
 // Map page
 // ---------------------------------------------------------------------------
 
-export function MapPage({ userEmail }: { userEmail?: string | undefined }): string {
+export function MapPage({
+  userEmail,
+  isAuthenticated,
+}: {
+  userEmail?: string | undefined;
+  isAuthenticated?: boolean | undefined;
+}): string {
   return (
     <Layout title="CrimeLens — Crime Map" userEmail={userEmail}>
       {/* Filter bar */}
@@ -175,6 +181,15 @@ export function MapPage({ userEmail }: { userEmail?: string | undefined }): stri
         <div id="map" />
         <div id="map-error" hx-swap-oob="true" />
 
+        {/* Report button — only shown to authenticated users */}
+        {isAuthenticated ? (
+          <button id="report-btn" type="button" class="report-btn">
+            📍 Report incident
+          </button>
+        ) : (
+          ''
+        )}
+
         {/* Detail panel — inside map-container so position:absolute top:0 is relative to the map, not the viewport */}
         <aside id="detail-panel" class="detail-panel detail-panel--closed" aria-hidden="true">
           <button
@@ -190,7 +205,7 @@ export function MapPage({ userEmail }: { userEmail?: string | undefined }): stri
       </div>
 
       {/* Map JS island — loaded last so Leaflet is available */}
-      <script src="/js/map.js?v=2" defer />
+      <script src="/js/map.js?v=3" defer />
     </Layout>
   );
 }

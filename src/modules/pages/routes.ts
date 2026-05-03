@@ -10,7 +10,7 @@ function cookieVal(cookie: Record<string, { value: unknown } | undefined>, name:
 export const pagesRoutes = new Elysia().get('/', async ({ cookie }) => {
   const user = await loadUser(cookieVal(cookie, SESSION_COOKIE));
   if (user) {
-    return MapPage({ userEmail: user.displayName });
+    return MapPage({ userEmail: user.displayName, isAuthenticated: true });
   }
   return MapPage({});
 });
