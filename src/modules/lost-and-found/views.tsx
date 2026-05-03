@@ -167,15 +167,7 @@ export function LostFoundNewPage({
         {/* City */}
         <label>
           City
-          <select name="city" required>
-            <option value="Amsterdam">Amsterdam</option>
-            <option value="Barcelona">Barcelona</option>
-            <option value="Paris">Paris</option>
-            <option value="Prague" selected>
-              Prague
-            </option>
-            <option value="Rome">Rome</option>
-          </select>
+          <input type="text" name="city" required placeholder="e.g. Prague" maxlength="100" />
         </label>
 
         {/* Date */}

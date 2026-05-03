@@ -27,7 +27,6 @@
     other: '#9ca3af',
   };
 
-  const CITIES = ['Amsterdam', 'Barcelona', 'Paris', 'Prague', 'Rome'];
 
   // ── Map init ──────────────────────────────────────────────────────────────
 
@@ -264,12 +263,28 @@
     }
   }
 
+  /**
+   * Reverse-geocode lat/lng via Nominatim.
+   * Returns the best available place name (city > town > village > county).
+   * Resolves to null on network error or unexpected response shape.
+   */
+  async function reverseGeocode(lat, lng) {
+    try {
+      const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&zoom=10&addressdetails=1`;
+      const res = await fetch(url, {
+        headers: { 'Accept-Language': 'en', 'User-Agent': 'CrimeLens/1.0' },
+      });
+      if (!res.ok) return null;
+      const data = await res.json();
+      const a = data.address ?? {};
+      return a.city ?? a.town ?? a.village ?? a.county ?? a.state ?? null;
+    } catch {
+      return null;
+    }
+  }
+
   function showReportForm(lat, lng) {
     if (!panel || !panelContent) return;
-
-    const cityOptions = CITIES.map(
-      (c) => `<option value="${c}">${c}</option>`
-    ).join('');
 
     // Default date = today in local time (YYYY-MM-DD)
     const today = new Date();
@@ -277,10 +292,14 @@
 
     panelContent.innerHTML = `
       <h4 style="margin:0 0 0.75rem;font-size:0.95rem">Report an incident</h4>
-      <p style="font-size:0.75rem;color:#6b7280;margin:0 0 0.75rem">
+      <p style="font-size:0.75rem;color:#6b7280;margin:0 0 0.5rem">
         📍 ${lat.toFixed(5)}, ${lng.toFixed(5)}
       </p>
+      <p id="report-city-display" style="font-size:0.8rem;color:#374151;margin:0 0 0.75rem">
+        Detecting location…
+      </p>
       <form class="report-form" id="report-incident-form">
+        <input type="hidden" name="city" id="report-city-value" value="" />
         <label>
           Crime type
           <select name="crimeType" required>
@@ -288,12 +307,6 @@
             <option value="bag_snatching">Bag snatching</option>
             <option value="theft_from_vehicle">Vehicle theft</option>
             <option value="other">Other</option>
-          </select>
-        </label>
-        <label>
-          City
-          <select name="city" required>
-            ${cityOptions}
           </select>
         </label>
         <label>
@@ -311,6 +324,20 @@
         <div id="report-form-error" class="report-form__error" style="display:none"></div>
       </form>
     `;
+
+    // Kick off reverse geocode — update display + hidden field when it resolves
+    reverseGeocode(lat, lng).then((city) => {
+      const cityDisplay = document.getElementById('report-city-display');
+      const cityInput = document.getElementById('report-city-value');
+      if (!cityDisplay || !cityInput) return;
+      if (city) {
+        cityDisplay.textContent = `📍 ${city}`;
+        cityInput.value = city;
+      } else {
+        cityDisplay.textContent = '📍 Location unknown';
+        cityInput.value = 'Unknown';
+      }
+    });
 
     document.getElementById('report-cancel-btn')?.addEventListener('click', () => {
       cancelReportMode();
@@ -331,7 +358,7 @@
         lat,
         lng,
         crimeType: form.crimeType.value,
-        city: form.city.value,
+        city: form.city.value || 'Unknown',
         occurredAt: form.occurredAt.value,
         description: form.description.value,
       };
@@ -355,12 +382,11 @@
           return;
         }
 
-        // Success — exit report mode, reload markers, open the new pin's detail
+        // Success — exit report mode, reload markers, show confirmation
         cancelReportMode();
         await loadIncidents();
         closeDetailPanel();
 
-        // Brief success notice
         if (panelContent && panel) {
           panelContent.innerHTML = `
             <p style="color:#166534;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:0.375rem;padding:0.6rem 0.75rem;font-size:0.875rem;margin:0">

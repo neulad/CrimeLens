@@ -205,7 +205,7 @@ export function MapPage({
       </div>
 
       {/* Map JS island — loaded last so Leaflet is available */}
-      <script src="/js/map.js?v=3" defer />
+      <script src="/js/map.js?v=4" defer />
     </Layout>
   );
 }
