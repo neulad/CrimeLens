@@ -20,3 +20,4 @@ Thumbs.db
 
 # Bun lock — keep bun.lockb in git for reproducible installs
 # (do NOT add bun.lockb here)
+.gstack/

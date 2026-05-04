@@ -6,11 +6,11 @@ import Html from '@kitajs/html';
 // ---------------------------------------------------------------------------
 
 interface LayoutProps {
-  title?: string;
+  title?: string | undefined;
   /** Current user email, if authenticated */
-  userEmail?: string;
+  userEmail?: string | undefined;
   /** Extra <head> content (e.g. page-specific styles) */
-  head?: Html.Children;
+  head?: Html.Children | undefined;
   children: Html.Children;
 }
 
@@ -20,7 +20,7 @@ interface LayoutProps {
 
 export function Layout({ title = 'CrimeLens', userEmail, head, children }: LayoutProps): string {
   return `<!DOCTYPE html>${(
-    <html lang="en">
+    <html lang="en" data-theme="light">
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -52,8 +52,8 @@ export function Layout({ title = 'CrimeLens', userEmail, head, children }: Layou
           integrity="sha384-wgw+aLYNQ7dlhK47ZPK7FRACiq7ROZwgFNg0m04avm4CaXS+Z9Y7nMu8yNjBKYC+"
           crossorigin="anonymous"
         />
-        {/* App overrides */}
-        <link rel="stylesheet" href="/css/app.css" />
+        {/* App overrides — ?v= suffix busts the 24 h static-file cache */}
+        <link rel="stylesheet" href="/css/app.css?v=11" />
         <link rel="icon" type="image/svg+xml" href="/img/favicon.svg" />
 
         {head}
@@ -88,7 +88,7 @@ export function Layout({ title = 'CrimeLens', userEmail, head, children }: Layou
 // Nav
 // ---------------------------------------------------------------------------
 
-function Nav({ userEmail }: { userEmail?: string }): string {
+function Nav({ userEmail }: { userEmail?: string | undefined }): string {
   return (
     <nav class="container-fluid">
       <ul>
@@ -104,11 +104,10 @@ function Nav({ userEmail }: { userEmail?: string }): string {
         </li>
         {userEmail ? (
           <li>
-            <form action="/auth/logout" method="post" style="display:inline">
+            <form action="/auth/logout" method="post" class="nav-logout-form">
               <span class="nav-user" safe>
                 {userEmail}
               </span>
-              &nbsp;
               <button type="submit" class="outline secondary nav-logout">
                 Sign out
               </button>
@@ -130,7 +129,13 @@ function Nav({ userEmail }: { userEmail?: string }): string {
 // Map page
 // ---------------------------------------------------------------------------
 
-export function MapPage({ userEmail }: { userEmail?: string }): string {
+export function MapPage({
+  userEmail,
+  isAuthenticated,
+}: {
+  userEmail?: string | undefined;
+  isAuthenticated?: boolean | undefined;
+}): string {
   return (
     <Layout title="CrimeLens — Crime Map" userEmail={userEmail}>
       {/* Filter bar */}
@@ -175,23 +180,32 @@ export function MapPage({ userEmail }: { userEmail?: string }): string {
         </div>
         <div id="map" />
         <div id="map-error" hx-swap-oob="true" />
+
+        {/* Report button — only shown to authenticated users */}
+        {isAuthenticated ? (
+          <button id="report-btn" type="button" class="report-btn">
+            📍 Report incident
+          </button>
+        ) : (
+          ''
+        )}
+
+        {/* Detail panel — inside map-container so position:absolute top:0 is relative to the map, not the viewport */}
+        <aside id="detail-panel" class="detail-panel detail-panel--closed" aria-hidden="true">
+          <button
+            type="button"
+            id="detail-close"
+            class="detail-close"
+            aria-label="Close detail panel"
+          >
+            ✕
+          </button>
+          <div id="detail-content" />
+        </aside>
       </div>
 
-      {/* Detail panel — hidden until a marker is clicked */}
-      <aside id="detail-panel" class="detail-panel detail-panel--closed" aria-hidden="true">
-        <button
-          type="button"
-          id="detail-close"
-          class="detail-close"
-          aria-label="Close detail panel"
-        >
-          ✕
-        </button>
-        <div id="detail-content" />
-      </aside>
-
       {/* Map JS island — loaded last so Leaflet is available */}
-      <script src="/js/map.js" defer />
+      <script src="/js/map.js?v=4" defer />
     </Layout>
   );
 }
@@ -206,7 +220,7 @@ export function InnerPage({
   children,
 }: {
   title: string;
-  userEmail?: string;
+  userEmail?: string | undefined;
   children: Html.Children;
 }): string {
   return (

@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'bun:test';
+import { describe, expect, it } from 'bun:test';
 
 // Auth integration tests — implemented in Week 10.
 // Tests: requestLink creates a magic_link row, consumeLink sets consumed_at,

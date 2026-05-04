@@ -1,5 +1,5 @@
-import { check, customType, index, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
+import { check, customType, index, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
 // PostGIS geometry(Point, 4326) — Drizzle doesn't ship this natively.
 // The migration hands the actual SQL; here we only need the TS type wrapper.
@@ -14,22 +14,9 @@ export const users = pgTable('users', {
   id: uuid('id').primaryKey(),
   // citext is applied in the migration via ALTER TABLE … TYPE citext
   email: text('email').notNull().unique(),
-  displayName: text('display_name'),
-  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
-});
-
-// ---------------------------------------------------------------------------
-// magic_links
-// ---------------------------------------------------------------------------
-export const magicLinks = pgTable('magic_links', {
-  id: uuid('id').primaryKey(),
-  userId: uuid('user_id')
-    .notNull()
-    .references(() => users.id, { onDelete: 'cascade' }),
-  // SHA-256 of the raw token — we never store the raw token
-  tokenHash: text('token_hash').notNull().unique(),
-  expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
-  consumedAt: timestamp('consumed_at', { withTimezone: true }),
+  firstName: text('first_name').notNull(),
+  lastName: text('last_name').notNull(),
+  passwordHash: text('password_hash').notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
 });
 
