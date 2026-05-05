@@ -346,6 +346,10 @@
     const today = new Date();
     const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 
+    panel.classList.remove('detail-panel--closed');
+    panel.classList.add('detail-panel--open');
+    panel.removeAttribute('aria-hidden');
+
     panelContent.innerHTML = `
       <h4 style="margin:0 0 0.75rem;font-size:0.95rem">Report an incident</h4>
       <p style="font-size:0.75rem;color:#6b7280;margin:0 0 0.5rem">
