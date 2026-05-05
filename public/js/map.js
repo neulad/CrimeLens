@@ -244,7 +244,7 @@
       L.marker([lat, lng], {
         icon: L.divIcon({
           html: '<div class="user-location-dot"></div>',
-          className: '',
+          className: 'user-location-marker',
           iconSize: [16, 16],
           iconAnchor: [8, 8],
         }),
