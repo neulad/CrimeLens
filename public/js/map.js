@@ -222,6 +222,50 @@
     closeDetailPanel();
   });
 
+  // ── User location ─────────────────────────────────────────────────────────
+
+  let userLat = null;
+  let userLng = null;
+  let userLocationLayer = null;
+
+  function showUserLocation(lat, lng, accuracy) {
+    if (userLocationLayer) map.removeLayer(userLocationLayer);
+    userLocationLayer = L.layerGroup([
+      // Accuracy circle
+      L.circle([lat, lng], {
+        radius: Math.min(accuracy, 500),
+        color: '#2563eb',
+        fillColor: '#2563eb',
+        fillOpacity: 0.08,
+        weight: 1,
+        interactive: false,
+      }),
+      // Pulsing dot
+      L.marker([lat, lng], {
+        icon: L.divIcon({
+          html: '<div class="user-location-dot"></div>',
+          className: '',
+          iconSize: [16, 16],
+          iconAnchor: [8, 8],
+        }),
+        zIndexOffset: 600,
+        interactive: false,
+      }),
+    ]).addTo(map);
+  }
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        userLat = pos.coords.latitude;
+        userLng = pos.coords.longitude;
+        showUserLocation(userLat, userLng, pos.coords.accuracy);
+      },
+      null,
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 },
+    );
+  }
+
   // ── Report incident mode ──────────────────────────────────────────────────
 
   const reportBtn = document.getElementById('report-btn');
@@ -235,17 +279,29 @@
       reportBtn.textContent = '✕ Cancel';
       reportBtn.classList.add('report-btn--active');
     }
-    if (mapContainer) mapContainer.classList.add('report-placing');
-    // Show instruction in panel
-    if (panel && panelContent) {
-      panelContent.innerHTML = `
-        <p style="font-size:0.85rem;color:#374151;margin-top:0.5rem">
-          <strong>Click anywhere on the map</strong> to drop a pin for the incident location.
-        </p>
-      `;
-      panel.classList.remove('detail-panel--closed');
-      panel.classList.add('detail-panel--open');
-      panel.removeAttribute('aria-hidden');
+
+    // If we know the user's location, drop the pin there immediately
+    if (userLat !== null && userLng !== null) {
+      if (mapContainer) mapContainer.classList.remove('report-placing');
+      if (tempMarker) map.removeLayer(tempMarker);
+      tempMarker = L.marker([userLat, userLng], { icon: tempPinIcon(), zIndexOffset: 1000 }).addTo(map);
+      showReportForm(userLat, userLng);
+    } else {
+      // No location — ask the user to click
+      if (mapContainer) mapContainer.classList.add('report-placing');
+      if (panel && panelContent) {
+        panelContent.innerHTML = `
+          <p style="font-size:0.85rem;color:#374151;margin-top:0.5rem">
+            <strong>Click anywhere on the map</strong> to drop a pin for the incident location.
+          </p>
+          <p style="font-size:0.75rem;color:#9ca3af;margin-top:0.25rem">
+            (Allow location access for automatic placement.)
+          </p>
+        `;
+        panel.classList.remove('detail-panel--closed');
+        panel.classList.add('detail-panel--open');
+        panel.removeAttribute('aria-hidden');
+      }
     }
   }
 
