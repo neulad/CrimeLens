@@ -73,10 +73,33 @@ export async function createIncident(params: CreateIncidentParams): Promise<stri
 
 export async function getBboxIncidents(params: BboxParams): Promise<IncidentRow[]> {
   const { west, south, east, north, types, since, limit } = params;
-  // Inject the type filter as a SQL fragment so we never pass a NULL array
-  // parameter — porsager can't infer the type of a bare NULL for text[].
-  const typeFilter =
-    types && types.length > 0 ? sql`AND crime_type = ANY(${sql.array(types)})` : sql``;
+  const sinceIso = since.toISOString();
+
+  // Two distinct queries — porsager's `sql.array()` doesn't survive being
+  // embedded in a nested `sql\`\`` fragment (it serialises as CSV string),
+  // so we keep the array binding at the top level of one query.
+  if (types && types.length > 0) {
+    return sql<IncidentRow[]>`
+      SELECT
+        id,
+        crime_type   AS "crimeType",
+        occurred_at  AS "occurredAt",
+        city,
+        description,
+        source,
+        ST_Y(location) AS lat,
+        ST_X(location) AS lng
+      FROM incidents
+      WHERE ST_Intersects(
+          location,
+          ST_MakeEnvelope(${west}, ${south}, ${east}, ${north}, 4326)
+        )
+        AND crime_type IN ${sql(types)}
+        AND occurred_at >= ${sinceIso}::timestamptz
+      ORDER BY occurred_at DESC
+      LIMIT ${limit}
+    `;
+  }
 
   return sql<IncidentRow[]>`
     SELECT
@@ -93,8 +116,7 @@ export async function getBboxIncidents(params: BboxParams): Promise<IncidentRow[
         location,
         ST_MakeEnvelope(${west}, ${south}, ${east}, ${north}, 4326)
       )
-      ${typeFilter}
-      AND occurred_at >= ${since.toISOString()}::timestamptz
+      AND occurred_at >= ${sinceIso}::timestamptz
     ORDER BY occurred_at DESC
     LIMIT ${limit}
   `;

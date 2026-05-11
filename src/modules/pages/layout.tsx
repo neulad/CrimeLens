@@ -11,6 +11,8 @@ interface LayoutProps {
   userEmail?: string | undefined;
   /** Extra <head> content (e.g. page-specific styles) */
   head?: Html.Children | undefined;
+  /** Optional filter controls rendered in the centre of the nav */
+  navFilters?: Html.Children | undefined;
   children: Html.Children;
 }
 
@@ -18,7 +20,7 @@ interface LayoutProps {
 // Root layout
 // ---------------------------------------------------------------------------
 
-export function Layout({ title = 'CrimeLens', userEmail, head, children }: LayoutProps): string {
+export function Layout({ title = 'CrimeLens', userEmail, head, navFilters, children }: LayoutProps): string {
   return `<!DOCTYPE html>${(
     <html lang="en" data-theme="light">
       <head>
@@ -53,13 +55,13 @@ export function Layout({ title = 'CrimeLens', userEmail, head, children }: Layou
           crossorigin="anonymous"
         />
         {/* App overrides — ?v= suffix busts the 24 h static-file cache */}
-        <link rel="stylesheet" href="/css/app.css?v=13" />
+        <link rel="stylesheet" href="/css/app.css?v=30" />
         <link rel="icon" type="image/svg+xml" href="/img/favicon.svg" />
 
         {head}
       </head>
       <body>
-        <Nav userEmail={userEmail} />
+        <Nav userEmail={userEmail} navFilters={navFilters} />
         {children}
 
         {/* HTMX */}
@@ -88,39 +90,54 @@ export function Layout({ title = 'CrimeLens', userEmail, head, children }: Layou
 // Nav
 // ---------------------------------------------------------------------------
 
-function Nav({ userEmail }: { userEmail?: string | undefined }): string {
+/** "uladzimir.k@example.com" → "Uladzimir" (first name only) */
+function displayName(email: string): string {
+  const local = (email.split('@')[0] ?? email).trim();
+  // Split on any separator: space, dot, underscore, dash, plus
+  const firstToken = local.split(/[\s._\-+]+/).filter(Boolean)[0] ?? local;
+  return firstToken.charAt(0).toUpperCase() + firstToken.slice(1).toLowerCase();
+}
+
+function Nav({
+  userEmail,
+  navFilters,
+}: {
+  userEmail?: string | undefined;
+  navFilters?: Html.Children | undefined;
+}): string {
   return (
-    <nav class="container-fluid">
-      <ul>
-        <li>
-          <a href="/" class="wordmark">
-            CrimeLens
-          </a>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          <a href="/lost-and-found">Lost &amp; Found</a>
-        </li>
+    <nav class="app-nav">
+      {/* Brand */}
+      <div class="nav-brand">
+        <a href="/" class="wordmark">
+          <img src="/img/logo.svg" alt="" class="wordmark-logo" />
+          <span>CrimeLens</span>
+        </a>
+      </div>
+
+      {/* Centre slot — filters on map page, empty otherwise */}
+      <div class="nav-filters">{navFilters ?? ''}</div>
+
+      {/* Actions */}
+      <div class="nav-actions">
+        <a href="/lost-and-found" class="nav-btn nav-btn--ghost">
+          Lost &amp; Found
+        </a>
         {userEmail ? (
-          <li>
-            <form action="/auth/logout" method="post" class="nav-logout-form">
-              <span class="nav-user" safe>
-                {userEmail}
-              </span>
-              <button type="submit" class="outline secondary nav-logout">
-                Sign out
-              </button>
-            </form>
-          </li>
+          <form action="/auth/logout" method="post" class="nav-logout-form">
+            <span class="nav-user-chip">
+              {displayName(userEmail)}
+            </span>
+            <button type="submit" class="nav-btn nav-btn--ghost">
+              Sign out
+            </button>
+          </form>
         ) : (
-          <li>
-            <a href="/auth" class="outline">
-              Sign in
-            </a>
-          </li>
+          <a href="/auth" class="nav-btn nav-btn--primary">
+            Sign in
+          </a>
         )}
-      </ul>
+      </div>
     </nav>
   );
 }
@@ -136,43 +153,42 @@ export function MapPage({
   userEmail?: string | undefined;
   isAuthenticated?: boolean | undefined;
 }): string {
+  const filters = (
+    <form class="nav-filter-form" id="filter-form">
+      <span class="filter-label">Show:</span>
+
+      <label class="pill pill-pickpocketing">
+        <input type="checkbox" name="types" value="pickpocketing" checked />
+        <span>Pickpocketing</span>
+      </label>
+      <label class="pill pill-bag">
+        <input type="checkbox" name="types" value="bag_snatching" checked />
+        <span>Bag snatching</span>
+      </label>
+      <label class="pill pill-vehicle">
+        <input type="checkbox" name="types" value="theft_from_vehicle" checked />
+        <span>Vehicle theft</span>
+      </label>
+      <label class="pill pill-other">
+        <input type="checkbox" name="types" value="other" checked />
+        <span>Other</span>
+      </label>
+
+      <div class="filter-divider" />
+
+      <select name="since" id="since-select">
+        <option value="all" selected>
+          All time
+        </option>
+        <option value="1y">Last year</option>
+        <option value="90d">Last 90 days</option>
+        <option value="30d">Last 30 days</option>
+      </select>
+    </form>
+  );
+
   return (
-    <Layout title="CrimeLens — Crime Map" userEmail={userEmail}>
-      {/* Filter bar */}
-      <div id="filter-bar" class="filter-bar">
-        <form class="filter-form container-fluid">
-          <span class="filter-label">Show:</span>
-
-          <label class="pill pill-pickpocketing">
-            <input type="checkbox" name="types" value="pickpocketing" checked />
-            <span>Pickpocketing</span>
-          </label>
-          <label class="pill pill-bag">
-            <input type="checkbox" name="types" value="bag_snatching" checked />
-            <span>Bag snatching</span>
-          </label>
-          <label class="pill pill-vehicle">
-            <input type="checkbox" name="types" value="theft_from_vehicle" checked />
-            <span>Vehicle theft</span>
-          </label>
-          <label class="pill pill-other">
-            <input type="checkbox" name="types" value="other" checked />
-            <span>Other</span>
-          </label>
-
-          <div class="filter-divider" />
-
-          <select name="since" id="since-select">
-            <option value="all" selected>
-              All time
-            </option>
-            <option value="1y">Last year</option>
-            <option value="90d">Last 90 days</option>
-            <option value="30d">Last 30 days</option>
-          </select>
-        </form>
-      </div>
-
+    <Layout title="CrimeLens — Crime Map" userEmail={userEmail} navFilters={filters}>
       {/* Map container */}
       <div id="map-container">
         <div id="map-loading" class="map-loading" aria-hidden="true">
@@ -190,7 +206,7 @@ export function MapPage({
           ''
         )}
 
-        {/* Detail panel — inside map-container so position:absolute top:0 is relative to the map, not the viewport */}
+        {/* Detail panel */}
         <aside id="detail-panel" class="detail-panel detail-panel--closed" aria-hidden="true">
           <button
             type="button"
@@ -205,7 +221,7 @@ export function MapPage({
       </div>
 
       {/* Map JS island — loaded last so Leaflet is available */}
-      <script src="/js/map.js?v=7" defer />
+      <script src="/js/map.js?v=8" defer />
     </Layout>
   );
 }

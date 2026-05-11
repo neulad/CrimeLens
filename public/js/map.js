@@ -83,7 +83,7 @@
   let fetchController = null;
 
   function getFilterParams() {
-    const form = document.querySelector('.filter-form');
+    const form = document.querySelector('#filter-form');
     if (!form) return new URLSearchParams();
 
     const checked = [...form.querySelectorAll('input[type=checkbox]:checked')].map(
@@ -504,7 +504,7 @@
 
   // ── Filter bar wiring ─────────────────────────────────────────────────────
 
-  const filterForm = document.querySelector('.filter-form');
+  const filterForm = document.querySelector('#filter-form');
   if (filterForm) {
     filterForm.addEventListener('change', () => {
       loadIncidents();
