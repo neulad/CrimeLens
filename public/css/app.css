@@ -916,11 +916,8 @@ button.nav-btn {
   color: #fff;
   line-height: 30px;
 }
-.marker-cluster-small        { background: rgba(45,  63,  107, 0.25); }
 .marker-cluster-small  div   { background: #2d3f6b; }
-.marker-cluster-medium       { background: rgba(180, 83,  9,   0.25); }
 .marker-cluster-medium div   { background: #b45309; }
-.marker-cluster-large        { background: rgba(185, 28,  28,  0.25); }
 .marker-cluster-large  div   { background: #b91c1c; }
 
 /* ── User location pulse ──────────────────────────────────────────────────── */
