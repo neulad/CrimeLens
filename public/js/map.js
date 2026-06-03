@@ -67,7 +67,7 @@
   function tempPinIcon() {
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 24" width="18" height="24">
       <path d="M9 0C4.03 0 0 4.03 0 9c0 6.75 9 15 9 15s9-8.25 9-15C18 4.03 13.97 0 9 0z"
-            fill="#dc2626" stroke="#fff" stroke-width="1.5" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.35))"/>
+            fill="#dc2626" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.35))"/>
       <circle cx="9" cy="9" r="4" fill="rgba(255,255,255,0.7)"/>
     </svg>`;
     return L.divIcon({
