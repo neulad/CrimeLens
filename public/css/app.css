@@ -211,25 +211,33 @@ button.nav-btn--primary:hover {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.2rem 0.65rem;
+  /* padding accounts for the 2px border so total height never shifts */
+  padding: calc(0.2rem - 2px) calc(0.65rem - 2px);
   border-radius: 999px;
   font-size: 0.8rem;
+  font-weight: 600; /* always bold — prevents width jump on toggle */
   cursor: pointer;
   user-select: none;
-  border: 1.5px solid transparent;
+  /* border always present; only color changes — no layout recalculation */
+  border: 2px solid transparent;
+  transition: background 0.12s, border-color 0.12s, opacity 0.12s;
 }
 .pill input[type="checkbox"] {
   display: none;
 }
-.pill input:checked ~ span {
-  font-weight: 600;
+
+/* Unselected: muted / faded on dark nav */
+.pill:not(:has(input:checked)) {
+  opacity: 0.4;
 }
 
+/* Selected: vivid, full opacity, solid coloured border */
 .pill-pickpocketing {
   background: var(--badge-pickpocketing-bg);
   color: var(--badge-pickpocketing-fg);
 }
 .pill-pickpocketing:has(input:checked) {
+  opacity: 1;
   border-color: #d97706;
 }
 .pill-bag {
@@ -237,6 +245,7 @@ button.nav-btn--primary:hover {
   color: var(--badge-bag-fg);
 }
 .pill-bag:has(input:checked) {
+  opacity: 1;
   border-color: #dc2626;
 }
 .pill-vehicle {
@@ -244,6 +253,7 @@ button.nav-btn--primary:hover {
   color: var(--badge-vehicle-fg);
 }
 .pill-vehicle:has(input:checked) {
+  opacity: 1;
   border-color: #2563eb;
 }
 .pill-other {
@@ -251,7 +261,8 @@ button.nav-btn--primary:hover {
   color: var(--badge-other-fg);
 }
 .pill-other:has(input:checked) {
-  border-color: #9ca3af;
+  opacity: 1;
+  border-color: #6b7280;
 }
 
 .nav-filter-form select {
