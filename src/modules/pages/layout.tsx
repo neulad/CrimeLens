@@ -30,7 +30,7 @@ export function Layout({ title = 'CrimeLens', head, children }: LayoutProps): st
           integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H"
           crossorigin="anonymous"
         />
-        <link rel="stylesheet" href="/css/app.css?v=46" />
+        <link rel="stylesheet" href="/css/app.css?v=48" />
         <link rel="icon" type="image/svg+xml" href="/img/logo.svg" />
 
         {head}
@@ -211,7 +211,7 @@ export function MapPage({
         </aside>
       </div>
 
-      <script src="/js/map.js?v=39" defer />
+      <script src="/js/map.js?v=40" defer />
     </Layout>
   );
 }
