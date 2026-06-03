@@ -9,6 +9,7 @@
     "db:down": "docker compose down",
     "db:migrate": "drizzle-kit migrate",
     "db:generate": "drizzle-kit generate",
+    "db:seed": "bun run seed/run.ts",
     "seed": "bun run seed/run.ts",
     "check": "biome check .",
     "format": "biome format --write .",

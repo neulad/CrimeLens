@@ -16,5 +16,29 @@ services:
       timeout: 5s
       retries: 5
 
+  app:
+    build: .
+    container_name: crimelens_app
+    ports:
+      - '3000:3000'
+    environment:
+      DATABASE_URL: postgres://crimelens:crimelens@db:5432/crimelens
+      SESSION_SECRET: crimelens-dev-secret-change-in-production-32chars
+      PORT: 3000
+      MAIL_MODE: console
+    depends_on:
+      db:
+        condition: service_healthy
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
+        - action: sync
+          path: ./public
+          target: /app/public
+        - action: rebuild
+          path: package.json
+
 volumes:
   pg_data:
