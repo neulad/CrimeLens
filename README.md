@@ -77,7 +77,6 @@ bun run dev                   # hot-reload dev server
 | Runtime | Bun 1.x |
 | Web framework | Elysia 1.x |
 | Templating | @kitajs/html (server-side JSX) |
-| Client interactivity | HTMX 2.x |
 | Maps | Leaflet 1.9 + leaflet.markercluster |
 | Geocoding | Nominatim (OpenStreetMap) — reverse geocode for report pins |
 | CSS | Pico.css v2 + custom app.css |
