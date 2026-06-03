@@ -901,7 +901,27 @@ button.nav-btn {
   transition: transform 0.3s ease-out, opacity 0.3s ease-in;
 }
 
-/* Clusters and pins use inline SVG — no CSS class needed */
+/* Cluster bubbles — standard divIcon approach, custom colours */
+.marker-cluster {
+  background-clip: padding-box;
+  border-radius: 50%;
+}
+.marker-cluster div {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  border-radius: 50%;
+  text-align: center;
+  font: 700 12px system-ui, sans-serif;
+  color: #fff;
+  line-height: 30px;
+}
+.marker-cluster-small        { background: rgba(45,  63,  107, 0.25); }
+.marker-cluster-small  div   { background: #2d3f6b; }
+.marker-cluster-medium       { background: rgba(180, 83,  9,   0.25); }
+.marker-cluster-medium div   { background: #b45309; }
+.marker-cluster-large        { background: rgba(185, 28,  28,  0.25); }
+.marker-cluster-large  div   { background: #b91c1c; }
 
 /* ── User location pulse ──────────────────────────────────────────────────── */
 .user-pulse-ring circle {

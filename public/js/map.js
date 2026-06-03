@@ -54,51 +54,10 @@
 
   const CLUSTER_COLOR = { s: '#2d3f6b', m: '#b45309', l: '#b91c1c' };
 
-  // Canvas-based cluster icon — avoids SVG-in-img rendering quirks (squished height)
-  // that affect both L.divIcon (div container) and L.Icon (img src=svg data URL).
-  // Canvas produces a raster PNG with exact pixel dimensions; CSS cannot distort it.
-  const _dpr = window.devicePixelRatio || 1;
-
-  function buildClusterIcon(count) {
-    const size = count < 10 ? 32 : count < 100 ? 38 : 46;
-    const color = count < 10 ? CLUSTER_COLOR.s : count < 100 ? CLUSTER_COLOR.m : CLUSTER_COLOR.l;
-    const r = size / 2;
-    const fs = size < 38 ? 11 : 13;
-
-    const canvas = document.createElement('canvas');
-    canvas.width = Math.round(size * _dpr);
-    canvas.height = Math.round(size * _dpr);
-    const ctx = canvas.getContext('2d');
-    ctx.scale(_dpr, _dpr);
-
-    ctx.beginPath();
-    ctx.arc(r, r, r - 2, 0, Math.PI * 2);
-    ctx.fillStyle = color;
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(255,255,255,0.85)';
-    ctx.lineWidth = 2.5;
-    ctx.stroke();
-
-    ctx.fillStyle = 'white';
-    ctx.font = `700 ${fs}px system-ui, sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(String(count), r, r);
-
-    return new L.Icon({
-      iconUrl: canvas.toDataURL(),
-      iconSize: [size, size],
-      iconAnchor: [r, r],
-    });
-  }
-
   const clusterGroup = L.markerClusterGroup({
     chunkedLoading: true,
     maxClusterRadius: 60,
     disableClusteringAtZoom: 15,
-    iconCreateFunction(cluster) {
-      return buildClusterIcon(cluster.getChildCount());
-    },
   });
   map.addLayer(clusterGroup);
 
