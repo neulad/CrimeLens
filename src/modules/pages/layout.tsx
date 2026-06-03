@@ -56,7 +56,7 @@ export function Layout({ title = 'CrimeLens', userEmail, head, navFilters, child
         />
         {/* App overrides — ?v= suffix busts the 24 h static-file cache */}
         <link rel="stylesheet" href="/css/app.css?v=30" />
-        <link rel="icon" type="image/svg+xml" href="/img/favicon.svg" />
+        <link rel="icon" type="image/svg+xml" href="/img/logo.svg" />
 
         {head}
       </head>
