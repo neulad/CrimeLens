@@ -287,7 +287,7 @@ button.nav-btn--primary:hover {
   pointer-events: none;
   visibility: hidden;
 }
-.map-loading.htmx-request {
+.map-loading.is-loading {
   visibility: visible;
 }
 

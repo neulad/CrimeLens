@@ -55,7 +55,7 @@ export function Layout({ title = 'CrimeLens', userEmail, head, navFilters, child
           crossorigin="anonymous"
         />
         {/* App overrides — ?v= suffix busts the 24 h static-file cache */}
-        <link rel="stylesheet" href="/css/app.css?v=32" />
+        <link rel="stylesheet" href="/css/app.css?v=33" />
         <link rel="icon" type="image/svg+xml" href="/img/logo.svg" />
 
         {head}
@@ -64,12 +64,6 @@ export function Layout({ title = 'CrimeLens', userEmail, head, navFilters, child
         <Nav userEmail={userEmail} navFilters={navFilters} />
         {children}
 
-        {/* HTMX */}
-        <script
-          src="https://unpkg.com/htmx.org@2.0.4/dist/htmx.min.js"
-          integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
-          crossorigin="anonymous"
-        />
         {/* Leaflet + cluster */}
         <script
           src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -195,7 +189,7 @@ export function MapPage({
           <span aria-label="Loading incidents">Loading…</span>
         </div>
         <div id="map" />
-        <div id="map-error" hx-swap-oob="true" />
+        <div id="map-error" />
 
         {/* Report button — only shown to authenticated users */}
         {isAuthenticated ? (

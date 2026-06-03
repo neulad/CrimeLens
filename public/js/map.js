@@ -112,7 +112,7 @@
     fetchController = new AbortController();
 
     const loading = document.getElementById('map-loading');
-    if (loading) loading.classList.add('htmx-request');
+    if (loading) loading.classList.add('is-loading');
 
     try {
       const params = getFilterParams();
@@ -135,7 +135,7 @@
       if (err.name === 'AbortError') return;
       console.error('Failed to load incidents:', err);
     } finally {
-      if (loading) loading.classList.remove('htmx-request');
+      if (loading) loading.classList.remove('is-loading');
     }
   }
 
