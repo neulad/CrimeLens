@@ -1,7 +1,9 @@
 import { Elysia, status, t } from 'elysia';
 import { logger } from '../../lib/logger';
 import { loadUser, SESSION_COOKIE } from '../auth/middleware';
-import { createIncident, getIncidentById } from './queries';
+import { createIncident, getCityIncidents, getIncidentById } from './queries';
+import { broadcastIncident } from './live';
+import { parseSince } from './service';
 import { listByBbox } from './service';
 import { IncidentDetailPage, IncidentNotFoundPage } from './views';
 
@@ -87,6 +89,34 @@ export const incidentsRoutes = new Elysia()
       }),
     },
   )
+  // ── GET /api/incidents/feed — city-filtered sidebar feed ─────────────────
+  .get(
+    '/api/incidents/feed',
+    async ({ query }) => {
+      const city = query.city.trim();
+      if (!city) return { items: [] };
+
+      const VALID_TYPES = new Set(['pickpocketing', 'bag_snatching', 'theft_from_vehicle', 'other']);
+      const types = query.types
+        ? query.types.split(',').filter((t) => VALID_TYPES.has(t))
+        : undefined;
+
+      try {
+        const items = await getCityIncidents(city, types?.length ? types : undefined, parseSince(query.since), 50);
+        return { items };
+      } catch (err) {
+        logger.error(err, 'Failed to query city feed');
+        return status(500, { message: 'Internal server error' });
+      }
+    },
+    {
+      query: t.Object({
+        city: t.String(),
+        types: t.Optional(t.String()),
+        since: t.Optional(t.String()),
+      }),
+    },
+  )
   // ── POST /api/incidents — create user-reported incident ───────────────────
   .post(
     '/api/incidents',
@@ -107,6 +137,18 @@ export const incidentsRoutes = new Elysia()
         const id = await createIncident({
           lat, lng, crimeType, city, occurredAt, description, userId: user.userId,
         });
+
+        broadcastIncident({
+          id,
+          crimeType,
+          city,
+          occurredAt,
+          description,
+          lat,
+          lng,
+          source: 'USER_REPORTED',
+        });
+
         return { id };
       } catch (err) {
         logger.error(err, 'Failed to create incident');

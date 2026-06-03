@@ -1,5 +1,6 @@
-import { Elysia, redirect, t } from 'elysia';
+import { Elysia, redirect, status, t } from 'elysia';
 import { env } from '../../env';
+import { queryClient as sql } from '../../db/client';
 import { unsignSession } from '../../lib/crypto';
 import { logger } from '../../lib/logger';
 import { loadUser, SESSION_COOKIE } from './middleware';
@@ -150,4 +151,19 @@ export const authRoutes = new Elysia()
       cookie[SESSION_COOKIE]!.remove();
     }
     return redirect('/');
-  });
+  })
+
+  // ── GET /api/avatar/:userId ───────────────────────────────────────────────
+  .get('/api/avatar/:userId', async ({ params }) => {
+    const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    if (!UUID_RE.test(params.userId)) return status(404, 'Not found');
+
+    const [row] = await sql<{ avatarSvg: string }[]>`
+      SELECT avatar_svg AS "avatarSvg" FROM users WHERE id = ${params.userId}::uuid LIMIT 1
+    `;
+    if (!row?.avatarSvg) return status(404, 'Not found');
+
+    return new Response(row.avatarSvg, {
+      headers: { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'public, max-age=31536000' },
+    });
+  }, { params: t.Object({ userId: t.String() }) });

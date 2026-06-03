@@ -7,34 +7,22 @@ import Html from '@kitajs/html';
 
 interface LayoutProps {
   title?: string | undefined;
-  /** Current user email, if authenticated */
-  userEmail?: string | undefined;
-  /** Extra <head> content (e.g. page-specific styles) */
   head?: Html.Children | undefined;
-  /** Optional filter controls rendered in the centre of the nav */
-  navFilters?: Html.Children | undefined;
   children: Html.Children;
 }
 
 // ---------------------------------------------------------------------------
-// Root layout
+// Root layout (bare shell — no nav)
 // ---------------------------------------------------------------------------
 
-export function Layout({ title = 'CrimeLens', userEmail, head, navFilters, children }: LayoutProps): string {
+export function Layout({ title = 'CrimeLens', head, children }: LayoutProps): string {
   return `<!DOCTYPE html>${(
-    <html lang="en" data-theme="light">
+    <html lang="en">
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title safe>{title}</title>
 
-        {/* Pico.css — classless base */}
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
-          integrity="sha384-L1dWfspMTHU/ApYnFiMz2QID/PlP1xCW9visvBdbEkOLkSSWsP6ZJWhPw6apiXxU"
-          crossorigin="anonymous"
-        />
         {/* Leaflet */}
         <link
           rel="stylesheet"
@@ -42,26 +30,12 @@ export function Layout({ title = 'CrimeLens', userEmail, head, navFilters, child
           integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H"
           crossorigin="anonymous"
         />
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
-          integrity="sha384-pmjIAcz2bAn0xukfxADbZIb3t8oRT9Sv0rvO+BR5Csr6Dhqq+nZs59P0pPKQJkEV"
-          crossorigin="anonymous"
-        />
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"
-          integrity="sha384-wgw+aLYNQ7dlhK47ZPK7FRACiq7ROZwgFNg0m04avm4CaXS+Z9Y7nMu8yNjBKYC+"
-          crossorigin="anonymous"
-        />
-        {/* App overrides — ?v= suffix busts the 24 h static-file cache */}
-        <link rel="stylesheet" href="/css/app.css?v=33" />
+        <link rel="stylesheet" href="/css/app.css?v=46" />
         <link rel="icon" type="image/svg+xml" href="/img/logo.svg" />
 
         {head}
       </head>
       <body>
-        <Nav userEmail={userEmail} navFilters={navFilters} />
         {children}
 
         {/* Leaflet + cluster */}
@@ -81,59 +55,14 @@ export function Layout({ title = 'CrimeLens', userEmail, head, navFilters, child
 }
 
 // ---------------------------------------------------------------------------
-// Nav
+// Helpers
 // ---------------------------------------------------------------------------
 
-/** "uladzimir.k@example.com" → "Uladzimir" (first name only) */
+/** "uladzimir.k@example.com" → "Uladzimir" */
 function displayName(email: string): string {
   const local = (email.split('@')[0] ?? email).trim();
-  // Split on any separator: space, dot, underscore, dash, plus
   const firstToken = local.split(/[\s._\-+]+/).filter(Boolean)[0] ?? local;
   return firstToken.charAt(0).toUpperCase() + firstToken.slice(1).toLowerCase();
-}
-
-function Nav({
-  userEmail,
-  navFilters,
-}: {
-  userEmail?: string | undefined;
-  navFilters?: Html.Children | undefined;
-}): string {
-  return (
-    <nav class="app-nav">
-      {/* Brand */}
-      <div class="nav-brand">
-        <a href="/" class="wordmark">
-          <img src="/img/logo.svg" alt="" class="wordmark-logo" />
-          <span>CrimeLens</span>
-        </a>
-      </div>
-
-      {/* Centre slot — filters on map page, empty otherwise */}
-      <div class="nav-filters">{navFilters ?? ''}</div>
-
-      {/* Actions */}
-      <div class="nav-actions">
-        <a href="/lost-and-found" class="nav-btn nav-btn--ghost">
-          Lost &amp; Found
-        </a>
-        {userEmail ? (
-          <form action="/auth/logout" method="post" class="nav-logout-form">
-            <span class="nav-user-chip">
-              {displayName(userEmail)}
-            </span>
-            <button type="submit" class="nav-btn nav-btn--ghost">
-              Sign out
-            </button>
-          </form>
-        ) : (
-          <a href="/auth" class="nav-btn nav-btn--primary">
-            Sign in
-          </a>
-        )}
-      </div>
-    </nav>
-  );
 }
 
 // ---------------------------------------------------------------------------
@@ -143,64 +72,132 @@ function Nav({
 export function MapPage({
   userEmail,
   isAuthenticated,
+  userId,
 }: {
   userEmail?: string | undefined;
   isAuthenticated?: boolean | undefined;
+  userId?: string | undefined;
 }): string {
-  const filters = (
-    <form class="nav-filter-form" id="filter-form">
-      <span class="filter-label">Show:</span>
-
-      <label class="pill pill-pickpocketing">
-        <input type="checkbox" name="types" value="pickpocketing" checked />
-        <span>Pickpocketing</span>
-      </label>
-      <label class="pill pill-bag">
-        <input type="checkbox" name="types" value="bag_snatching" checked />
-        <span>Bag snatching</span>
-      </label>
-      <label class="pill pill-vehicle">
-        <input type="checkbox" name="types" value="theft_from_vehicle" checked />
-        <span>Vehicle theft</span>
-      </label>
-      <label class="pill pill-other">
-        <input type="checkbox" name="types" value="other" checked />
-        <span>Other</span>
-      </label>
-
-      <div class="filter-divider" />
-
-      <select name="since" id="since-select">
-        <option value="all" selected>
-          All time
-        </option>
-        <option value="1y">Last year</option>
-        <option value="90d">Last 90 days</option>
-        <option value="30d">Last 30 days</option>
-      </select>
-    </form>
-  );
-
   return (
-    <Layout title="CrimeLens — Crime Map" userEmail={userEmail} navFilters={filters}>
-      {/* Map container */}
+    <Layout title="CrimeLens — Crime Map">
       <div id="map-container">
-        <div id="map-loading" class="map-loading" aria-hidden="true">
-          <span aria-label="Loading incidents">Loading…</span>
-        </div>
+        {/* Full-screen map */}
         <div id="map" />
+        <div id="map-loading" class="map-loading-corner" aria-hidden="true">Loading…</div>
         <div id="map-error" />
 
-        {/* Report button — only shown to authenticated users */}
-        {isAuthenticated ? (
-          <button id="report-btn" type="button" class="report-btn">
-            📍 Report incident
-          </button>
-        ) : (
-          ''
-        )}
+        {/* ── Filter bar — floating top-left ── */}
+        <div class="filter-bar">
+          <form class="filter-form" id="filter-form">
+            <label class="pill pill-pickpocketing">
+              <input type="checkbox" name="types" value="pickpocketing" checked />
+              <span>Pickpocketing</span>
+            </label>
+            <label class="pill pill-bag">
+              <input type="checkbox" name="types" value="bag_snatching" checked />
+              <span>Bag snatching</span>
+            </label>
+            <label class="pill pill-vehicle">
+              <input type="checkbox" name="types" value="theft_from_vehicle" checked />
+              <span>Vehicle theft</span>
+            </label>
+            <label class="pill pill-other">
+              <input type="checkbox" name="types" value="other" checked />
+              <span>Other</span>
+            </label>
+          </form>
+        </div>
 
-        {/* Detail panel */}
+        {/* ── Right sidebar ── */}
+        <aside class="sidebar" id="sidebar">
+          {/* Brand */}
+          <div class="sidebar-brand">
+            <img src="/img/logo-dark.svg" alt="" class="sidebar-logo" />
+            <span class="sidebar-title">CrimeLens</span>
+          </div>
+
+          {/* City search */}
+          <div class="sidebar-search-wrap">
+            <span class="sidebar-search-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </span>
+            <input
+              type="text"
+              id="city-search"
+              class="sidebar-search"
+              placeholder="Search city…"
+              autocomplete="off"
+            />
+            <div id="city-search-dropdown" class="search-dropdown" />
+          </div>
+
+          {/* Time period */}
+          <div class="sidebar-time">
+            <span class="sidebar-time-label">Time period:</span>
+            <select id="since-select" name="since" class="sidebar-time-select">
+              <option value="all" selected>All time</option>
+              <option value="1y">Last year</option>
+              <option value="90d">Last 90 days</option>
+              <option value="30d">Last 30 days</option>
+            </select>
+          </div>
+
+          <div class="sidebar-divider" />
+
+          {/* Live incident feed */}
+          <div class="incident-feed" id="incident-feed">
+            <div class="incident-feed__empty">Loading recent incidents…</div>
+          </div>
+
+          <div class="sidebar-divider" />
+
+          {/* Actions */}
+          <div class="sidebar-actions">
+            <p class="sidebar-action-hint">Witness a crime?</p>
+            {isAuthenticated ? (
+              <button id="report-btn" type="button" class="sidebar-action-btn sidebar-action-btn--primary">
+                Report Incident
+              </button>
+            ) : (
+              <a href="/auth" class="sidebar-action-btn sidebar-action-btn--primary">
+                Sign in to report
+              </a>
+            )}
+
+            <p class="sidebar-action-hint">Lost something?</p>
+            <a href="/lost-and-found" class="sidebar-action-btn sidebar-action-btn--ghost">
+              Lost &amp; Found
+            </a>
+          </div>
+
+          {/* User section — pinned to bottom */}
+          <div class="sidebar-user">
+            {userEmail ? (
+              <div class="user-row">
+                <img
+                  src={userId ? `/api/avatar/${userId}` : `https://api.dicebear.com/9.x/lorelei/svg?seed=${encodeURIComponent(userEmail)}`}
+                  alt=""
+                  class="user-avatar user-avatar--img"
+                  aria-hidden="true"
+                />
+                <span class="user-name" safe>{userEmail}</span>
+                <form action="/auth/logout" method="post" class="user-logout-form">
+                  <button type="submit" class="user-logout-btn">Sign out</button>
+                </form>
+              </div>
+            ) : (
+              <a href="/auth" class="user-signin-link">
+                <div class="user-avatar user-avatar--guest" aria-hidden="true">?</div>
+                <span>Sign in / Register</span>
+              </a>
+            )}
+          </div>
+        </aside>
+
+        {/* Detail panel (incident click / report form) */}
         <aside id="detail-panel" class="detail-panel detail-panel--closed" aria-hidden="true">
           <button
             type="button"
@@ -214,14 +211,13 @@ export function MapPage({
         </aside>
       </div>
 
-      {/* Map JS island — loaded last so Leaflet is available */}
-      <script src="/js/map.js?v=13" defer />
+      <script src="/js/map.js?v=39" defer />
     </Layout>
   );
 }
 
 // ---------------------------------------------------------------------------
-// Generic inner-page shell (about, incidents/:id, etc.)
+// Generic inner-page shell
 // ---------------------------------------------------------------------------
 
 export function InnerPage({
@@ -234,12 +230,27 @@ export function InnerPage({
   children: Html.Children;
 }): string {
   return (
-    <Layout title={title} userEmail={userEmail}>
+    <Layout title={title}>
+      {/* Minimal top bar for inner pages */}
+      <nav class="inner-nav">
+        <a href="/" class="inner-nav__brand">
+          <img src="/img/logo.svg" alt="" class="inner-nav__logo" />
+          <span>CrimeLens</span>
+        </a>
+        <div class="inner-nav__actions">
+          {userEmail ? (
+            <form action="/auth/logout" method="post" class="nav-logout-form">
+              <span class="nav-user-chip">{displayName(userEmail)}</span>
+              <button type="submit" class="nav-btn nav-btn--ghost">Sign out</button>
+            </form>
+          ) : (
+            <a href="/auth" class="nav-btn nav-btn--primary">Sign in</a>
+          )}
+        </div>
+      </nav>
       <main class="container inner-page">
         <p>
-          <a href="/" class="back-link">
-            ← Back to map
-          </a>
+          <a href="/" class="back-link">← Back to map</a>
         </p>
         {children}
       </main>

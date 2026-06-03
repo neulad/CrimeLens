@@ -19,7 +19,7 @@ const VALID_CRIME_TYPES = new Set([
   'other',
 ]);
 
-function parseSince(since?: string): Date {
+export function parseSince(since?: string): Date {
   if (!since || since === 'all') return new Date(0);
   if (since === '30d') return daysAgo(30);
   if (since === '90d') return daysAgo(90);

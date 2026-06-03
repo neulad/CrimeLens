@@ -1,13 +1,15 @@
 /**
- * map.js — the single JS island for CrimeLens.
+ * map.js v14 — CrimeLens map island.
  *
  * Responsibilities:
- *  1. Initialize a Leaflet map centered on Europe.
+ *  1. Initialise a full-screen Leaflet map.
  *  2. Fetch /api/incidents for the current viewport + filter state.
- *  3. Render clustered markers, open the detail panel on click.
- *  4. Re-fetch when filter bar inputs change.
+ *  3. Render clustered markers; open the detail panel on click.
+ *  4. Re-fetch when filter bar inputs / time-period select change.
  *  5. Sync filter state to the URL (pushState).
- *  6. Report-incident mode: "📍 Report incident" → crosshair → click → form.
+ *  6. Report-incident mode: map click → form in detail panel.
+ *  7. City search: geocode input → pan map, default to user's current city.
+ *  8. WebSocket /ws/incidents: live incident feed in the sidebar.
  */
 
 (() => {
@@ -15,11 +17,10 @@
 
   const EUROPE_CENTER = [48.5, 10.0];
   const EUROPE_ZOOM = 5;
-  const TILE_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}';
-  const TILE_ATTR =
-    'Tiles &copy; <a href="https://www.esri.com/">Esri</a>';
+  const TILE_URL =
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}';
+  const TILE_ATTR = 'Tiles &copy; <a href="https://www.esri.com/">Esri</a>';
 
-  // Crime-type → fill colour (matches CSS badge tokens)
   const TYPE_COLOR = {
     pickpocketing: '#d97706',
     bag_snatching: '#dc2626',
@@ -27,55 +28,99 @@
     other: '#9ca3af',
   };
 
+  const TYPE_LABEL = {
+    pickpocketing: 'Pickpocketing',
+    bag_snatching: 'Bag snatching',
+    theft_from_vehicle: 'Vehicle theft',
+    other: 'Other',
+  };
+
+  const BADGE_CLASS = {
+    pickpocketing: 'badge-pickpocketing',
+    bag_snatching: 'badge-bag-snatching',
+    theft_from_vehicle: 'badge-theft-from-vehicle',
+    other: 'badge-other',
+  };
 
   // ── Map init ──────────────────────────────────────────────────────────────
 
   const map = L.map('map', {
     center: EUROPE_CENTER,
     zoom: EUROPE_ZOOM,
-    zoomControl: true,
+    zoomControl: false,
   });
+  L.tileLayer(TILE_URL, { maxZoom: 19, attribution: TILE_ATTR }).addTo(map);
+  map.attributionControl.setPrefix(false);
 
-  L.tileLayer(TILE_URL, { attribution: TILE_ATTR, maxZoom: 19 }).addTo(map);
+  const CLUSTER_COLOR = { s: '#2d3f6b', m: '#b45309', l: '#b91c1c' };
 
-  // Marker cluster group
   const clusterGroup = L.markerClusterGroup({
     chunkedLoading: true,
     maxClusterRadius: 60,
+    disableClusteringAtZoom: 15,
+    iconCreateFunction(cluster) {
+      const count = cluster.getChildCount();
+      const size = count < 10 ? 32 : count < 100 ? 38 : 46;
+      const color = count < 10 ? CLUSTER_COLOR.s : count < 100 ? CLUSTER_COLOR.m : CLUSTER_COLOR.l;
+      const r = size / 2;
+      const fs = size < 38 ? 11 : 13;
+      // Use L.Icon (renders as <img>) instead of L.divIcon (renders as <div>).
+      // Leaflet's CSS protects <img> in the marker pane with max-width/max-height: none !important,
+      // preventing any CSS from distorting the shape.
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}">` +
+        `<circle cx="${r}" cy="${r}" r="${r - 2}" fill="${color}" stroke="rgba(255,255,255,0.85)" stroke-width="2.5"/>` +
+        `<text x="${r}" y="${r}" text-anchor="middle" dominant-baseline="central" ` +
+        `fill="white" font-weight="700" font-size="${fs}" font-family="system-ui,sans-serif">${count}</text>` +
+        `</svg>`;
+      return new L.Icon({
+        iconUrl: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`,
+        iconSize: [size, size],
+        iconAnchor: [r, r],
+      });
+    },
   });
   map.addLayer(clusterGroup);
 
+  // Invalidate Leaflet size after sidebar renders (sidebar eats right portion)
+  setTimeout(() => map.invalidateSize(), 100);
+
   // ── Marker icon factory ───────────────────────────────────────────────────
+  // Inner div uses position:absolute;inset:0 so it always fills the Leaflet
+  // container exactly — immune to any .marker-cluster div height overrides.
 
-  function pinIcon(crimeType) {
-    const fill = TYPE_COLOR[crimeType] ?? TYPE_COLOR.other;
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 24" width="18" height="24">
-      <path d="M9 0C4.03 0 0 4.03 0 9c0 6.75 9 15 9 15s9-8.25 9-15C18 4.03 13.97 0 9 0z"
-            fill="${fill}" filter="drop-shadow(0 2px 3px rgba(0,0,0,0.25))"/>
-      <circle cx="9" cy="9" r="4" fill="rgba(255,255,255,0.5)"/>
-    </svg>`;
-
-    return L.divIcon({
-      html: svg,
-      className: '',
-      iconSize: [18, 24],
-      iconAnchor: [9, 24],
-      popupAnchor: [0, -24],
+  function pinMarker(lat, lng, crimeType) {
+    return L.circleMarker([lat, lng], {
+      radius: 8,
+      fillColor: TYPE_COLOR[crimeType] ?? TYPE_COLOR.other,
+      color: '#fff',
+      weight: 2,
+      fillOpacity: 0.92,
+      interactive: true,
     });
   }
 
   function tempPinIcon() {
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 24" width="18" height="24">
-      <path d="M9 0C4.03 0 0 4.03 0 9c0 6.75 9 15 9 15s9-8.25 9-15C18 4.03 13.97 0 9 0z"
-            fill="#dc2626" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.35))"/>
+      <path d="M9 0C4.03 0 0 4.03 0 9c0 6.75 9 15 9 15s9-8.25 9-15C18 4.03 13.97 0 9 0z" fill="#dc2626"/>
       <circle cx="9" cy="9" r="4" fill="rgba(255,255,255,0.7)"/>
     </svg>`;
-    return L.divIcon({
-      html: svg,
-      className: '',
-      iconSize: [18, 24],
-      iconAnchor: [9, 24],
-    });
+    return L.divIcon({ html: svg, className: '', iconSize: [18, 24], iconAnchor: [9, 24] });
+  }
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+
+  function esc(str) {
+    const d = document.createElement('span');
+    d.textContent = String(str);
+    return d.innerHTML;
+  }
+
+  function timeAgo(isoString) {
+    const diff = Math.floor((Date.now() - new Date(isoString).getTime()) / 1000);
+    if (diff < 60) return `${diff}s ago`;
+    if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+    if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+    return new Date(isoString).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
   }
 
   // ── Data fetching ─────────────────────────────────────────────────────────
@@ -84,13 +129,10 @@
 
   function getFilterParams() {
     const form = document.querySelector('#filter-form');
-    if (!form) return new URLSearchParams();
-
-    const checked = [...form.querySelectorAll('input[type=checkbox]:checked')].map(
-      (el) => el.value,
-    );
-    const since = form.querySelector('select[name=since]')?.value ?? 'all';
-
+    const checked = form
+      ? [...form.querySelectorAll('input[type=checkbox]:checked')].map((el) => el.value)
+      : [];
+    const since = document.getElementById('since-select')?.value ?? 'all';
     const params = new URLSearchParams();
     if (checked.length) params.set('types', checked.join(','));
     params.set('since', since);
@@ -99,12 +141,9 @@
 
   function getBboxParam() {
     const b = map.getBounds();
-    return [
-      b.getWest().toFixed(6),
-      b.getSouth().toFixed(6),
-      b.getEast().toFixed(6),
-      b.getNorth().toFixed(6),
-    ].join(',');
+    return [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()]
+      .map((n) => n.toFixed(6))
+      .join(',');
   }
 
   async function loadIncidents() {
@@ -118,7 +157,6 @@
       const params = getFilterParams();
       params.set('bbox', getBboxParam());
 
-      // Push filter state to URL for shareability
       const url = new URL(window.location.href);
       url.search = params.toString();
       window.history.replaceState({}, '', url);
@@ -126,9 +164,7 @@
       const res = await fetch(`/api/incidents?${params.toString()}`, {
         signal: fetchController.signal,
       });
-
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
       const { items } = await res.json();
       renderMarkers(items ?? []);
     } catch (err) {
@@ -143,13 +179,10 @@
 
   function renderMarkers(items) {
     clusterGroup.clearLayers();
-
     for (const item of items) {
-      const marker = L.marker([item.lat, item.lng], { icon: pinIcon(item.crimeType) });
-      marker.on('click', () => {
-        openDetailPanel(item);
-      });
-      clusterGroup.addLayer(marker);
+      const m = pinMarker(item.lat, item.lng, item.crimeType);
+      m.on('click', (e) => { L.DomEvent.stopPropagation(e); openDetailPanel(item); });
+      clusterGroup.addLayer(m);
     }
   }
 
@@ -159,46 +192,21 @@
   const panelContent = document.getElementById('detail-content');
   const panelClose = document.getElementById('detail-close');
 
-  /** Escape a string for safe DOM text insertion. */
-  function esc(str) {
-    const d = document.createElement('span');
-    d.textContent = String(str);
-    return d.innerHTML;
-  }
-
   function openDetailPanel(item) {
     if (!panel || !panelContent) return;
 
     const date = new Date(item.occurredAt).toLocaleDateString('en-GB', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
+      day: 'numeric', month: 'short', year: 'numeric',
     });
-
-    const crimeLabel =
-      {
-        pickpocketing: 'Pickpocketing',
-        bag_snatching: 'Bag snatching',
-        theft_from_vehicle: 'Vehicle theft',
-        other: 'Other',
-      }[item.crimeType] ?? item.crimeType;
-
+    const crimeLabel = TYPE_LABEL[item.crimeType] ?? item.crimeType;
     const sourceLabel = item.source === 'SEEDED' ? 'Seeded dataset' : 'User report';
-    const CRIME_BADGE = {
-      pickpocketing: 'badge-pickpocketing',
-      bag_snatching: 'badge-bag-snatching',
-      theft_from_vehicle: 'badge-theft-from-vehicle',
-      other: 'badge-other',
-    };
-    const SOURCE_BADGE = { SEEDED: 'badge-seeded', USER_REPORTED: 'badge-user' };
-    const badgeClass = `badge ${CRIME_BADGE[item.crimeType] ?? 'badge-other'}`;
-    const srcClass = `badge ${SOURCE_BADGE[item.source] ?? 'badge-other'}`;
-    const crimeLabelSafe = esc(crimeLabel);
+    const badgeClass = `badge ${BADGE_CLASS[item.crimeType] ?? 'badge-other'}`;
+    const srcClass = `badge ${item.source === 'SEEDED' ? 'badge-seeded' : 'badge-user'}`;
 
     panelContent.innerHTML = `
-      <span class="${badgeClass}" aria-label="Crime type: ${crimeLabelSafe}">${crimeLabelSafe.toUpperCase()}</span>
-      <span class="${srcClass}" aria-label="Source: ${esc(sourceLabel)}">${esc(sourceLabel).toUpperCase()}</span>
-      <p style="margin-top:0.75rem; font-size:0.8rem; color:var(--pico-secondary)">
+      <span class="${badgeClass}">${esc(crimeLabel).toUpperCase()}</span>
+      <span class="${srcClass}">${esc(sourceLabel).toUpperCase()}</span>
+      <p style="margin-top:0.75rem;font-size:0.8rem;color:var(--pico-secondary)">
         ${esc(date)}<br>${esc(item.city)}
       </p>
       <p>${esc(item.description)}</p>
@@ -217,10 +225,12 @@
     panel.setAttribute('aria-hidden', 'true');
   }
 
-  if (panelClose) panelClose.addEventListener('click', () => {
-    cancelReportMode();
-    closeDetailPanel();
-  });
+  if (panelClose) {
+    panelClose.addEventListener('click', () => {
+      cancelReportMode();
+      closeDetailPanel();
+    });
+  }
 
   // ── User location ─────────────────────────────────────────────────────────
 
@@ -228,28 +238,20 @@
   let userLng = null;
   let userLocationLayer = null;
 
-  function showUserLocation(lat, lng, accuracy) {
+  function showUserLocation(lat, lng) {
     if (userLocationLayer) map.removeLayer(userLocationLayer);
     userLocationLayer = L.layerGroup([
-      // Accuracy circle
-      L.circle([lat, lng], {
-        radius: Math.min(accuracy, 500),
-        color: '#2563eb',
-        fillColor: '#2563eb',
-        fillOpacity: 0.08,
-        weight: 1,
-        interactive: false,
+      // Pulse ring (animated via CSS on the SVG circle)
+      L.circleMarker([lat, lng], {
+        radius: 9, className: 'user-pulse-ring',
+        fillColor: 'transparent', color: '#1d4ed8',
+        weight: 2, fillOpacity: 0, interactive: false,
       }),
-      // Pulsing dot
-      L.marker([lat, lng], {
-        icon: L.divIcon({
-          html: '<div class="user-location-dot"></div>',
-          className: 'user-location-marker',
-          iconSize: [16, 16],
-          iconAnchor: [8, 8],
-        }),
-        zIndexOffset: 600,
-        interactive: false,
+      // Solid blue dot
+      L.circleMarker([lat, lng], {
+        radius: 9,
+        fillColor: '#1d4ed8', color: '#fff',
+        weight: 3, fillOpacity: 1, interactive: false,
       }),
     ]).addTo(map);
   }
@@ -259,12 +261,227 @@
       (pos) => {
         userLat = pos.coords.latitude;
         userLng = pos.coords.longitude;
-        showUserLocation(userLat, userLng, pos.coords.accuracy);
+        showUserLocation(userLat, userLng);
+        map.setView([userLat, userLng], 13);
+        reverseGeocode(userLat, userLng).then((city) => {
+          if (city) setCity(city);
+        });
       },
       null,
       { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 },
     );
   }
+
+  // ── Geocoding ─────────────────────────────────────────────────────────────
+
+  async function reverseGeocode(lat, lng) {
+    try {
+      const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&zoom=10&addressdetails=1`;
+      const res = await fetch(url, { headers: { 'Accept-Language': 'en', 'User-Agent': 'CrimeLens/1.0' } });
+      if (!res.ok) return null;
+      const data = await res.json();
+      const a = data.address ?? {};
+      // Only return proper cities — skip towns/villages/suburbs so that
+      // panning over a Paris suburb like Pantin doesn't replace "Paris"
+      return a.city ?? null;
+    } catch {
+      return null;
+    }
+  }
+
+  async function searchCities(query) {
+    try {
+      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=5&featuretype=city`;
+      const res = await fetch(url, { headers: { 'Accept-Language': 'en', 'User-Agent': 'CrimeLens/1.0' } });
+      if (!res.ok) return [];
+      return await res.json();
+    } catch {
+      return [];
+    }
+  }
+
+  // ── Active city state ─────────────────────────────────────────────────────
+
+  let activeCity = null;
+  let suppressMoveUpdate = false;
+
+  async function loadFeed(cityName) {
+    if (!cityName) return;
+    const params = getFilterParams();
+    params.set('city', cityName);
+    try {
+      const res = await fetch(`/api/incidents/feed?${params.toString()}`);
+      if (!res.ok) return;
+      const { items } = await res.json();
+      populateFeed(items ?? [], cityName);
+    } catch { /* silent */ }
+  }
+
+  function setCity(name) {
+    const input = document.getElementById('city-search');
+    if (input) input.value = name;
+    activeCity = name;
+    loadFeed(name);
+  }
+
+  // ── City search with autocomplete ─────────────────────────────────────────
+
+  const citySearch = document.getElementById('city-search');
+  const searchDropdown = document.getElementById('city-search-dropdown');
+  let searchTimer = null;
+
+  function showDropdown(results) {
+    if (!searchDropdown) return;
+    if (!results.length) { hideDropdown(); return; }
+
+    searchDropdown.innerHTML = '';
+    for (const r of results) {
+      const item = document.createElement('div');
+      item.className = 'search-suggestion';
+      item.textContent = r.display_name;
+      item.addEventListener('mousedown', (evt) => {
+        evt.preventDefault();
+        hideDropdown();
+        const name = r.display_name.split(',')[0].trim();
+        // Nominatim boundingbox: [south, north, west, east]
+        const [s, n, w, east] = (r.boundingbox ?? []).map(parseFloat);
+        const bbox = [w, s, east, n];
+        suppressMoveUpdate = true;
+        map.setView([parseFloat(r.lat), parseFloat(r.lon)], 13);
+        setTimeout(() => { suppressMoveUpdate = false; }, 2000);
+        setCity(name);
+      });
+      searchDropdown.appendChild(item);
+    }
+    searchDropdown.classList.add('search-dropdown--open');
+  }
+
+  function hideDropdown() {
+    if (searchDropdown) searchDropdown.classList.remove('search-dropdown--open');
+  }
+
+  if (citySearch) {
+    citySearch.addEventListener('input', () => {
+      clearTimeout(searchTimer);
+      const q = citySearch.value.trim();
+      if (q.length < 2) { hideDropdown(); return; }
+      searchTimer = setTimeout(async () => {
+        const results = await searchCities(q);
+        showDropdown(results);
+      }, 350);
+    });
+
+    citySearch.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') { hideDropdown(); citySearch.blur(); }
+    });
+
+    citySearch.addEventListener('blur', () => {
+      setTimeout(hideDropdown, 150);
+    });
+  }
+
+  // ── Live incident feed (WebSocket) ────────────────────────────────────────
+
+  const feed = document.getElementById('incident-feed');
+
+  function feedBadgeClass(crimeType) {
+    const colors = {
+      pickpocketing: 'background:var(--badge-pickpocketing-bg);color:var(--badge-pickpocketing-fg)',
+      bag_snatching: 'background:var(--badge-bag-bg);color:var(--badge-bag-fg)',
+      theft_from_vehicle: 'background:var(--badge-vehicle-bg);color:var(--badge-vehicle-fg)',
+      other: 'background:var(--badge-other-bg);color:var(--badge-other-fg)',
+    };
+    return colors[crimeType] ?? colors.other;
+  }
+
+  function createFeedItem(incident, isNew = false) {
+    const item = document.createElement('div');
+    item.className = `feed-item${isNew ? ' feed-item--new' : ''}`;
+    item.dataset.lat = incident.lat;
+    item.dataset.lng = incident.lng;
+    item.dataset.id = incident.id;
+
+    const label = TYPE_LABEL[incident.crimeType] ?? incident.crimeType;
+    const badgeStyle = feedBadgeClass(incident.crimeType);
+    const when = timeAgo(incident.occurredAt);
+    const descSnippet = (incident.description ?? '').slice(0, 80);
+
+    item.innerHTML = `
+      <div class="feed-item__top">
+        <span class="feed-item__badge" style="${badgeStyle}">${esc(label)}</span>
+        <span class="feed-item__city">${esc(incident.city)}</span>
+        <span class="feed-item__time">${esc(when)}</span>
+      </div>
+      <div class="feed-item__desc">${esc(descSnippet)}</div>
+    `;
+
+    item.addEventListener('click', () => {
+      map.setView([parseFloat(item.dataset.lat), parseFloat(item.dataset.lng)], 14);
+      openDetailPanel(incident);
+    });
+
+    return item;
+  }
+
+  function prependFeedItem(incident) {
+    if (!feed) return;
+    const empty = feed.querySelector('.incident-feed__empty');
+    if (empty) empty.remove();
+
+    const item = createFeedItem(incident, true);
+    feed.insertBefore(item, feed.firstChild);
+
+    // Keep feed at most 50 items
+    while (feed.children.length > 50) {
+      feed.removeChild(feed.lastChild);
+    }
+  }
+
+  function populateFeed(items, cityName) {
+    if (!feed) return;
+    feed.innerHTML = '';
+    if (!items.length) {
+      const label = cityName ? `No incidents reported in ${cityName}.` : 'No incidents found.';
+      feed.innerHTML = `<div class="incident-feed__empty">${label}</div>`;
+      return;
+    }
+    for (const item of items) {
+      feed.appendChild(createFeedItem(item, false));
+    }
+  }
+
+  function connectWebSocket() {
+    const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const ws = new WebSocket(`${protocol}//${location.host}/ws/incidents`);
+
+    ws.addEventListener('message', (e) => {
+      let msg;
+      try { msg = JSON.parse(e.data); } catch { return; }
+
+      // Only handle live new incidents from other users; feed content is viewport-driven
+      if (msg.type === 'new_incident') {
+        // Add to map markers if it falls within the current view
+        const inc = msg.incident;
+        if (map.getBounds().contains([inc.lat, inc.lng])) {
+          const m = pinMarker(inc.lat, inc.lng, inc.crimeType);
+          m.on('click', (e) => { L.DomEvent.stopPropagation(e); openDetailPanel(inc); });
+          clusterGroup.addLayer(m);
+          prependFeedItem(inc);
+        }
+      }
+    });
+
+    ws.addEventListener('close', () => {
+      // Reconnect after 3 s
+      setTimeout(connectWebSocket, 3000);
+    });
+
+    ws.addEventListener('error', () => {
+      ws.close();
+    });
+  }
+
+  connectWebSocket();
 
   // ── Report incident mode ──────────────────────────────────────────────────
 
@@ -277,17 +494,14 @@
     reportingMode = true;
     if (reportBtn) {
       reportBtn.textContent = '✕ Cancel';
-      reportBtn.classList.add('report-btn--active');
+      reportBtn.style.background = '#dc2626';
     }
-
-    // If we know the user's location, drop the pin there immediately
     if (userLat !== null && userLng !== null) {
       if (mapContainer) mapContainer.classList.remove('report-placing');
       if (tempMarker) map.removeLayer(tempMarker);
       tempMarker = L.marker([userLat, userLng], { icon: tempPinIcon(), zIndexOffset: 1000 }).addTo(map);
       showReportForm(userLat, userLng);
     } else {
-      // No location — ask the user to click
       if (mapContainer) mapContainer.classList.add('report-placing');
       if (panel && panelContent) {
         panelContent.innerHTML = `
@@ -309,40 +523,16 @@
     if (!reportingMode) return;
     reportingMode = false;
     if (reportBtn) {
-      reportBtn.textContent = '📍 Report incident';
-      reportBtn.classList.remove('report-btn--active');
+      reportBtn.textContent = 'Report Incident';
+      reportBtn.style.background = '';
     }
     if (mapContainer) mapContainer.classList.remove('report-placing');
-    if (tempMarker) {
-      map.removeLayer(tempMarker);
-      tempMarker = null;
-    }
-  }
-
-  /**
-   * Reverse-geocode lat/lng via Nominatim.
-   * Returns the best available place name (city > town > village > county).
-   * Resolves to null on network error or unexpected response shape.
-   */
-  async function reverseGeocode(lat, lng) {
-    try {
-      const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&zoom=10&addressdetails=1`;
-      const res = await fetch(url, {
-        headers: { 'Accept-Language': 'en', 'User-Agent': 'CrimeLens/1.0' },
-      });
-      if (!res.ok) return null;
-      const data = await res.json();
-      const a = data.address ?? {};
-      return a.city ?? a.town ?? a.village ?? a.county ?? a.state ?? null;
-    } catch {
-      return null;
-    }
+    if (tempMarker) { map.removeLayer(tempMarker); tempMarker = null; }
   }
 
   function showReportForm(lat, lng) {
     if (!panel || !panelContent) return;
 
-    // Default date = today in local time (YYYY-MM-DD)
     const today = new Date();
     const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 
@@ -385,18 +575,12 @@
       </form>
     `;
 
-    // Kick off reverse geocode — update display + hidden field when it resolves
     reverseGeocode(lat, lng).then((city) => {
       const cityDisplay = document.getElementById('report-city-display');
       const cityInput = document.getElementById('report-city-value');
       if (!cityDisplay || !cityInput) return;
-      if (city) {
-        cityDisplay.textContent = `📍 ${city}`;
-        cityInput.value = city;
-      } else {
-        cityDisplay.textContent = '📍 Location unknown';
-        cityInput.value = 'Unknown';
-      }
+      cityDisplay.textContent = city ? `📍 ${city}` : '📍 Location unknown';
+      cityInput.value = city ?? 'Unknown';
     });
 
     document.getElementById('report-cancel-btn')?.addEventListener('click', () => {
@@ -429,20 +613,15 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body),
         });
-
         const data = await res.json();
 
         if (!res.ok) {
-          if (errorDiv) {
-            errorDiv.textContent = data.message ?? 'Something went wrong.';
-            errorDiv.style.display = 'block';
-          }
+          if (errorDiv) { errorDiv.textContent = data.message ?? 'Something went wrong.'; errorDiv.style.display = 'block'; }
           submitBtn.disabled = false;
           submitBtn.textContent = 'Submit';
           return;
         }
 
-        // Success — exit report mode, reload markers, show confirmation
         cancelReportMode();
         await loadIncidents();
         closeDetailPanel();
@@ -462,10 +641,7 @@
         }
       } catch (err) {
         console.error('Failed to submit incident:', err);
-        if (errorDiv) {
-          errorDiv.textContent = 'Network error. Please try again.';
-          errorDiv.style.display = 'block';
-        }
+        if (errorDiv) { errorDiv.textContent = 'Network error. Please try again.'; errorDiv.style.display = 'block'; }
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit';
       }
@@ -474,48 +650,54 @@
 
   if (reportBtn) {
     reportBtn.addEventListener('click', () => {
-      if (reportingMode) {
-        cancelReportMode();
-        closeDetailPanel();
-      } else {
-        enterReportMode();
-      }
+      if (reportingMode) { cancelReportMode(); closeDetailPanel(); }
+      else { enterReportMode(); }
     });
   }
 
-  // Map click: place pin (report mode) or close panel (normal mode)
   map.on('click', (e) => {
-    if (!reportingMode) {
-      closeDetailPanel();
-      return;
-    }
-
+    if (!reportingMode) { closeDetailPanel(); return; }
     const { lat, lng } = e.latlng;
-
-    // Remove existing temp marker if re-clicking
     if (tempMarker) map.removeLayer(tempMarker);
     tempMarker = L.marker([lat, lng], { icon: tempPinIcon(), zIndexOffset: 1000 }).addTo(map);
-
-    // Exit crosshair mode but keep reportingMode so cancel still works
     if (mapContainer) mapContainer.classList.remove('report-placing');
-
     showReportForm(lat, lng);
   });
 
-  // ── Filter bar wiring ─────────────────────────────────────────────────────
+  // ── Filter wiring ─────────────────────────────────────────────────────────
 
   const filterForm = document.querySelector('#filter-form');
   if (filterForm) {
     filterForm.addEventListener('change', () => {
       loadIncidents();
+      if (activeCity) loadFeed(activeCity);
     });
   }
 
-  // Re-fetch on map move (debounced)
+  const sinceSelect = document.getElementById('since-select');
+  if (sinceSelect) {
+    sinceSelect.addEventListener('change', () => {
+      loadIncidents();
+      if (activeCity) loadFeed(activeCity);
+    });
+  }
+
   let moveTimer = null;
+  let cityLabelTimer = null;
+
   map.on('moveend', () => {
     clearTimeout(moveTimer);
     moveTimer = setTimeout(loadIncidents, 300);
+
+    // Update search bar + feed when zoomed into city level
+    if (map.getZoom() >= 10 && !suppressMoveUpdate) {
+      clearTimeout(cityLabelTimer);
+      cityLabelTimer = setTimeout(() => {
+        if (document.activeElement === citySearch) return;
+        const { lat, lng } = map.getCenter();
+        reverseGeocode(lat, lng).then((city) => { if (city) setCity(city); });
+      }, 100);
+    }
   });
 
   // ── Boot ──────────────────────────────────────────────────────────────────

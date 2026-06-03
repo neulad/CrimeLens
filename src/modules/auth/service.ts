@@ -35,14 +35,21 @@ export async function register({
   const passwordHash = await Bun.password.hash(password, { algorithm: 'bcrypt', cost: 12 });
   const userId = newId();
 
+  let avatarSvg = '';
+  try {
+    const res = await fetch(`https://api.dicebear.com/9.x/lorelei/svg?seed=${userId}`);
+    if (res.ok) avatarSvg = await res.text();
+  } catch { /* non-fatal — falls back to CDN at render time */ }
+
   await sql`
-    INSERT INTO users (id, email, first_name, last_name, password_hash)
+    INSERT INTO users (id, email, first_name, last_name, password_hash, avatar_svg)
     VALUES (
       ${userId}::uuid,
       ${normalized},
       ${firstName.trim()},
       ${lastName.trim()},
-      ${passwordHash}
+      ${passwordHash},
+      ${avatarSvg}
     )
   `;
 

@@ -4,6 +4,8 @@ import { Elysia } from 'elysia';
 import { env } from './env';
 import { logger } from './lib/logger';
 import { authRoutes } from './modules/auth/routes';
+import { addClient, removeClient } from './modules/incidents/live';
+import { getRecentIncidents } from './modules/incidents/queries';
 import { incidentsRoutes } from './modules/incidents/routes';
 import { lostFoundRoutes } from './modules/lost-and-found/routes';
 import { pagesRoutes } from './modules/pages/routes';
@@ -18,6 +20,31 @@ const app = new Elysia()
   .use(authRoutes)
   .use(incidentsRoutes)
   .use(lostFoundRoutes)
+  .ws('/ws/incidents', {
+    async open(ws) {
+      addClient(ws);
+      // Seed the new client with the last 20 incidents
+      try {
+        const recent = await getRecentIncidents(20);
+        ws.send(JSON.stringify({ type: 'recent', items: recent.map((r) => ({
+          id: r.id,
+          crimeType: r.crimeType,
+          city: r.city,
+          occurredAt: r.occurredAt instanceof Date ? r.occurredAt.toISOString() : String(r.occurredAt),
+          description: r.description,
+          lat: r.lat,
+          lng: r.lng,
+          source: r.source,
+        })) }));
+      } catch (err) {
+        logger.error(err, 'Failed to seed WS client with recent incidents');
+      }
+    },
+    close(ws) {
+      removeClient(ws);
+    },
+    message() {},
+  })
   .listen(env.PORT);
 
 logger.info(`CrimeLens listening on http://localhost:${env.PORT}`);

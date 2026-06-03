@@ -8,8 +8,8 @@ export interface UserSession {
   email: string;
   firstName: string;
   lastName: string;
-  /** Formatted display name for the nav: "First Last" */
   displayName: string;
+  hasAvatar: boolean;
 }
 
 export const SESSION_COOKIE = 'session';
@@ -29,12 +29,14 @@ export async function loadUser(cookieValue: string | undefined): Promise<UserSes
     email: string;
     firstName: string;
     lastName: string;
+    hasAvatar: boolean;
   }[]>`
     SELECT
-      s.user_id   AS "userId",
+      s.user_id        AS "userId",
       u.email,
-      u.first_name AS "firstName",
-      u.last_name  AS "lastName"
+      u.first_name     AS "firstName",
+      u.last_name      AS "lastName",
+      (u.avatar_svg <> '') AS "hasAvatar"
     FROM sessions s
     JOIN users u ON u.id = s.user_id
     WHERE s.id = ${sessionId}::uuid
@@ -51,5 +53,6 @@ export async function loadUser(cookieValue: string | undefined): Promise<UserSes
     firstName: row.firstName,
     lastName: row.lastName,
     displayName: `${row.firstName} ${row.lastName}`,
+    hasAvatar: row.hasAvatar,
   };
 }

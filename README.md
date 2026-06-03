@@ -2,7 +2,11 @@
 
 Map-first crime-awareness web app showing pickpocketing and petty-theft hotspots in five European cities (Barcelona, Paris, Rome, Prague, Amsterdam).
 
-Authenticated users can report new incidents directly from the map. Anyone can browse the Lost & Found board to post or search for lost items.
+- **Browse** clustered crime incidents on a full-screen interactive map
+- **Search** by city — the sidebar feed updates in real time as you navigate
+- **Live feed** — new incidents reported by other users appear instantly via WebSocket
+- **Report** incidents from the map (authenticated users)
+- **Lost & Found** board — post or search for lost items
 
 ---
 
@@ -11,18 +15,13 @@ Authenticated users can report new incidents directly from the map. Anyone can b
 The entire stack runs in Docker — no local Bun or Postgres installation needed.
 
 ```bash
-# 1. Clone
 git clone git@github.com:neulad/CrimeLens.git
 cd CrimeLens
-
-# 2. Start everything (builds app image on first run)
 docker compose up -d
-
-# 3. Load ~500 sample incidents (first time only)
-docker compose exec app bun run db:seed
+docker compose exec app bun run db:seed   # first time only — loads ~500 sample incidents
 ```
 
-Open **http://localhost:3000** — you should see an interactive map with crime pin clusters across Europe.
+Open **http://localhost:3000**.
 
 > **Subsequent runs:** just `docker compose up -d`. Migrations run automatically on startup.
 
@@ -31,26 +30,22 @@ Open **http://localhost:3000** — you should see an interactive map with crime 
 ## Stopping & rebuilding
 
 ```bash
-docker compose down           # stop containers (data is preserved in pg_data volume)
-docker compose up -d --build  # rebuild app image after code changes
-docker compose down -v        # stop and wipe all data (fresh start)
+docker compose down           # stop (data preserved in pg_data volume)
+docker compose up -d --build  # rebuild after code changes
+docker compose down -v        # stop and wipe all data
 ```
 
 ---
 
 ## Local development (without Docker)
 
-If you prefer to run Bun directly:
-
 ```bash
-# Prerequisites: Bun 1.x installed, Postgres+PostGIS running locally
-
+# Prerequisites: Bun 1.x, Postgres + PostGIS running locally
 bun install
-cp .env.example .env          # fill in DATABASE_URL and SESSION_SECRET
-
-bun run db:migrate            # apply migrations
-bun run db:seed               # load sample data
-bun run dev                   # hot-reload dev server
+cp .env.example .env   # fill in DATABASE_URL and SESSION_SECRET
+bun run db:migrate
+bun run db:seed
+bun run dev
 ```
 
 ---
@@ -62,7 +57,7 @@ bun run dev                   # hot-reload dev server
 | `bun run dev` | Start dev server with hot-reload |
 | `bun run start` | Start production server |
 | `bun run db:migrate` | Apply pending migrations |
-| `bun run db:seed` | Load sample incidents from `seed/incidents.json` |
+| `bun run db:seed` | Load sample incidents |
 | `bun run db:generate` | Regenerate migration from schema changes |
 | `bun run check` | Lint + format check (Biome) |
 | `bun run format` | Auto-fix formatting |
@@ -78,7 +73,9 @@ bun run dev                   # hot-reload dev server
 | Web framework | Elysia 1.x |
 | Templating | @kitajs/html (server-side JSX) |
 | Maps | Leaflet 1.9 + leaflet.markercluster |
-| Geocoding | Nominatim (OpenStreetMap) — reverse geocode for report pins |
+| Geocoding | Nominatim — city search autocomplete + reverse geocode on map pan |
+| Avatars | DiceBear `lorelei` (seeded from user ID, no storage needed) |
+| Real-time | Bun native WebSocket — live incident broadcast to all connected clients |
 | CSS | Pico.css v2 + custom app.css |
 | Database | PostgreSQL 16 + PostGIS 3.4 |
 | ORM / migrations | Drizzle ORM + Drizzle Kit |
@@ -87,18 +84,16 @@ bun run dev                   # hot-reload dev server
 | Logging | pino |
 | Linting / formatting | Biome |
 
-Full justification: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
-
 ---
 
 ## Environment variables
 
-All env vars are baked into `docker-compose.yml` for local development. When running outside Docker, copy `.env.example` and fill in:
+All env vars are baked into `docker-compose.yml` for local development. When running outside Docker:
 
 | Variable | Required | Description |
 |---|---|---|
 | `DATABASE_URL` | **yes** | Postgres connection string |
-| `SESSION_SECRET` | **yes** | 32+ byte string used to HMAC-sign session cookies |
+| `SESSION_SECRET` | **yes** | 32+ byte string for HMAC-signed session cookies |
 | `BASE_URL` | no | Public URL, default `http://localhost:3000` |
 | `PORT` | no | Server port, default `3000` |
 
@@ -108,10 +103,10 @@ All env vars are baked into `docker-compose.yml` for local development. When run
 
 | File | Contents |
 |---|---|
-| [`docs/SETUP.md`](docs/SETUP.md) | Step-by-step local setup, env vars, troubleshooting |
-| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Stack decisions, data flow, auth and incident-report flows |
-| [`docs/API.md`](docs/API.md) | All HTTP routes with request/response examples |
-| [`docs/DATA-MODEL.md`](docs/DATA-MODEL.md) | Schema tables, ERD, indexes |
+| [`docs/SETUP.md`](docs/SETUP.md) | Local setup, env vars, troubleshooting |
+| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Stack decisions, data flow, auth and incident flows |
+| [`docs/API.md`](docs/API.md) | HTTP routes with request/response examples |
+| [`docs/DATA-MODEL.md`](docs/DATA-MODEL.md) | Schema, ERD, indexes |
 | [`docs/team-project-plan.pdf`](docs/team-project-plan.pdf) | University grading rubric |
 
 ---
@@ -120,24 +115,25 @@ All env vars are baked into `docker-compose.yml` for local development. When run
 
 ```
 src/
-  app.ts                 Elysia entry point
-  env.ts                 Typed env loader
-  db/                    Drizzle client + schema (4 tables)
-  lib/                   Shared utilities (crypto, logger, ids)
+  app.ts               Elysia entry point + WebSocket /ws/incidents
+  env.ts               Typed env loader
+  db/                  Drizzle client + schema
+  lib/                 Shared utilities (crypto, logger, ids)
   modules/
-    pages/               Root layout + map page
-    auth/                Password auth (register, login, logout, session middleware)
-    incidents/           Crime incident CRUD + geospatial bbox query
-    lost-and-found/      Lost & found list + submit + delete
-seed/                    Seed script + incidents fixture (~500 incidents, 5 cities)
-drizzle/                 Generated migration SQL
-public/                  Static assets (CSS, JS, images)
-test/                    Integration tests (bun:test)
-docs/                    Architecture, API, setup, and data model docs
-Dockerfile               App container (oven/bun:1-alpine)
-docker-compose.yml       Full stack: app + Postgres/PostGIS
+    pages/             Root layout + map page (sidebar, filter bar)
+    auth/              Password auth (register, login, logout, session middleware)
+    incidents/         Incident CRUD, bbox query, city feed, live broadcast
+    lost-and-found/    Lost & found list + submit + delete
+seed/                  Seed script + incidents fixture (~500 incidents, 5 cities)
+drizzle/               Migration SQL
+public/
+  css/app.css          All custom styles
+  js/map.js            Map init, markers, city search, live WS feed
+  img/                 Logo SVGs (logo.svg for dark bg, logo-dark.svg for light bg)
+test/                  Integration tests
+docs/                  Architecture, API, setup, data model docs
 ```
 
 ---
 
-*University project — incident data is representative / partly synthetic. See the About page for methodology and disclaimer.*
+*University project — incident data is representative / partly synthetic.*

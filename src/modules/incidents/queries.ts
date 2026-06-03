@@ -71,6 +71,50 @@ export async function createIncident(params: CreateIncidentParams): Promise<stri
   return id;
 }
 
+export async function getCityIncidents(city: string, types: string[] | undefined, since: Date, limit: number): Promise<IncidentRow[]> {
+  const sinceIso = since.toISOString();
+  if (types && types.length > 0) {
+    return sql<IncidentRow[]>`
+      SELECT id, crime_type AS "crimeType", occurred_at AS "occurredAt",
+             city, description, source,
+             ST_Y(location) AS lat, ST_X(location) AS lng
+      FROM incidents
+      WHERE LOWER(city) = LOWER(${city})
+        AND crime_type IN ${sql(types)}
+        AND occurred_at >= ${sinceIso}::timestamptz
+      ORDER BY occurred_at DESC
+      LIMIT ${limit}
+    `;
+  }
+  return sql<IncidentRow[]>`
+    SELECT id, crime_type AS "crimeType", occurred_at AS "occurredAt",
+           city, description, source,
+           ST_Y(location) AS lat, ST_X(location) AS lng
+    FROM incidents
+    WHERE LOWER(city) = LOWER(${city})
+      AND occurred_at >= ${sinceIso}::timestamptz
+    ORDER BY occurred_at DESC
+    LIMIT ${limit}
+  `;
+}
+
+export async function getRecentIncidents(limit = 20): Promise<IncidentRow[]> {
+  return sql<IncidentRow[]>`
+    SELECT
+      id,
+      crime_type   AS "crimeType",
+      occurred_at  AS "occurredAt",
+      city,
+      description,
+      source,
+      ST_Y(location) AS lat,
+      ST_X(location) AS lng
+    FROM incidents
+    ORDER BY occurred_at DESC
+    LIMIT ${limit}
+  `;
+}
+
 export async function getBboxIncidents(params: BboxParams): Promise<IncidentRow[]> {
   const { west, south, east, north, types, since, limit } = params;
   const sinceIso = since.toISOString();
