@@ -8,37 +8,50 @@ Authenticated users can report new incidents directly from the map. Anyone can b
 
 ## Quick start
 
+The entire stack runs in Docker — no local Bun or Postgres installation needed.
+
 ```bash
-# 1. Clone and install
+# 1. Clone
 git clone git@github.com:neulad/CrimeLens.git
 cd CrimeLens
-bun install
 
-# 2. Copy env template — set SESSION_SECRET to any 32+ random chars
-cp .env.example .env
-
-# 3. Start Postgres + PostGIS
+# 2. Start everything (builds app image on first run)
 docker compose up -d
 
-# 4. Apply database migrations
-bun run db:migrate
-
-# 5. Load ~500 sample incidents
-bun run seed
-
-# 6. Start the dev server (hot-reload)
-bun run dev
+# 3. Load ~500 sample incidents (first time only)
+docker compose exec app bun run db:seed
 ```
 
 Open **http://localhost:3000** — you should see an interactive map with crime pin clusters across Europe.
 
-Full setup walkthrough: [`docs/SETUP.md`](docs/SETUP.md)
+> **Subsequent runs:** just `docker compose up -d`. Migrations run automatically on startup.
 
 ---
 
-## Screenshots
+## Stopping & rebuilding
 
-> *(To be added — map view, detail panel, report form, Lost & Found list)*
+```bash
+docker compose down           # stop containers (data is preserved in pg_data volume)
+docker compose up -d --build  # rebuild app image after code changes
+docker compose down -v        # stop and wipe all data (fresh start)
+```
+
+---
+
+## Local development (without Docker)
+
+If you prefer to run Bun directly:
+
+```bash
+# Prerequisites: Bun 1.x installed, Postgres+PostGIS running locally
+
+bun install
+cp .env.example .env          # fill in DATABASE_URL and SESSION_SECRET
+
+bun run db:migrate            # apply migrations
+bun run db:seed               # load sample data
+bun run dev                   # hot-reload dev server
+```
 
 ---
 
@@ -48,11 +61,9 @@ Full setup walkthrough: [`docs/SETUP.md`](docs/SETUP.md)
 |---|---|
 | `bun run dev` | Start dev server with hot-reload |
 | `bun run start` | Start production server |
-| `bun run db:up` | Start Postgres via Docker Compose |
-| `bun run db:down` | Stop Postgres |
 | `bun run db:migrate` | Apply pending migrations |
+| `bun run db:seed` | Load sample incidents from `seed/incidents.json` |
 | `bun run db:generate` | Regenerate migration from schema changes |
-| `bun run seed` | Wipe + reload incidents from `seed/incidents.json` |
 | `bun run check` | Lint + format check (Biome) |
 | `bun run format` | Auto-fix formatting |
 | `bun test` | Run integration tests |
@@ -73,6 +84,7 @@ Full setup walkthrough: [`docs/SETUP.md`](docs/SETUP.md)
 | Database | PostgreSQL 16 + PostGIS 3.4 |
 | ORM / migrations | Drizzle ORM + Drizzle Kit |
 | Auth | Password-based (Bun.password bcrypt, HMAC-signed sessions) |
+| Containerisation | Docker + Docker Compose |
 | Logging | pino |
 | Linting / formatting | Biome |
 
@@ -82,14 +94,14 @@ Full justification: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
 
 ## Environment variables
 
+All env vars are baked into `docker-compose.yml` for local development. When running outside Docker, copy `.env.example` and fill in:
+
 | Variable | Required | Description |
 |---|---|---|
-| `DATABASE_URL` | **yes** | Postgres connection string (matches Docker Compose defaults) |
+| `DATABASE_URL` | **yes** | Postgres connection string |
 | `SESSION_SECRET` | **yes** | 32+ byte string used to HMAC-sign session cookies |
 | `BASE_URL` | no | Public URL, default `http://localhost:3000` |
 | `PORT` | no | Server port, default `3000` |
-
-See `.env.example` for all variables.
 
 ---
 
@@ -101,8 +113,6 @@ See `.env.example` for all variables.
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Stack decisions, data flow, auth and incident-report flows |
 | [`docs/API.md`](docs/API.md) | All HTTP routes with request/response examples |
 | [`docs/DATA-MODEL.md`](docs/DATA-MODEL.md) | Schema tables, ERD, indexes |
-| [`docs/01-mvp-scope.md`](docs/01-mvp-scope.md) | Product scope, persona, 12-week timeline |
-| [`docs/02-locked-features.md`](docs/02-locked-features.md) | Locked feature list (L1–L5) |
 | [`docs/team-project-plan.pdf`](docs/team-project-plan.pdf) | University grading rubric |
 
 ---
@@ -125,6 +135,8 @@ drizzle/                 Generated migration SQL
 public/                  Static assets (CSS, JS, images)
 test/                    Integration tests (bun:test)
 docs/                    Architecture, API, setup, and data model docs
+Dockerfile               App container (oven/bun:1-alpine)
+docker-compose.yml       Full stack: app + Postgres/PostGIS
 ```
 
 ---
