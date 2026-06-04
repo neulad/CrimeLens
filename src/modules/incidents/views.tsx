@@ -69,69 +69,75 @@ export function IncidentDetailPage({
   const lng = incident.lng.toFixed(5);
   const osmUrl = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}&zoom=16`;
 
+  const occurredAtISO = new Date(incident.occurredAt).toISOString();
+  const occurredAtValue = occurredAtISO.slice(0, 10);
+  const occurredAtTime = occurredAtISO.slice(11, 16);
+
+  const crimeOptions = [
+    { value: 'pickpocketing',  label: 'Pickpocketing' },
+    { value: 'bicycle_stolen', label: 'Bicycle stolen' },
+    { value: 'street_fight',   label: 'Street fight' },
+    { value: 'robbery',        label: 'Robbery' },
+    { value: 'street_scams',   label: 'Street scam' },
+  ];
+
   return (
     <InnerPage title={`${crimeLabel} — ${incident.city} | CrimeLens`} userEmail={userEmail}>
+      <form id="incident-edit-form" action={`/incidents/${incident.id}/edit`} method="post">
+
       {/* ── Hero ────────────────────────────────────────────────────── */}
       <div class="incident-hero">
         <div class="incident-hero__badges">
-          <span class={badgeClass} safe>
-            {crimeLabel.toUpperCase()}
-          </span>{' '}
-          <span class={srcClass} safe>
-            {sourceLabel.toUpperCase()}
-          </span>
+          <span class={badgeClass} safe>{crimeLabel.toUpperCase()}</span>{' '}
+          <span class={srcClass} safe>{sourceLabel.toUpperCase()}</span>
         </div>
-        <h2 class="incident-hero__title" safe>
-          {crimeLabel}
-        </h2>
-        <p class="incident-hero__meta" safe>
-          {date} &mdash; {incident.city}
-        </p>
+        <h2 class="incident-hero__title" safe>{crimeLabel}</h2>
+        <p class="incident-hero__meta" safe>{date} &mdash; {incident.city}</p>
       </div>
 
       {/* ── Description card ────────────────────────────────────────── */}
       <div class="incident-card">
         <p class="incident-card__label">What happened</p>
-        <p class="incident-card__text" safe>
-          {incident.description}
-        </p>
+        <p class="incident-card__text view-mode" safe>{incident.description}</p>
+        <textarea name="description" class="incident-inline-input edit-mode" rows="5" maxlength="1000" style="display:none" safe>{incident.description}</textarea>
       </div>
 
       {/* ── Details grid ────────────────────────────────────────────── */}
       <div class="incident-details">
         <div class="incident-detail">
+          <span class="incident-detail__label">Crime type</span>
+          <span class="incident-detail__value view-mode" safe>{crimeLabel}</span>
+          <select name="crimeType" class="incident-inline-input edit-mode" style="display:none">
+            {crimeOptions.map((o) => (
+              <option value={o.value} selected={o.value === incident.crimeType ? 'true' : undefined}>{o.label}</option>
+            ))}
+          </select>
+        </div>
+        <div class="incident-detail">
           <span class="incident-detail__label">Date &amp; time</span>
-          <span class="incident-detail__value" safe>
-            {date}, {time}
-          </span>
+          <span class="incident-detail__value view-mode" safe>{date}, {time}</span>
+          <div class="edit-mode" style="display:none;gap:0.5rem;flex:1">
+            <input type="date" name="occurredAtDate" value={occurredAtValue} class="incident-inline-input" style="flex:1" />
+            <input type="time" name="occurredAtTime" value={occurredAtTime} class="incident-inline-input" style="flex:1" />
+          </div>
         </div>
         <div class="incident-detail">
           <span class="incident-detail__label">City</span>
-          <span class="incident-detail__value" safe>
-            {incident.city}
-          </span>
+          <span class="incident-detail__value" safe>{incident.city}</span>
         </div>
         <div class="incident-detail">
           <span class="incident-detail__label">Coordinates</span>
           <span class="incident-detail__value">
-            <a href={osmUrl} target="_blank" rel="noopener noreferrer">
-              {lat}, {lng} ↗
-            </a>
+            <a href={osmUrl} target="_blank" rel="noopener noreferrer">{lat}, {lng} ↗</a>
           </span>
         </div>
         <div class="incident-detail">
           <span class="incident-detail__label">Source</span>
-          <span class="incident-detail__value" safe>
-            {sourceLabel}
-          </span>
+          <span class="incident-detail__value" safe>{sourceLabel}</span>
         </div>
         <div class="incident-detail">
           <span class="incident-detail__label">Incident ID</span>
-          <span class="incident-detail__value">
-            <code class="incident-id" safe>
-              {incident.id}
-            </code>
-          </span>
+          <span class="incident-detail__value"><code class="incident-id" safe>{incident.id}</code></span>
         </div>
       </div>
 
@@ -139,31 +145,67 @@ export function IncidentDetailPage({
       <div class="incident-actions">
         {isOwner ? (
           <>
-            <a href={`/incidents/${incident.id}/edit`} role="button" class="contrast incident-action-btn">
-              ✏️ Edit incident
-            </a>
-            <form action={`/incidents/${incident.id}/delete`} method="post" style="display:inline">
-              <button
-                type="submit"
-                class="outline secondary incident-action-btn incident-action-btn--danger"
-                onclick="return confirm('Delete this incident permanently?')"
-              >
-                🗑 Delete
+            {/* View mode buttons */}
+            <button type="button" id="edit-toggle-btn" class="contrast incident-action-btn view-mode" onclick="enterEditMode()">
+              Edit incident
+            </button>
+
+            {/* Edit mode buttons */}
+            <div class="incident-actions__row edit-mode" style="display:none">
+              <button type="submit" class="contrast incident-action-btn">
+                Save changes
               </button>
-            </form>
+              <button type="button" class="incident-action-btn incident-action-btn--cancel" onclick="exitEditMode()">
+                Cancel
+              </button>
+            </div>
+
+            {/* Delete — always visible for owner */}
+            <button type="button" class="incident-action-btn incident-action-btn--danger" onclick="openModal('delete-confirm-modal')">
+              DELETE
+            </button>
+
+            {/* ── Delete confirmation modal ──────────────────────────── */}
+            <div id="delete-confirm-modal" class="modal-overlay" onclick="if(event.target===this)closeModal('delete-confirm-modal')">
+              <div class="modal-box">
+                <p style="font-size:1.1rem;font-weight:700;margin:0 0 0.5rem">Delete this incident?</p>
+                <p style="font-size:0.875rem;color:#6b7280;margin:0 0 1.5rem">This action cannot be undone.</p>
+                <div style="display:flex;gap:0.75rem;justify-content:center">
+                  <button type="button" class="outline secondary" style="flex:1" onclick="closeModal('delete-confirm-modal')">Cancel</button>
+                  <form action={`/incidents/${incident.id}/delete`} method="post" style="flex:1">
+                    <button type="submit" style="width:100%;background:#dc2626;color:#fff;border:none;border-radius:0.375rem;padding:0.5rem 1rem;font-weight:600;cursor:pointer">Delete</button>
+                  </form>
+                </div>
+              </div>
+            </div>
           </>
         ) : (
           <div class="incident-actions__locked" title="Only the reporter can edit this incident">
-            <span class="incident-action-btn incident-action-btn--disabled">✏️ Edit incident</span>
-            <span class="incident-action-btn incident-action-btn--disabled">🗑 Delete</span>
+            <span class="incident-action-btn incident-action-btn--disabled">Edit incident</span>
+            <span class="incident-action-btn incident-action-btn--disabled">DELETE</span>
             <span class="incident-actions__hint">
-              {userId
-                ? "You didn't report this incident."
-                : 'Sign in to manage your reports.'}
+              {userId ? "You didn't report this incident." : 'Sign in to manage your reports.'}
             </span>
           </div>
         )}
       </div>
+
+      </form>
+
+      {isOwner ? (
+        <script>{`
+          function enterEditMode() {
+            document.querySelectorAll('.edit-mode').forEach(function(el) {
+              el.style.display = el.tagName === 'DIV' ? 'flex' : '';
+            });
+            document.querySelectorAll('.view-mode').forEach(function(el) { el.style.display = 'none'; });
+          }
+          function exitEditMode() {
+            document.querySelectorAll('.edit-mode').forEach(function(el) { el.style.display = 'none'; });
+            document.querySelectorAll('.view-mode').forEach(function(el) { el.style.display = ''; });
+          }
+        `}</script>
+      ) : ''}
     </InnerPage>
   );
 }
@@ -192,9 +234,8 @@ export function IncidentEditPage({
   const occurredAtValue = new Date(incident.occurredAt).toISOString().slice(0, 10);
 
   return (
-    <InnerPage title="Edit incident | CrimeLens" userEmail={userEmail}>
+    <InnerPage title="Edit incident | CrimeLens" userEmail={userEmail} backHref={`/incidents/${incident.id}`} backLabel="Back to incident">
       <div style="max-width:520px">
-        <a href={`/incidents/${incident.id}`} style="font-size:0.875rem">← Back to incident</a>
         <h2 style="margin-top:1rem">Edit incident</h2>
 
         {error ? <p class="auth-error" safe>{error}</p> : ''}
@@ -212,15 +253,15 @@ export function IncidentEditPage({
           </label>
 
           <label>
-            Date of incident
-            <input type="date" name="occurredAt" required value={occurredAtValue} />
-          </label>
-
-          <label>
             Description
             <textarea name="description" required rows="5" maxlength="1000" safe>
               {incident.description}
             </textarea>
+          </label>
+
+          <label>
+            Date of incident
+            <input type="date" name="occurredAt" required value={occurredAtValue} />
           </label>
 
           <div style="display:flex;gap:0.75rem;margin-top:0.5rem">

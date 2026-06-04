@@ -1,4 +1,4 @@
-import { Elysia, status, t } from 'elysia';
+import { Elysia, redirect, status, t } from 'elysia';
 import { logger } from '../../lib/logger';
 import { loadUser, SESSION_COOKIE } from '../auth/middleware';
 import { createIncident, deleteIncident, getCityIncidents, getIncidentById, updateIncident } from './queries';
@@ -180,7 +180,7 @@ export const incidentsRoutes = new Elysia()
       ]);
 
       if (!incident) return status(404, IncidentNotFoundPage({ userEmail: user?.email }));
-      if (!user) return status(302, null, { Location: '/auth' });
+      if (!user) return redirect('/auth');
       if (incident.createdBy !== user.userId) return status(403, 'Forbidden');
 
       return IncidentEditPage({ incident, userEmail: user.email });
@@ -196,28 +196,29 @@ export const incidentsRoutes = new Elysia()
       if (!UUID_RE.test(params.id)) return status(404, IncidentNotFoundPage({}));
 
       const user = await loadUser(cookieVal(cookie, SESSION_COOKIE));
-      if (!user) return status(302, null, { Location: '/auth' });
+      if (!user) return redirect('/auth');
 
       const incident = await getIncidentById(params.id);
       if (!incident) return status(404, IncidentNotFoundPage({ userEmail: user.email }));
       if (incident.createdBy !== user.userId) return status(403, 'Forbidden');
 
+      const occurredAt = `${body.occurredAtDate}T${body.occurredAtTime || '00:00'}:00`;
       try {
         await updateIncident(params.id, {
           crimeType: body.crimeType,
           description: body.description,
-          occurredAt: body.occurredAt,
+          occurredAt,
         });
       } catch (err) {
         logger.error(err, 'Failed to update incident');
         return IncidentEditPage({ incident, userEmail: user.email, error: 'Something went wrong.' });
       }
 
-      return status(302, null, { Location: `/incidents/${params.id}` });
+      return redirect(`/incidents/${params.id}`);
     },
     {
       params: t.Object({ id: t.String() }),
-      body: t.Object({ crimeType: t.String(), description: t.String(), occurredAt: t.String() }),
+      body: t.Object({ crimeType: t.String(), description: t.String(), occurredAtDate: t.String(), occurredAtTime: t.Optional(t.String()) }),
     },
   )
 
@@ -229,7 +230,7 @@ export const incidentsRoutes = new Elysia()
       if (!UUID_RE.test(params.id)) return status(404);
 
       const user = await loadUser(cookieVal(cookie, SESSION_COOKIE));
-      if (!user) return status(302, null, { Location: '/auth' });
+      if (!user) return redirect('/auth');
 
       const incident = await getIncidentById(params.id);
       if (!incident) return status(404, IncidentNotFoundPage({ userEmail: user.email }));
@@ -241,7 +242,7 @@ export const incidentsRoutes = new Elysia()
         logger.error(err, 'Failed to delete incident');
       }
 
-      return status(302, null, { Location: '/' });
+      return redirect('/');
     },
     { params: t.Object({ id: t.String() }) },
   );
