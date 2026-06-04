@@ -72,7 +72,7 @@ bun run dev
 | Web framework | Elysia 1.x |
 | Templating | @kitajs/html (server-side JSX) |
 | Maps | Leaflet 1.9 + leaflet.markercluster |
-| Geocoding | Photon (Komoot) — city search autocomplete, `place=city` results only |
+| Geocoding | Photon (Komoot) for city-search autocomplete (`place=city`); Nominatim for reverse-geocoding the report pin |
 | Avatars | DiceBear `lorelei` (seeded from user ID, cached in `users.avatar_svg`) |
 | Real-time | Bun native WebSocket — live incident broadcast to all connected clients |
 | CSS | Custom `app.css` (Pico-style CSS variables) |
