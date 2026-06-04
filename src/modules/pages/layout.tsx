@@ -92,23 +92,23 @@ export function MapPage({
         <div class="filter-bar">
           <form class="filter-form" id="filter-form">
             <label class="pill pill-pickpocketing">
-              <input type="checkbox" name="types" value="pickpocketing" checked />
+              <input type="checkbox" name="types" value="pickpocketing" />
               <span>Pickpocketing</span>
             </label>
             <label class="pill pill-bicycle-stolen">
-              <input type="checkbox" name="types" value="bicycle_stolen" checked />
+              <input type="checkbox" name="types" value="bicycle_stolen" />
               <span>Bicycle stolen</span>
             </label>
             <label class="pill pill-street-fight">
-              <input type="checkbox" name="types" value="street_fight" checked />
+              <input type="checkbox" name="types" value="street_fight" />
               <span>Street fight</span>
             </label>
             <label class="pill pill-robbery">
-              <input type="checkbox" name="types" value="robbery" checked />
+              <input type="checkbox" name="types" value="robbery" />
               <span>Robbery</span>
             </label>
             <label class="pill pill-street-scams">
-              <input type="checkbox" name="types" value="street_scams" checked />
+              <input type="checkbox" name="types" value="street_scams" />
               <span>Street scam</span>
             </label>
           </form>
@@ -173,10 +173,6 @@ export function MapPage({
               </a>
             )}
 
-            <p class="sidebar-action-hint">Lost something?</p>
-            <a href="/lost-and-found" class="sidebar-action-btn sidebar-action-btn--ghost">
-              Lost &amp; Found
-            </a>
           </div>
 
           {/* User section — pinned to bottom */}
@@ -220,7 +216,7 @@ export function MapPage({
         </aside>
       </div>
 
-      <script src="/js/map.js?v=44" defer />
+      <script src="/js/map.js?v=60" defer />
     </Layout>
   );
 }
@@ -232,10 +228,14 @@ export function MapPage({
 export function InnerPage({
   title,
   userEmail,
+  backHref,
+  backLabel,
   children,
 }: {
   title: string;
   userEmail?: string | undefined;
+  backHref?: string | undefined;
+  backLabel?: string | undefined;
   children: Html.Children;
 }): string {
   return (
@@ -259,11 +259,28 @@ export function InnerPage({
       </nav>
       <main class="container inner-page" id="inner-page-main">
         <p>
-          <a href="/" class="back-link">← Back to map</a>
+          <a href={backHref ?? '/'} class="back-link">← {backLabel ?? 'Back to map'}</a>
         </p>
         {children}
       </main>
-      <script>{`document.documentElement.classList.add('inner-page-body');`}</script>
+      <script>{`
+        document.documentElement.classList.add('inner-page-body');
+        function openModal(id) {
+          var el = document.getElementById(id);
+          if (!el) return;
+          el.style.display = 'flex';
+          requestAnimationFrame(function() { el.classList.add('modal-open'); });
+        }
+        function closeModal(id) {
+          var el = document.getElementById(id);
+          if (!el) return;
+          el.classList.remove('modal-open');
+          el.addEventListener('transitionend', function hide() {
+            el.style.display = 'none';
+            el.removeEventListener('transitionend', hide);
+          });
+        }
+      `}</script>
     </Layout>
   );
 }
