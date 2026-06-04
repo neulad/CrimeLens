@@ -22,24 +22,27 @@
   const TILE_ATTR = 'Tiles &copy; <a href="https://www.esri.com/">Esri</a>';
 
   const TYPE_COLOR = {
-    pickpocketing: '#d97706',
-    bag_snatching: '#dc2626',
-    theft_from_vehicle: '#2563eb',
-    other: '#9ca3af',
+    pickpocketing:  '#d97706',
+    bicycle_stolen: '#2563eb',
+    street_fight:   '#dc2626',
+    robbery:        '#9a3412',
+    street_scams:   '#7c3aed',
   };
 
   const TYPE_LABEL = {
-    pickpocketing: 'Pickpocketing',
-    bag_snatching: 'Bag snatching',
-    theft_from_vehicle: 'Vehicle theft',
-    other: 'Other',
+    pickpocketing:  'Pickpocketing',
+    bicycle_stolen: 'Bicycle stolen',
+    street_fight:   'Street fight',
+    robbery:        'Robbery',
+    street_scams:   'Street scam',
   };
 
   const BADGE_CLASS = {
-    pickpocketing: 'badge-pickpocketing',
-    bag_snatching: 'badge-bag-snatching',
-    theft_from_vehicle: 'badge-theft-from-vehicle',
-    other: 'badge-other',
+    pickpocketing:  'badge-pickpocketing',
+    bicycle_stolen: 'badge-bicycle-stolen',
+    street_fight:   'badge-street-fight',
+    robbery:        'badge-robbery',
+    street_scams:   'badge-street-scams',
   };
 
   // ── Map init ──────────────────────────────────────────────────────────────
@@ -72,29 +75,37 @@
     pickpocketing: 'translate(2,4)',
   };
 
+  // Tabler Icons paths (MIT licence), 24×24 stroke-based viewBox.
   const TYPE_ICON_PATHS = {
-    // hand-stop — wallet/hand being grabbed
+    // hand-stop — fingers raised, wallet being grabbed
     pickpocketing: `
       <path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V13"/>
       <path d="M11 6.5V4a1.5 1.5 0 0 1 3 0v9"/>
       <path d="M14 6a1.5 1.5 0 0 1 3 0v6"/>
       <path d="M17 8a1.5 1.5 0 0 1 3 0v8a6 6 0 0 1-12 0v-3a1.5 1.5 0 0 1 3 0"/>`,
-    // briefcase
-    bag_snatching: `
-      <path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-      <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-      <path d="M3 13a20 20 0 0 0 18 0"/>`,
-    // car
-    theft_from_vehicle: `
-      <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0"/>
-      <path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0"/>
-      <path d="M5 17H3v-6l2-5h11l3 5h1a1 1 0 0 1 1 1v5h-1"/>
-      <path d="M5 11h14"/>`,
-    // alert-triangle
-    other: `
-      <path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636-2.871l-8.106-13.534a1.914 1.914 0 0 0-3.274 0z"/>
-      <path d="M12 9v4"/>
-      <path d="M12 16h.01"/>`,
+    // bicycle — two wheels + frame
+    bicycle_stolen: `
+      <path d="M5 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0"/>
+      <path d="M19 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0"/>
+      <path d="M7 18l3.5-7h5l3.5 7"/>
+      <path d="M10.5 11l1.5-4h3.5"/>
+      <path d="M11.5 7h4.5"/>`,
+    // sword — blade diagonal + guard + grip
+    street_fight: `
+      <path d="M5 21l9-9"/>
+      <path d="M14.5 10.5l.5-7.5-7.5.5 2.5 2.5-5 5 3.5 3.5 5-5z"/>
+      <path d="M3.5 21.5l1-1"/>`,
+    // knife — curved blade + handle
+    robbery: `
+      <path d="M14 10l-8.5 8.5a2.5 2.5 0 0 0 3.5 3.5L17.5 13C21 9.5 21 5 19 3s-6.5-2-10 1.5"/>
+      <path d="M3.5 20.5l1.5-1.5"/>`,
+    // masks-theater — comedy + tragedy masks
+    street_scams: `
+      <path d="M13 9c0-2 1.5-3.5 3.5-3.5S20 7 20 9c0 3.5-2.5 5-3.5 6.5"/>
+      <path d="M4 9c0-2 1.5-3.5 3.5-3.5S11 7 11 9c0 3.5-2.5 5-3.5 6.5"/>
+      <path d="M7.5 21c1.5 0 2.5-.75 3.5-2 1 1.25 2 2 3.5 2"/>
+      <path d="M6 13h.01"/>
+      <path d="M18 13h.01"/>`,
   };
 
   function crimeIcon(crimeType) {
@@ -114,12 +125,17 @@
     return L.marker([lat, lng], { icon: crimeIcon(crimeType) });
   }
 
+  // Temp (draft) pin — same teardrop as crime pins but outlined/hollow so it reads as
+  // "not yet submitted". Uses the same 32×40 size so it feels consistent on the map.
   function tempPinIcon() {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 24" width="18" height="24">
-      <path d="M9 0C4.03 0 0 4.03 0 9c0 6.75 9 15 9 15s9-8.25 9-15C18 4.03 13.97 0 9 0z" fill="#dc2626"/>
-      <circle cx="9" cy="9" r="4" fill="rgba(255,255,255,0.7)"/>
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="40" viewBox="0 0 32 40">
+      <path d="M16 0C7.163 0 0 7.163 0 16 0 27 16 40 16 40S32 27 32 16C32 7.163 24.837 0 16 0Z"
+            fill="white" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="4 3"/>
+      <circle cx="16" cy="16" r="5" fill="none" stroke="#dc2626" stroke-width="2"/>
+      <line x1="16" y1="12" x2="16" y2="20" stroke="#dc2626" stroke-width="2" stroke-linecap="round"/>
+      <line x1="12" y1="16" x2="20" y2="16" stroke="#dc2626" stroke-width="2" stroke-linecap="round"/>
     </svg>`;
-    return L.divIcon({ html: svg, className: '', iconSize: [18, 24], iconAnchor: [9, 24] });
+    return L.divIcon({ html: svg, className: '', iconSize: [32, 40], iconAnchor: [16, 40] });
   }
 
   // ── Helpers ───────────────────────────────────────────────────────────────
@@ -207,6 +223,8 @@
   const panelContent = document.getElementById('detail-content');
   const panelClose = document.getElementById('detail-close');
 
+  const currentUserId = document.getElementById('map-container')?.dataset?.userId ?? '';
+
   function openDetailPanel(item) {
     if (!panel || !panelContent) return;
 
@@ -217,6 +235,10 @@
     const sourceLabel = item.source === 'SEEDED' ? 'Seeded dataset' : 'User report';
     const badgeClass = `badge ${BADGE_CLASS[item.crimeType] ?? 'badge-other'}`;
     const srcClass = `badge ${item.source === 'SEEDED' ? 'badge-seeded' : 'badge-user'}`;
+    const isOwner = currentUserId && item.createdBy === currentUserId;
+    const detailLink = isOwner
+      ? `<a href="/incidents/${esc(item.id)}">View / Edit details →</a>`
+      : `<a href="/incidents/${esc(item.id)}">View full details →</a>`;
 
     panelContent.innerHTML = `
       <span class="${badgeClass}">${esc(crimeLabel).toUpperCase()}</span>
@@ -225,7 +247,7 @@
         ${esc(date)}<br>${esc(item.city)}
       </p>
       <p>${esc(item.description)}</p>
-      <a href="/incidents/${esc(item.id)}">View full details →</a>
+      ${detailLink}
     `;
 
     panel.classList.remove('detail-panel--closed');
@@ -398,12 +420,13 @@
 
   function feedBadgeClass(crimeType) {
     const colors = {
-      pickpocketing: 'background:var(--badge-pickpocketing-bg);color:var(--badge-pickpocketing-fg)',
-      bag_snatching: 'background:var(--badge-bag-bg);color:var(--badge-bag-fg)',
-      theft_from_vehicle: 'background:var(--badge-vehicle-bg);color:var(--badge-vehicle-fg)',
-      other: 'background:var(--badge-other-bg);color:var(--badge-other-fg)',
+      pickpocketing:  'background:var(--badge-pickpocketing-bg);color:var(--badge-pickpocketing-fg)',
+      bicycle_stolen: 'background:var(--badge-bicycle-stolen-bg);color:var(--badge-bicycle-stolen-fg)',
+      street_fight:   'background:var(--badge-street-fight-bg);color:var(--badge-street-fight-fg)',
+      robbery:        'background:var(--badge-robbery-bg);color:var(--badge-robbery-fg)',
+      street_scams:   'background:var(--badge-street-scams-bg);color:var(--badge-street-scams-fg)',
     };
-    return colors[crimeType] ?? colors.other;
+    return colors[crimeType] ?? 'background:#f3f4f6;color:#374151';
   }
 
   function createFeedItem(incident, isNew = false) {
@@ -566,9 +589,10 @@
           Crime type
           <select name="crimeType" required>
             <option value="pickpocketing">Pickpocketing</option>
-            <option value="bag_snatching">Bag snatching</option>
-            <option value="theft_from_vehicle">Vehicle theft</option>
-            <option value="other">Other</option>
+            <option value="bicycle_stolen">Bicycle stolen</option>
+            <option value="street_fight">Street fight</option>
+            <option value="robbery">Robbery</option>
+            <option value="street_scams">Street scam</option>
           </select>
         </label>
         <label>
