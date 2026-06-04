@@ -66,6 +66,12 @@
   // Crime-type pin icons use Tabler Icons paths (MIT licence).
   // Each icon is a 24×24 stroke-based SVG embedded in a teardrop pin shape.
 
+  // Per-type SVG group transform — nudge icons that aren't visually centred on the 24×24 grid.
+  const TYPE_ICON_TRANSFORM = {
+    // hand-stop paths span x:8–20 (visual centre ~14 vs grid centre 12) → shift left 2px
+    pickpocketing: 'translate(2,4)',
+  };
+
   const TYPE_ICON_PATHS = {
     // hand-stop — wallet/hand being grabbed
     pickpocketing: `
@@ -94,9 +100,10 @@
   function crimeIcon(crimeType) {
     const color = TYPE_COLOR[crimeType] ?? TYPE_COLOR.other;
     const paths = TYPE_ICON_PATHS[crimeType] ?? TYPE_ICON_PATHS.other;
+    const transform = TYPE_ICON_TRANSFORM[crimeType] ?? 'translate(4,4)';
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="40" viewBox="0 0 32 40">
       <path d="M16 0C7.163 0 0 7.163 0 16 0 27 16 40 16 40S32 27 32 16C32 7.163 24.837 0 16 0Z" fill="${color}"/>
-      <g transform="translate(4,4)" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <g transform="${transform}" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
         ${paths}
       </g>
     </svg>`;
@@ -256,7 +263,7 @@
       iconSize: [40, 40],
       iconAnchor: [20, 20],
     });
-    userLocationLayer = L.marker([lat, lng], { icon, interactive: false, keyboard: false }).addTo(map);
+    userLocationLayer = L.marker([lat, lng], { icon, interactive: false, keyboard: false, zIndexOffset: 10000 }).addTo(map);
   }
 
   if (navigator.geolocation) {
