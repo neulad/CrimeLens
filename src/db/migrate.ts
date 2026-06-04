@@ -10,8 +10,9 @@ await sql`
   )
 `;
 
-// If the users table already exists the first two drizzle migrations have been applied.
-// Mark them so we don't re-run them.
+// Legacy-DB guard: if the users table already exists, the first two migrations
+// have effectively been applied. Mark them so the destructive 0001 (which wipes
+// users/sessions) never re-runs against a pre-existing database.
 const [usersExists] = await sql`
   SELECT 1 FROM information_schema.tables
   WHERE table_schema = 'public' AND table_name = 'users' LIMIT 1

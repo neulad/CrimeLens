@@ -2,6 +2,7 @@ import { Elysia, redirect, status, t } from 'elysia';
 import { env } from '../../env';
 import { queryClient as sql } from '../../db/client';
 import { unsignSession } from '../../lib/crypto';
+import { cookieVal, UUID_RE } from '../../lib/http';
 import { logger } from '../../lib/logger';
 import { loadUser, SESSION_COOKIE } from './middleware';
 import { sendOtp, verifyOtp, logout } from './service';
@@ -12,14 +13,6 @@ import { AuthErrorPage, LoginPage, VerifyPage } from './views';
 // ---------------------------------------------------------------------------
 
 const COOKIE_MAX_AGE = 30 * 24 * 60 * 60; // 30 days in seconds
-
-function cookieVal(
-  cookie: Record<string, { value: unknown } | undefined>,
-  name: string,
-): string | undefined {
-  const v = cookie[name]?.value;
-  return typeof v === 'string' ? v : undefined;
-}
 
 function setSessionCookie(
   cookie: Record<string, { value: unknown; set: (opts: object) => void } | undefined>,
@@ -133,7 +126,6 @@ export const authRoutes = new Elysia()
 
   // ── GET /api/avatar/:userId ───────────────────────────────────────────────
   .get('/api/avatar/:userId', async ({ params }) => {
-    const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
     if (!UUID_RE.test(params.userId)) return status(404, 'Not found');
 
     const [row] = await sql<{ avatarSvg: string }[]>`

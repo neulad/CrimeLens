@@ -1,4 +1,6 @@
 import { queryClient as sql } from '../../db/client';
+import { newId } from '../../lib/ids';
+import { VALID_CRIME_TYPES } from './crime-types';
 
 export interface IncidentRow {
   id: string;
@@ -51,10 +53,7 @@ export interface CreateIncidentParams {
   userId: string;
 }
 
-const VALID_CRIME_TYPES = new Set(['pickpocketing', 'bicycle_stolen', 'street_fight', 'robbery', 'street_scams']);
-
 export async function createIncident(params: CreateIncidentParams): Promise<string> {
-  const { newId } = await import('../../lib/ids');
   if (!VALID_CRIME_TYPES.has(params.crimeType)) throw new Error('Invalid crime type');
   const id = newId();
   await sql`
@@ -90,28 +89,11 @@ export async function getCityIncidents(city: string, types: string[] | undefined
   }
   return sql<IncidentRow[]>`
     SELECT id, crime_type AS "crimeType", occurred_at AS "occurredAt",
-           city, description, source,
+           city, description, source, created_by AS "createdBy",
            ST_Y(location) AS lat, ST_X(location) AS lng
     FROM incidents
     WHERE LOWER(city) = LOWER(${city})
       AND occurred_at >= ${sinceIso}::timestamptz
-    ORDER BY occurred_at DESC
-    LIMIT ${limit}
-  `;
-}
-
-export async function getRecentIncidents(limit = 20): Promise<IncidentRow[]> {
-  return sql<IncidentRow[]>`
-    SELECT
-      id,
-      crime_type   AS "crimeType",
-      occurred_at  AS "occurredAt",
-      city,
-      description,
-      source,
-      ST_Y(location) AS lat,
-      ST_X(location) AS lng
-    FROM incidents
     ORDER BY occurred_at DESC
     LIMIT ${limit}
   `;
@@ -156,6 +138,7 @@ export async function getBboxIncidents(params: BboxParams): Promise<IncidentRow[
       city,
       description,
       source,
+      created_by   AS "createdBy",
       ST_Y(location) AS lat,
       ST_X(location) AS lng
     FROM incidents

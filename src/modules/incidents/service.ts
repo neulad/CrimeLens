@@ -1,3 +1,4 @@
+import { VALID_CRIME_TYPES } from './crime-types';
 import { type BboxParams, type IncidentRow, getBboxIncidents } from './queries';
 
 export interface ListByBboxParams {
@@ -11,14 +12,6 @@ export interface ListByBboxParams {
   since?: string;
   limit?: number;
 }
-
-const VALID_CRIME_TYPES = new Set([
-  'pickpocketing',
-  'bicycle_stolen',
-  'street_fight',
-  'robbery',
-  'street_scams',
-]);
 
 export function parseSince(since?: string): Date {
   if (!since || since === 'all') return new Date(0);

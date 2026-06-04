@@ -1,16 +1,12 @@
 import { Elysia, redirect, status, t } from 'elysia';
+import { cookieVal, UUID_RE } from '../../lib/http';
 import { logger } from '../../lib/logger';
 import { loadUser, SESSION_COOKIE } from '../auth/middleware';
+import { VALID_CRIME_TYPES } from './crime-types';
 import { createIncident, deleteIncident, getCityIncidents, getIncidentById, updateIncident } from './queries';
 import { broadcastIncident } from './live';
-import { parseSince } from './service';
-import { listByBbox } from './service';
-import { IncidentDetailPage, IncidentEditPage, IncidentNotFoundPage } from './views';
-
-function cookieVal(cookie: Record<string, { value: unknown } | undefined>, name: string): string | undefined {
-  const v = cookie[name]?.value;
-  return typeof v === 'string' ? v : undefined;
-}
+import { listByBbox, parseSince } from './service';
+import { IncidentDetailPage, IncidentNotFoundPage } from './views';
 
 export const incidentsRoutes = new Elysia()
   // ── GET /incidents/:id — detail page ────────────────────────────────────
@@ -18,8 +14,6 @@ export const incidentsRoutes = new Elysia()
     '/incidents/:id',
     async ({ params, cookie }) => {
       // Basic UUID guard to avoid hitting the DB with clearly invalid ids
-      const UUID_RE =
-        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
       if (!UUID_RE.test(params.id)) {
         return status(404, IncidentNotFoundPage({}));
       }
@@ -96,9 +90,8 @@ export const incidentsRoutes = new Elysia()
       const city = query.city.trim();
       if (!city) return { items: [] };
 
-      const VALID_TYPES = new Set(['pickpocketing', 'bicycle_stolen', 'street_fight', 'robbery', 'street_scams']);
       const types = query.types
-        ? query.types.split(',').filter((t) => VALID_TYPES.has(t))
+        ? query.types.split(',').filter((t) => VALID_CRIME_TYPES.has(t))
         : undefined;
 
       try {
@@ -167,32 +160,10 @@ export const incidentsRoutes = new Elysia()
     },
   )
 
-  // ── GET /incidents/:id/edit — edit form (owner only) ─────────────────────
-  .get(
-    '/incidents/:id/edit',
-    async ({ params, cookie }) => {
-      const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-      if (!UUID_RE.test(params.id)) return status(404, IncidentNotFoundPage({}));
-
-      const [incident, user] = await Promise.all([
-        getIncidentById(params.id),
-        loadUser(cookieVal(cookie, SESSION_COOKIE)),
-      ]);
-
-      if (!incident) return status(404, IncidentNotFoundPage({ userEmail: user?.email }));
-      if (!user) return redirect('/auth');
-      if (incident.createdBy !== user.userId) return status(403, 'Forbidden');
-
-      return IncidentEditPage({ incident, userEmail: user.email });
-    },
-    { params: t.Object({ id: t.String() }) },
-  )
-
-  // ── POST /incidents/:id/edit — save edits (owner only) ───────────────────
+  // ── POST /incidents/:id/edit — save inline edits (owner only) ────────────
   .post(
     '/incidents/:id/edit',
     async ({ params, body, cookie }) => {
-      const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
       if (!UUID_RE.test(params.id)) return status(404, IncidentNotFoundPage({}));
 
       const user = await loadUser(cookieVal(cookie, SESSION_COOKIE));
@@ -211,7 +182,7 @@ export const incidentsRoutes = new Elysia()
         });
       } catch (err) {
         logger.error(err, 'Failed to update incident');
-        return IncidentEditPage({ incident, userEmail: user.email, error: 'Something went wrong.' });
+        return status(500, 'Internal server error');
       }
 
       return redirect(`/incidents/${params.id}`);
@@ -226,7 +197,6 @@ export const incidentsRoutes = new Elysia()
   .post(
     '/incidents/:id/delete',
     async ({ params, cookie }) => {
-      const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
       if (!UUID_RE.test(params.id)) return status(404);
 
       const user = await loadUser(cookieVal(cookie, SESSION_COOKIE));
