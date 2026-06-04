@@ -54,10 +54,11 @@ cp .env.example .env
 | `GMAIL_FROM` | *(empty)* | The Gmail address that sends sign-in codes. **Required only when `MAIL_MODE=gmail`.** |
 | `GMAIL_APP_PASSWORD` | *(empty)* | 16-character Google **App Password** (not the normal Gmail password). **Required only when `MAIL_MODE=gmail`.** |
 
-> 🔒 **About the email password:** `GMAIL_APP_PASSWORD` is a real secret held only
-> in the team's private `.env` — it is **not** in this repository and is not shared
-> with the instructor. Without it the app automatically falls back to `console`
-> mode (codes printed to the logs), so the full sign-in flow is still gradeable.
+> 🔒 **About the email password:** `GMAIL_APP_PASSWORD` is a real secret, so it is
+> kept out of this repository (the committed `.env.example` only has a blank
+> placeholder). The team's filled-in `.env` — including the Gmail credentials — is
+> shared with the instructor separately. If it is not present, the app falls back
+> to `console` mode (codes printed to the logs), so the sign-in flow works either way.
 
 To enable real email, set in your `.env`:
 
@@ -104,8 +105,7 @@ docker compose down -v        # stop and wipe all data
 
 | File | Contents |
 |---|---|
-| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | How the app is structured and why — written to be read aloud in the presentation |
-| [`docs/DATA-MODEL.md`](docs/DATA-MODEL.md) | What the database stores, the ERD, and why we use PostGIS |
+| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | System architecture: stack, container topology, request lifecycle, auth/SMTP, and data layer |
 
 ---
 
