@@ -47,13 +47,29 @@
 
   // ── Map init ──────────────────────────────────────────────────────────────
 
+  // Restore last map position from sessionStorage, fall back to Europe overview
+  const _savedView = (() => {
+    try {
+      const v = sessionStorage.getItem('mapView');
+      return v ? JSON.parse(v) : null;
+    } catch { return null; }
+  })();
+
   const map = L.map('map', {
-    center: EUROPE_CENTER,
-    zoom: EUROPE_ZOOM,
+    center: _savedView ? [_savedView.lat, _savedView.lng] : EUROPE_CENTER,
+    zoom:   _savedView ? _savedView.zoom : EUROPE_ZOOM,
     zoomControl: false,
   });
   L.tileLayer(TILE_URL, { maxZoom: 19, attribution: TILE_ATTR }).addTo(map);
   map.attributionControl.setPrefix(false);
+
+  // Persist position whenever the user pans or zooms
+  map.on('moveend zoomend', function () {
+    try {
+      const c = map.getCenter();
+      sessionStorage.setItem('mapView', JSON.stringify({ lat: c.lat, lng: c.lng, zoom: map.getZoom() }));
+    } catch {}
+  });
 
   const clusterGroup = L.markerClusterGroup({
     chunkedLoading: true,
@@ -247,6 +263,24 @@
     document.getElementById('map-container')?.classList.add('panel-open');
   }
 
+  function showToast(message, linkHref) {
+    const existing = document.getElementById('map-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'map-toast';
+    toast.className = 'map-toast';
+    toast.innerHTML = `<span>${message}</span>${linkHref ? `<a href="${linkHref}" class="map-toast__link">View →</a>` : ''}`;
+    document.getElementById('map-container').appendChild(toast);
+
+    requestAnimationFrame(() => toast.classList.add('map-toast--visible'));
+
+    setTimeout(() => {
+      toast.classList.remove('map-toast--visible');
+      toast.addEventListener('transitionend', () => toast.remove(), { once: true });
+    }, 4000);
+  }
+
   function closeDetailPanel() {
     if (!panel) return;
     panel.classList.add('detail-panel--closed');
@@ -281,7 +315,25 @@
     userLocationLayer = L.marker([lat, lng], { icon, zIndexOffset: 10000 })
       .on('click', () => map.setView([lat, lng], Math.max(map.getZoom(), 15), { animate: true }))
       .addTo(map);
+
+    // Apply initial scale and keep it in sync with zoom
+    updateUserDotScale(map.getZoom());
   }
+
+  function updateUserDotScale(zoom) {
+    if (!userLocationLayer) return;
+    const el = userLocationLayer.getElement();
+    if (!el) return;
+    const dot = el.querySelector('.user-dot');
+    if (!dot) return;
+    // Shrink as you zoom in: 1.0 at z5, stays small at z18
+    const scale = Math.min(Math.max(2.2 - (zoom - 5) * 0.17, 1.0), 2.2);
+    dot.style.transition = 'transform 0.25s ease';
+    dot.style.transformOrigin = 'center center';
+    dot.style.transform = `scale(${scale.toFixed(3)})`;
+  }
+
+  map.on('zoomend', function () { updateUserDotScale(map.getZoom()); });
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
@@ -289,7 +341,7 @@
         userLat = pos.coords.latitude;
         userLng = pos.coords.longitude;
         showUserLocation(userLat, userLng);
-        map.setView([userLat, userLng], 13);
+        if (!_savedView) map.setView([userLat, userLng], 13);
         reverseGeocode(userLat, userLng).then((city) => {
           if (city) setCity(city);
         });
@@ -318,10 +370,17 @@
 
   async function searchCities(query) {
     try {
-      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=5&featuretype=city`;
-      const res = await fetch(url, { headers: { 'Accept-Language': 'en', 'User-Agent': 'CrimeLens/1.0' } });
+      // Photon (OSM-based): osm_tag=place:city restricts to OSM "city" rank — major urban centres worldwide
+      const url = `https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&limit=6&osm_tag=place:city&lang=en`;
+      const res = await fetch(url);
       if (!res.ok) return [];
-      return await res.json();
+      const data = await res.json();
+      return (data.features ?? []).map((f) => ({
+        display_name: [f.properties.name, f.properties.state, f.properties.country].filter(Boolean).join(', '),
+        lat: String(f.geometry.coordinates[1]),
+        lon: String(f.geometry.coordinates[0]),
+        cityName: f.properties.name,
+      }));
     } catch {
       return [];
     }
@@ -369,14 +428,10 @@
       item.addEventListener('mousedown', (evt) => {
         evt.preventDefault();
         hideDropdown();
-        const name = r.display_name.split(',')[0].trim();
-        // Nominatim boundingbox: [south, north, west, east]
-        const [s, n, w, east] = (r.boundingbox ?? []).map(parseFloat);
-        const bbox = [w, s, east, n];
         suppressMoveUpdate = true;
         map.setView([parseFloat(r.lat), parseFloat(r.lon)], 13);
         setTimeout(() => { suppressMoveUpdate = false; }, 2000);
-        setCity(name);
+        setCity(r.cityName);
       });
       searchDropdown.appendChild(item);
     }
@@ -393,9 +448,8 @@
       const q = citySearch.value.trim();
       if (q.length < 2) { hideDropdown(); return; }
       searchTimer = setTimeout(async () => {
-        const results = await searchCities(q);
-        showDropdown(results);
-      }, 350);
+        showDropdown(await searchCities(q));
+      }, 300);
     });
 
     citySearch.addEventListener('keydown', (e) => {
@@ -524,13 +578,14 @@
       reportBtn.textContent = '✕ Cancel';
       reportBtn.style.background = '#dc2626';
     }
+    // Placement cursor stays active for the whole report-mode session —
+    // you can click the map at any time to (re)position the pin.
+    if (mapContainer) mapContainer.classList.add('report-placing');
     if (userLat !== null && userLng !== null) {
-      if (mapContainer) mapContainer.classList.remove('report-placing');
       if (tempMarker) map.removeLayer(tempMarker);
       tempMarker = L.marker([userLat, userLng], { icon: tempPinIcon(), zIndexOffset: 1000 }).addTo(map);
       showReportForm(userLat, userLng);
     } else {
-      if (mapContainer) mapContainer.classList.add('report-placing');
       if (panel && panelContent) {
         panelContent.innerHTML = `
           <p style="font-size:0.85rem;color:#374151;margin-top:0.5rem">
@@ -543,6 +598,7 @@
         panel.classList.remove('detail-panel--closed');
         panel.classList.add('detail-panel--open');
         panel.removeAttribute('aria-hidden');
+        document.getElementById('map-container')?.classList.add('panel-open');
       }
     }
   }
@@ -563,10 +619,12 @@
 
     const today = new Date();
     const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    const nowTimeStr = `${String(today.getHours()).padStart(2, '0')}:${String(today.getMinutes()).padStart(2, '0')}`;
 
     panel.classList.remove('detail-panel--closed');
     panel.classList.add('detail-panel--open');
     panel.removeAttribute('aria-hidden');
+    document.getElementById('map-container')?.classList.add('panel-open');
 
     panelContent.innerHTML = `
       <h4 style="margin:0 0 0.75rem;font-size:0.95rem">Report an incident</h4>
@@ -589,8 +647,11 @@
           </select>
         </label>
         <label>
-          Date of incident
-          <input type="date" name="occurredAt" required value="${todayStr}" max="${todayStr}" />
+          Date &amp; time of incident
+          <div style="display:flex;gap:0.5rem">
+            <input type="date" name="occurredAtDate" required value="${todayStr}" max="${todayStr}" style="flex:1;min-width:0" />
+            <input type="time" name="occurredAtTime" required value="${nowTimeStr}" style="flex:1;min-width:0" />
+          </div>
         </label>
         <label>
           Description
@@ -632,7 +693,13 @@
         lng,
         crimeType: form.crimeType.value,
         city: form.city.value || 'Unknown',
-        occurredAt: form.occurredAt.value,
+        occurredAt: (function() {
+          var d = form.occurredAtDate.value + 'T' + (form.occurredAtTime.value || '00:00') + ':00';
+          var offset = -new Date().getTimezoneOffset();
+          var sign = offset >= 0 ? '+' : '-';
+          var pad = function(n) { return String(Math.abs(n)).padStart(2, '0'); };
+          return d + sign + pad(Math.floor(Math.abs(offset) / 60)) + ':' + pad(Math.abs(offset) % 60);
+        })(),
         description: form.description.value,
       };
 
@@ -654,20 +721,7 @@
         cancelReportMode();
         await loadIncidents();
         closeDetailPanel();
-
-        if (panelContent && panel) {
-          panelContent.innerHTML = `
-            <p style="color:#166534;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:0.375rem;padding:0.6rem 0.75rem;font-size:0.875rem;margin:0">
-              ✅ Incident reported! It will appear on the map shortly.
-            </p>
-            <p style="margin-top:0.75rem;font-size:0.85rem">
-              <a href="/incidents/${esc(data.id)}">View your report →</a>
-            </p>
-          `;
-          panel.classList.remove('detail-panel--closed');
-          panel.classList.add('detail-panel--open');
-          panel.removeAttribute('aria-hidden');
-        }
+        showToast('Incident reported!', `/incidents/${esc(data.id)}`);
       } catch (err) {
         console.error('Failed to submit incident:', err);
         if (errorDiv) { errorDiv.textContent = 'Network error. Please try again.'; errorDiv.style.display = 'block'; }
@@ -689,8 +743,30 @@
     const { lat, lng } = e.latlng;
     if (tempMarker) map.removeLayer(tempMarker);
     tempMarker = L.marker([lat, lng], { icon: tempPinIcon(), zIndexOffset: 1000 }).addTo(map);
-    if (mapContainer) mapContainer.classList.remove('report-placing');
+
+    // Preserve any values the user already entered before moving the pin
+    var savedForm = null;
+    var existingForm = document.getElementById('report-incident-form');
+    if (existingForm) {
+      savedForm = {
+        crimeType: existingForm.crimeType?.value,
+        description: existingForm.description?.value,
+        occurredAtDate: existingForm.occurredAtDate?.value,
+        occurredAtTime: existingForm.occurredAtTime?.value,
+      };
+    }
+
     showReportForm(lat, lng);
+
+    if (savedForm) {
+      var f = document.getElementById('report-incident-form');
+      if (f) {
+        if (savedForm.crimeType)     f.crimeType.value = savedForm.crimeType;
+        if (savedForm.description)   f.description.value = savedForm.description;
+        if (savedForm.occurredAtDate) f.occurredAtDate.value = savedForm.occurredAtDate;
+        if (savedForm.occurredAtTime) f.occurredAtTime.value = savedForm.occurredAtTime;
+      }
+    }
   });
 
   // ── Filter wiring ─────────────────────────────────────────────────────────

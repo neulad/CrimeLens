@@ -222,18 +222,19 @@ html.inner-page-body body {
 .pill input[type="checkbox"] {
   display: none;
 }
-.pill:not(:has(input:checked)) {
-  opacity: 0.4;
+/* Unchecked = grey/inactive */
+.pill {
+  background: #e5e7eb;
+  color: #6b7280;
   box-shadow: none;
 }
-.pill:hover {
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.28);
-}
-.pill-pickpocketing  { background: var(--badge-pickpocketing-bg);  color: var(--badge-pickpocketing-fg);  }
-.pill-bicycle-stolen { background: var(--badge-bicycle-stolen-bg); color: var(--badge-bicycle-stolen-fg); }
-.pill-street-fight   { background: var(--badge-street-fight-bg);   color: var(--badge-street-fight-fg);   }
-.pill-robbery        { background: var(--badge-robbery-bg);         color: var(--badge-robbery-fg);        }
-.pill-street-scams   { background: var(--badge-street-scams-bg);    color: var(--badge-street-scams-fg);   }
+/* Checked = coloured and emphasized */
+.pill:has(input:checked).pill-pickpocketing  { background: var(--badge-pickpocketing-bg);  color: var(--badge-pickpocketing-fg);  box-shadow: 0 2px 6px rgba(0,0,0,0.22); }
+.pill:has(input:checked).pill-bicycle-stolen { background: var(--badge-bicycle-stolen-bg); color: var(--badge-bicycle-stolen-fg); box-shadow: 0 2px 6px rgba(0,0,0,0.22); }
+.pill:has(input:checked).pill-street-fight   { background: var(--badge-street-fight-bg);   color: var(--badge-street-fight-fg);   box-shadow: 0 2px 6px rgba(0,0,0,0.22); }
+.pill:has(input:checked).pill-robbery        { background: var(--badge-robbery-bg);         color: var(--badge-robbery-fg);        box-shadow: 0 2px 6px rgba(0,0,0,0.22); }
+.pill:has(input:checked).pill-street-scams   { background: var(--badge-street-scams-bg);    color: var(--badge-street-scams-fg);   box-shadow: 0 2px 6px rgba(0,0,0,0.22); }
+.pill:hover { filter: brightness(0.95); }
 
 /* ── Sidebar ──────────────────────────────────────────────────────────────── */
 .sidebar {
@@ -731,6 +732,7 @@ a.user-name:hover { text-decoration: underline; }
 }
 .report-form select,
 .report-form input[type="date"],
+.report-form input[type="time"],
 .report-form textarea {
   font-size: 0.82rem;
   padding: 0.3rem 0.5rem;
@@ -739,6 +741,8 @@ a.user-name:hover { text-decoration: underline; }
   background: #fff;
   color: #111827;
   width: 100%;
+  box-sizing: border-box;
+  height: 2.1rem;
   margin: 0;
 }
 .report-form textarea {
@@ -765,8 +769,12 @@ a.user-name:hover { text-decoration: underline; }
 }
 
 
-/* Crosshair cursor during pin-placement mode */
-.report-placing #map {
+/* Crosshair cursor during pin-placement (report) mode.
+   Forced on the container AND every descendant pane/marker so it overrides
+   Leaflet's own cursor rules: .leaflet-grab (open hand), .leaflet-dragging
+   .leaflet-grab (grabbing) and .leaflet-interactive (pointer). */
+.report-placing #map,
+.report-placing #map * {
   cursor: crosshair !important;
 }
 
@@ -920,6 +928,17 @@ button.nav-btn {
   text-transform: uppercase; color: #9ca3af; margin: 0 0 0.5rem;
 }
 .incident-card__text { font-size: 1rem; color: #111827; line-height: 1.6; margin: 0; }
+.incident-inline-input {
+  width: 100%;
+  font-size: 0.875rem;
+  border: 1.5px solid #d1d5db;
+  border-radius: 0.375rem;
+  padding: 0.35rem 0.5rem;
+  background: #f9fafb;
+  color: #111827;
+  box-sizing: border-box;
+}
+.incident-inline-input:focus { outline: none; border-color: #6366f1; background: #fff; }
 
 .incident-details { border: 1px solid #e5e7eb; border-radius: 0.5rem; overflow: hidden; }
 .incident-detail {
@@ -935,30 +954,44 @@ button.nav-btn {
 .incident-actions {
   margin-top: 1.75rem;
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0.6rem;
 }
+.incident-actions__row {
+  display: flex;
+  gap: 0.6rem;
+  width: 100%;
+}
+.incident-actions__row .incident-action-btn { flex: 1; }
 .incident-action-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.35rem;
-  padding: 0.45rem 1rem;
-  border-radius: 0.375rem;
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border-radius: 0.5rem;
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
   text-decoration: none;
+  border: none;
 }
 a.incident-action-btn.contrast, button.incident-action-btn.contrast {
   background: #111827; color: #fff;
 }
-.incident-action-btn--danger {
-  color: #991b1b;
-  border: 1.5px solid #fca5a5;
-  background: #fff;
+.incident-action-btn--cancel {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1.5px solid #d1d5db;
 }
-.incident-action-btn--danger:hover { background: #fee2e2; }
+.incident-action-btn--cancel:hover { background: #e5e7eb; }
+.incident-action-btn--danger {
+  background: #dc2626;
+  color: #fff;
+  border: none;
+}
+.incident-action-btn--danger:hover { background: #b91c1c; }
 .incident-action-btn--disabled {
   color: #9ca3af;
   border: 1.5px solid #e5e7eb;
@@ -1010,8 +1043,6 @@ a.incident-action-btn.contrast, button.incident-action-btn.contrast {
 .lf-toggle:hover { background: #f3f4f6; }
 .lf-toggle--active { background: #111827; color: #fff; }
 .lf-toggle--active:hover { background: #374151; }
-.lf-toggle--lost.lf-toggle--active  { background: var(--badge-lost-fg); }
-.lf-toggle--found.lf-toggle--active { background: var(--badge-found-fg); }
 
 /* ── Cards ───────────────────────────────────────────────────────────────── */
 .lf-list { display: flex; flex-direction: column; gap: 1rem; }
@@ -1031,6 +1062,19 @@ a.incident-action-btn.contrast, button.incident-action-btn.contrast {
 .lf-card__contacts { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
 .lf-card__delete-form { margin-top: 0.75rem; }
 .lf-delete-btn { font-size: 0.75rem; padding: 0.15rem 0.6rem; color: #991b1b; border-color: #fca5a5; }
+.lf-card__actions { display: flex; gap: 0.5rem; margin-top: 0.75rem; }
+.lf-action-btn {
+  flex: 1; padding: 0.4rem 0.75rem; border-radius: 0.375rem;
+  font-size: 0.8rem; font-weight: 600; cursor: pointer; border: none;
+  background: #f3f4f6; color: #374151;
+}
+.lf-action-btn:hover { background: #e5e7eb; }
+.lf-action-btn--danger { background: #dc2626; color: #fff; }
+.lf-action-btn--danger:hover { background: #b91c1c; }
+.lf-action-btn--cancel { background: #f3f4f6; color: #6b7280; border: 1.5px solid #d1d5db; }
+.lf-edit-form { margin-top: 0.5rem; }
+.lf-edit-form label { font-size: 0.8rem; }
+.lf-edit-actions { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
 
 /* Contact chips */
 .contact-chip {
@@ -1174,3 +1218,70 @@ a.incident-action-btn.contrast, button.incident-action-btn.contrast {
 .leaflet-bar a:last-child { border-bottom: none !important; border-radius: 0 0 2px 2px !important; }
 .leaflet-touch .leaflet-bar a.leaflet-disabled,
 .leaflet-bar a.leaflet-disabled { cursor: default !important; color: #bbb !important; background-color: #f4f4f4 !important; }
+
+/* ── Modal overlay ────────────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition: background 0.2s ease;
+}
+.modal-overlay.modal-open {
+  background: rgba(0, 0, 0, 0.45);
+  pointer-events: auto;
+}
+.modal-box {
+  background: #fff;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  max-width: 360px;
+  width: 90%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  text-align: center;
+  transform: scale(0.9) translateY(12px);
+  opacity: 0;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.18s ease;
+}
+.modal-overlay.modal-open .modal-box {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+/* ── Map toast notification ───────────────────────────────────────────────── */
+.map-toast {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(1rem);
+  background: #111827;
+  color: #fff;
+  padding: 0.65rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+}
+.map-toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+.map-toast__link {
+  color: #86efac;
+  text-decoration: none;
+  font-weight: 700;
+}
+.map-toast__link:hover { text-decoration: underline; }
