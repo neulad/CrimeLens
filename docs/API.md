@@ -2,7 +2,7 @@
 
 All routes served by the Elysia process on `http://localhost:3000` (or `BASE_URL` in production).
 
-**HTML routes** return full pages or HTMX-swappable fragments.
+**HTML routes** return full server-rendered pages.
 **API routes** under `/api/` return JSON.
 
 ---
@@ -33,75 +33,53 @@ Full crime incident detail page.
 
 ---
 
-### `GET /lost-and-found`
+### `POST /incidents/:id/edit`
 
-Reverse-chronological list of all lost and found item reports. Any logged-in user sees a "Delete" button on their own items.
+Save inline edits to an incident you reported (crime type, description, date+time). Backs the inline edit form on the detail page.
 
-**Auth:** public
-**Response:** `200 text/html`
-
----
-
-### `GET /lost-and-found/new`
-
-Report a new lost or found item. Requires authentication.
-
-**Auth:** required (redirects to sign-in wall if anonymous)
-**Response:** `200 text/html` — submission form
-
----
-
-### `POST /lost-and-found`
-
-Submit a new lost or found item report.
-
-**Auth:** required
+**Auth:** required (owner only)
 **Content-Type:** `application/x-www-form-urlencoded`
 **Body fields:**
 
 | Field | Type | Required | Notes |
 |---|---|---|---|
-| `title` | string | yes | Max 120 chars |
-| `category` | string | yes | One of: `phone`, `bag`, `wallet`, `keys`, `documents`, `other` |
-| `status` | string | yes | `LOST` or `FOUND` |
-| `city` | string | yes | Free text, max 100 chars |
-| `occurredAt` | date string | yes | ISO date `YYYY-MM-DD` |
-| `description` | string | yes | Max 1000 chars |
+| `crimeType` | string | yes | One of the crime-type values (see bottom) |
+| `description` | string | yes | |
+| `occurredAtDate` | string | yes | `YYYY-MM-DD` |
+| `occurredAtTime` | string | no | `HH:MM`; defaults to `00:00` |
 
 **Responses:**
-- `302` redirect to `/lost-and-found` on success
-- `200 text/html` re-renders the form with an error banner if validation fails
+- `302` redirect to `/incidents/:id` on success
+- `302` redirect to `/auth` if not signed in
+- `403 text/plain` if you are not the reporter
+- `404 text/html` if the incident does not exist (or non-UUID id)
 
 ---
 
-### `POST /lost-and-found/:id/delete`
+### `POST /incidents/:id/delete`
 
-Delete an item you own. Ownership is verified server-side; other users' IDs are silently ignored.
+Delete an incident you reported. Ownership is verified server-side.
 
-**Auth:** required
-**Params:**
-| Param | Type | Description |
-|---|---|---|
-| `id` | string | Lost item ID |
-
+**Auth:** required (owner only)
 **Responses:**
-- `302` redirect to `/lost-and-found`
-- `401 text/plain` if not signed in
+- `302` redirect to `/` on success
+- `302` redirect to `/auth` if not signed in
+- `403 text/plain` if you are not the reporter
 
 ---
 
 ### `GET /auth`
 
-Login page with a link to the registration page.
+Sign-in page (enter your email to receive a code). Redirects to `/` if already signed in. Accepts an optional `?email=` query to pre-fill the field.
 
 **Auth:** public
 **Response:** `200 text/html`
 
 ---
 
-### `POST /auth/login`
+### `POST /auth/send-code`
 
-Sign in with email and password.
+Email a 6-digit sign-in code to the address. Rate-limited to one code per 60 seconds per email.
 
 **Auth:** public
 **Content-Type:** `application/x-www-form-urlencoded`
@@ -110,41 +88,38 @@ Sign in with email and password.
 | Field | Type | Required |
 |---|---|---|
 | `email` | string | yes |
-| `password` | string | yes |
 
 **Responses:**
-- `302` redirect to `/` on success (sets `session` cookie)
-- `200 text/html` re-renders the login form with error on invalid credentials
+- `200 text/html` — the verify-code page (on success)
+- `200 text/html` — sign-in page with an error (e.g. rate-limited or invalid email)
 
 ---
 
-### `GET /auth/register`
+### `GET /auth/verify`
 
-Registration form.
+Enter-code page. Requires `?email=` (redirects to `/auth` if missing).
 
 **Auth:** public
 **Response:** `200 text/html`
 
 ---
 
-### `POST /auth/register`
+### `POST /auth/verify`
 
-Create a new account and immediately sign in.
+Verify the code and sign in. The account is created on first successful verification. Wrong codes increment an attempt counter; after 5 failures the code locks.
 
 **Auth:** public
 **Content-Type:** `application/x-www-form-urlencoded`
 **Body fields:**
 
-| Field | Type | Required | Notes |
-|---|---|---|---|
-| `firstName` | string | yes | |
-| `lastName` | string | yes | |
-| `email` | string | yes | Must be unique |
-| `password` | string | yes | Min 8 chars |
+| Field | Type | Required |
+|---|---|---|
+| `email` | string | yes |
+| `code` | string | yes |
 
 **Responses:**
-- `302` redirect to `/` on success (sets `session` cookie, auto-login)
-- `200 text/html` re-renders the register form with error on duplicate email or invalid input
+- `302` redirect to `/` on success (sets `session` cookie)
+- `200 text/html` re-renders the verify page with an error (wrong/expired/locked code)
 
 ---
 
@@ -154,6 +129,23 @@ Sign out. Deletes the session from the database and clears the cookie.
 
 **Auth:** required (no-op if anonymous)
 **Response:** `302` redirect to `/`
+
+---
+
+### `GET /api/avatar/:userId`
+
+Returns the user's cached DiceBear avatar SVG.
+
+**Auth:** public
+**Responses:**
+- `200 image/svg+xml` (cached one year)
+- `404 text/plain` for a non-UUID id or a user with no stored avatar
+
+---
+
+### `GET /profile` · `POST /profile` · `POST /profile/change-email` · `POST /profile/confirm-email`
+
+Profile page and its actions: edit name + public contact handles, and change the account email via an OTP sent to the new address. All require a session (anonymous requests redirect to `/auth`). The email change is confirmed with `POST /profile/confirm-email` (`{ code }`), which verifies the OTP for the pending address and then swaps the account email.
 
 ---
 
@@ -168,14 +160,14 @@ Viewport + filter query. Used by `map.js` to populate the map.
 
 | Param | Type | Required | Default | Notes |
 |---|---|---|---|---|
-| `bbox` | string | **yes** | — | `W,S,E,N` — four floats (lon/lat), comma-separated. Example: `2.0,41.2,2.3,41.5` |
-| `types` | string | no | all | Comma-separated crime types: `pickpocketing`, `bag_snatching`, `theft_from_vehicle`, `other` |
+| `bbox` | string | **yes** | — | `W,S,E,N` — four floats (lon/lat), comma-separated. Example: `-0.2,51.4,0.0,51.6` |
+| `types` | string | no | all | Comma-separated crime types: `pickpocketing`, `bicycle_stolen`, `street_fight`, `robbery`, `street_scams` |
 | `since` | string | no | `all` | One of: `30d`, `90d`, `1y`, `all` |
 | `limit` | integer | no | `500` | Max `1000` |
 
 **Example request:**
 ```
-GET /api/incidents?bbox=2.0,41.2,2.3,41.5&types=pickpocketing,bag_snatching&since=90d
+GET /api/incidents?bbox=-0.2,51.4,0.0,51.6&types=pickpocketing,robbery&since=90d
 ```
 
 **Example response (`200 application/json`):**
@@ -186,11 +178,12 @@ GET /api/incidents?bbox=2.0,41.2,2.3,41.5&types=pickpocketing,bag_snatching&sinc
       "id": "018f4b2e-1234-7abc-8def-000000000001",
       "crimeType": "pickpocketing",
       "occurredAt": "2025-11-14T18:32:00.000Z",
-      "city": "Barcelona",
-      "lat": 41.3809,
-      "lng": 2.1228,
-      "description": "Victim's wallet taken on Las Ramblas while distracted by a street performer.",
-      "source": "SEEDED"
+      "city": "London",
+      "description": "Wallet lifted on a crowded Tube platform during rush hour.",
+      "source": "SEEDED",
+      "createdBy": null,
+      "lat": 51.5079,
+      "lng": -0.1283
     }
   ]
 }
@@ -206,6 +199,23 @@ GET /api/incidents?bbox=2.0,41.2,2.3,41.5&types=pickpocketing,bag_snatching&sinc
 
 ---
 
+### `GET /api/incidents/feed`
+
+City-filtered list for the sidebar feed (newest 50). Used when a city is selected.
+
+**Auth:** public
+**Query parameters:**
+
+| Param | Type | Required | Notes |
+|---|---|---|---|
+| `city` | string | **yes** | City name (case-insensitive match) |
+| `types` | string | no | Same comma-separated crime types as above |
+| `since` | string | no | `30d` / `90d` / `1y` / `all` |
+
+**Response:** `200 application/json` — `{ "items": [ … ] }` (same item shape as `/api/incidents`). Returns `{ "items": [] }` when `city` is blank.
+
+---
+
 ### `POST /api/incidents`
 
 Report a new crime incident from the map. Requires an authenticated session.
@@ -216,12 +226,12 @@ Report a new crime incident from the map. Requires an authenticated session.
 **Request body:**
 ```json
 {
-  "lat": 41.3851,
-  "lng": 2.1734,
-  "crimeType": "bag_snatching",
-  "city": "Barcelona",
-  "occurredAt": "2026-05-03",
-  "description": "Bag grabbed from chair outside a café near the waterfront."
+  "lat": 51.5074,
+  "lng": -0.1278,
+  "crimeType": "robbery",
+  "city": "London",
+  "occurredAt": "2026-05-03T21:15:00+01:00",
+  "description": "Phone snatched by a passing e-scooter rider near the station."
 }
 ```
 
@@ -231,9 +241,9 @@ Report a new crime incident from the map. Requires an authenticated session.
 |---|---|---|
 | `lat` | number | −90 to 90 |
 | `lng` | number | −180 to 180 |
-| `crimeType` | string | One of: `pickpocketing`, `bag_snatching`, `theft_from_vehicle`, `other` |
-| `city` | string | Any string (auto-populated by Nominatim in the UI) |
-| `occurredAt` | string | ISO date or datetime string |
+| `crimeType` | string | One of: `pickpocketing`, `bicycle_stolen`, `street_fight`, `robbery`, `street_scams` |
+| `city` | string | Any string (reverse-geocoded by Nominatim in the UI) |
+| `occurredAt` | string | ISO datetime string (the UI sends date + time with the local UTC offset) |
 | `description` | string | Non-empty after trimming |
 
 **Success response (`200 application/json`):**
@@ -268,9 +278,12 @@ The HMAC is verified server-side using `SESSION_SECRET` from `.env` before the s
 
 ## Crime type values
 
-| Value | Display label | UI badge color |
-|---|---|---|
-| `pickpocketing` | Pickpocketing | Amber |
-| `bag_snatching` | Bag snatching | Red |
-| `theft_from_vehicle` | Vehicle theft | Blue |
-| `other` | Other | Gray |
+| Value | Display label |
+|---|---|
+| `pickpocketing` | Pickpocketing |
+| `bicycle_stolen` | Bicycle stolen |
+| `street_fight` | Street fight |
+| `robbery` | Robbery |
+| `street_scams` | Street scam |
+
+These are defined once in `src/modules/incidents/crime-types.ts` and enforced by the `crime_type_check` constraint in the database.

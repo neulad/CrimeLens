@@ -52,7 +52,7 @@ docker compose up -d
 # 5. Apply database migrations
 bun run db:migrate
 
-# 6. Seed ~500 sample incidents (Barcelona, Paris, Rome, Prague, Amsterdam)
+# 6. Seed 446 sample incidents across 40 major European cities
 bun run seed
 
 # 7. Start the dev server (hot-reload on file changes)
@@ -71,10 +71,11 @@ All variables live in `.env`. Only `DATABASE_URL` and `SESSION_SECRET` are requi
 |---|---|---|---|
 | `DATABASE_URL` | **yes** | `postgres://crimelens:crimelens@localhost:5432/crimelens` | Postgres connection string. Matches the Docker Compose defaults. |
 | `SESSION_SECRET` | **yes** | *(none)* | 32+ random bytes used to HMAC-sign session cookies. Generate with `openssl rand -hex 32`. |
-| `BASE_URL` | no | `http://localhost:3000` | Public URL of the app. Used in future email links. |
+| `BASE_URL` | no | `http://localhost:3000` | Public URL of the app. Controls the `secure` flag on session cookies. |
 | `PORT` | no | `3000` | HTTP port to listen on. |
-| `MAIL_MODE` | no | `console` | Legacy — not used in the current password auth flow. |
-| `RESEND_API_KEY` | no | *(none)* | Legacy — not used in the current auth flow. |
+| `MAIL_MODE` | no | `console` | `console` prints OTP sign-in codes to stdout (no email sent); `gmail` sends them via Gmail SMTP. |
+| `GMAIL_FROM` | when `MAIL_MODE=gmail` | *(none)* | Gmail address that sends OTP codes. |
+| `GMAIL_APP_PASSWORD` | when `MAIL_MODE=gmail` | *(none)* | 16-character Google App Password for that account. |
 
 ---
 
@@ -86,9 +87,8 @@ All variables live in `.env`. Only `DATABASE_URL` and `SESSION_SECRET` are requi
 | `bun run start` | Start production server (no watch) |
 | `bun run db:up` | Start the Docker Compose stack (Postgres + PostGIS) |
 | `bun run db:down` | Stop the Docker Compose stack |
-| `bun run db:migrate` | Apply all pending Drizzle migrations |
-| `bun run db:generate` | Generate a new migration from schema changes |
-| `bun run seed` | Wipe the `incidents` table and reload from `seed/incidents.json` |
+| `bun run db:migrate` | Apply all pending `.sql` migrations (custom runner) |
+| `bun run seed` | Reload seeded incidents from `seed/incidents.json` |
 | `bun run check` | Lint + format check (Biome) |
 | `bun run format` | Auto-fix formatting issues |
 | `bun test` | Run integration tests |
@@ -100,18 +100,16 @@ All variables live in `.env`. Only `DATABASE_URL` and `SESSION_SECRET` are requi
 After `bun run dev`, walk through these manually:
 
 - [ ] **Map loads** — http://localhost:3000 shows a map centred on Europe with pin clusters.
-- [ ] **Zoom in** — zooming into Barcelona reveals ~100 individual pins.
+- [ ] **Zoom in** — zooming into a city (e.g. London or Paris) breaks clusters into individual pins.
+- [ ] **City search** — typing a city in the sidebar search jumps the map there.
 - [ ] **Pin click** — clicking a pin opens the detail panel on the right with crime type, date, and city.
-- [ ] **Filter bar** — unchecking a crime type removes those pins immediately.
+- [ ] **Filter bar** — toggling a crime-type pill shows/hides those pins immediately.
 - [ ] **Time filter** — selecting "Last 30 days" reduces visible pins.
 - [ ] **Detail page** — clicking "View full details →" in the panel opens `/incidents/:id`.
-- [ ] **Register** — click Sign in → Create account → fill in first name, last name, email, password → submit.
-- [ ] **Login** — sign out, then sign back in with the same credentials.
-- [ ] **Nav** — after login, the nav shows your name and a Sign out button on one line.
-- [ ] **Report incident** — while signed in, click "📍 Report incident" → click the map → the city auto-detects → fill the form → submit → new pin appears.
-- [ ] **Lost & Found list** — http://localhost:3000/lost-and-found loads (empty state is fine).
-- [ ] **Lost & Found submit** — click "+ Report item" → fill in the form → submit → item appears in the list.
-- [ ] **Delete item** — delete the item you just created (only visible to the owner).
+- [ ] **Sign in (OTP)** — click Sign in → enter your email → check the code (printed to the server console in `MAIL_MODE=console`) → enter it → you're signed in (account auto-created on first sign-in).
+- [ ] **Nav** — after sign-in, the sidebar shows your avatar, name, and a Sign out button.
+- [ ] **Report incident** — while signed in, click "Report Incident" → click the map → the city auto-detects → fill the form → submit → new pin appears.
+- [ ] **Edit / delete** — open one of your own reports → edit it inline, or delete it via the confirmation modal.
 
 ---
 
