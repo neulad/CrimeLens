@@ -28,30 +28,30 @@ orchestrated with Docker Compose.
 ## Container topology
 
 ```
-                       ┌──────────────────────────────────────────┐
-                       │              Client (browser)             │
-                       │   Leaflet map · HTML forms · fetch · WS    │
-                       └────┬──────────────────────────┬────────────┘
-        HTTP / WebSocket    │                          │   HTTPS (direct from browser)
-              :3000         │                          ▼
-                            │              OpenStreetMap  (map tiles)
-                            │              Photon         (city search)
-                            │              Nominatim      (reverse geocode)
-                            ▼
- ┌── Docker network: crimelens_default ─────────────────────────────────────────┐
- │                                                                               │
- │   ┌─────────────────────────────────┐      SQL :5432    ┌───────────────────┐ │
- │   │  crimelens_app                  │ ─────────────────▶│  crimelens_db     │ │
- │   │  Bun + Elysia        :3000      │                   │  PostgreSQL 16    │ │
- │   │   • SSR HTML (JSX)              │ ◀─────────────────│  + PostGIS 3.4    │ │
- │   │   • JSON API   /api/*           │     result rows   │                   │ │
- │   │   • WebSocket  /ws/incidents    │                   │  volume: pg_data  │ │
- │   └───────────────┬─────────────────┘                   └───────────────────┘ │
- │                   │                                       (persistent storage) │
- └───────────────────┼───────────────────────────────────────────────────────────┘
-                     │  SMTP over TLS :587
-                     ▼
-              Gmail SMTP ──────────────▶ user's inbox (6-digit sign-in code)
+                      ┌──────────────────────────────────────────────┐
+                      │               Client (browser)               │
+                      │      Leaflet · forms · fetch · WebSocket     │
+                      └──────────────────────────────────────────────┘
+                                              │         HTTPS, direct from browser:
+                                              ├─────────├─▶ OpenStreetMap  (tiles)
+                    HTTP / WS  :3000          │         ├─▶ Photon         (city search)
+                                              │         └─▶ Nominatim      (reverse geocode)
+                                              ▼
+  ┌─── Docker network: crimelens_default ──────────────────────────────────────────────────┐
+  │                                                                                        │
+  │   ┌──────────────────────────────────┐            ┌────────────────────────────┐       │
+  │   │  crimelens_app                   │            │  crimelens_db              │       │
+  │   │  Bun + Elysia   :3000            │──── SQL ──▶│  PostgreSQL 16             │       │
+  │   │  SSR HTML · /api/* · /ws         │◀── rows ───│  + PostGIS 3.4             │       │
+  │   │                                  │            └────────────────────────────┘       │
+  │   └──────────────────────────────────┘                          │                      │
+  │                 │                                               │                      │
+  │                 │  SMTP / TLS :587                              │ volume               │
+  └─────────────────│───────────────────────────────────────────────│──────────────────────┘
+                    │                                               │
+                    │                                               │
+                    ▼                                               ▼
+            Gmail SMTP ─▶ user's inbox                      pg_data (persistent)
 ```
 
 - **`crimelens_app`** and **`crimelens_db`** share a private Docker network; only ports `3000` (app) and `5432` (db) are published to the host.
@@ -65,17 +65,17 @@ orchestrated with Docker Compose.
 The hot path: as the user pans or zooms, the map requests only the incidents inside the current bounding box.
 
 ```
-Browser                    crimelens_app (Elysia)               crimelens_db (PostGIS)
-  │  GET /api/incidents?bbox=W,S,E,N&types=…&since=…                     │
-  │ ─────────────────────────────▶                                      │
-  │                     validate query params (TypeBox)                  │
-  │                     compose parameterized SQL                        │
-  │                        WHERE ST_Intersects(location, envelope) ──────┼─▶ GiST index
-  │                                                                      │   (sub-linear)
-  │                     rows  ◀──────────────────────────────────────────│
-  │                     serialize → JSON                                 │
-  │ ◀─────────────────────────────                                      │
-  │  render markers + clusters                                           │
+Browser                 crimelens_app                   crimelens_db
+  │                           │                               │
+  │──── GET /api/incidents ───▶                               │
+  │                           │ validate params (TypeBox)     │
+  │                           │ build SQL · ST_Intersects     │
+  │                           │───────── index lookup ────────▶ GiST index scan
+  │                           │                               │ (sub-linear)
+  │                           │◀──────── matching rows ────────
+  │                           │ serialize → JSON              │
+  ◀────────── items ──────────│                               │
+  │ render markers + clusters │                               │
 ```
 
 A reported incident is also pushed to every other connected client over
@@ -86,20 +86,21 @@ A reported incident is also pushed to every other connected client over
 ## Authentication & email (passwordless OTP over SMTP)
 
 ```
-Browser                 crimelens_app                email_otps (DB)         Gmail SMTP
-  │ POST /auth/send-code {email}  │                       │                      │
-  │ ─────────────────────────────▶                        │                      │
-  │            generate 6-digit code                       │                      │
-  │            bcrypt-hash · 15-min TTL ──── INSERT ───────▶│                      │
-  │            Nodemailer send ───────────────────────────────────────────────────▶│
-  │                                                        │     code email ──────┼─▶ inbox
-  │                                                        │                      │
-  │ POST /auth/verify {email, code}│                       │                      │
-  │ ─────────────────────────────▶ consumeOtp():           │                      │
-  │            newest unconsumed code  ◀───────────────────│                      │
-  │            bcrypt compare · max 5 attempts · mark consumed                     │
-  │            upsert user · create session row                                   │
-  │ ◀── 302  Set-Cookie: session=<id>.<HMAC-SHA256> ───────│                      │
+Browser               crimelens_app                email_otps (DB)             Gmail SMTP
+  │                         │                             │                         │
+  │──── send-code {email} ──▶                             │                         │
+  │                         │ generate 6-digit code       │                         │
+  │                         │ bcrypt-hash · 15-min TTL    │                         │
+  │                         │───── INSERT hashed code ────▶                         │
+  │                         │──────────────── Nodemailer send (SMTP) ───────────────▶
+  │                         │                             │                         │ ─▶ user's inbox
+  │── verify {email, code} ─▶                             │                         │
+  │                         │ consumeOtp()                │                         │
+  │                         │◀───── newest unconsumed ─────                         │
+  │                         │ bcrypt compare · ≤5 tries   │                         │
+  │                         │ mark consumed · upsert user │                         │
+  ◀─────────────────────────│                             │                         │
+  │ Set-Cookie: session=<id>.<HMAC>                       │                         │
 ```
 
 - **`MAIL_MODE=gmail`** sends via Nodemailer (Gmail SMTP, TLS :587).
