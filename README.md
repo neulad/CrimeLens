@@ -98,6 +98,15 @@ All env vars are baked into `docker-compose.yml` for local development. When run
 
 ---
 
+## Documentation
+
+| File | Contents |
+|---|---|
+| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | How the app is structured and why — written to be read aloud in the presentation |
+| [`docs/DATA-MODEL.md`](docs/DATA-MODEL.md) | What the database stores, the ERD, and why we use PostGIS |
+
+---
+
 ## Project structure
 
 ```
