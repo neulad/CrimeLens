@@ -3,9 +3,9 @@ services:
     image: postgis/postgis:16-3.4
     container_name: crimelens_db
     environment:
-      POSTGRES_DB: crimelens
-      POSTGRES_USER: crimelens
-      POSTGRES_PASSWORD: crimelens
+      POSTGRES_DB: ${POSTGRES_DB:-crimelens}
+      POSTGRES_USER: ${POSTGRES_USER:-crimelens}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-crimelens}
     ports:
       - '5432:5432'
     volumes:
@@ -22,9 +22,9 @@ services:
     ports:
       - '3000:3000'
     environment:
-      DATABASE_URL: postgres://crimelens:crimelens@db:5432/crimelens
-      SESSION_SECRET: crimelens-dev-secret-change-in-production-32chars
-      PORT: 3000
+      DATABASE_URL: postgres://${POSTGRES_USER:-crimelens}:${POSTGRES_PASSWORD:-crimelens}@db:5432/${POSTGRES_DB:-crimelens}
+      SESSION_SECRET: ${SESSION_SECRET:-crimelens-dev-secret-change-in-production-32chars}
+      PORT: ${PORT:-3000}
       MAIL_MODE: ${MAIL_MODE:-console}
       GMAIL_FROM: ${GMAIL_FROM:-}
       GMAIL_APP_PASSWORD: ${GMAIL_APP_PASSWORD:-}

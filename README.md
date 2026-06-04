@@ -25,6 +25,48 @@ Open **http://localhost:3000**.
 
 > **Subsequent runs:** just `docker compose up -d`. Migrations run automatically on startup.
 
+> **No setup needed to grade the app:** it runs out of the box with the built-in
+> defaults. Sign-in codes are printed to the server logs (`docker compose logs app`),
+> so you can log in without any email account. The `.env` below is only required
+> to send real emails.
+
+---
+
+## Configuration & credentials (`.env`)
+
+**All configuration and secrets live in one file: `.env` in the project root.**
+It is gitignored and never committed. `docker-compose.yml` reads every value from
+it, falling back to safe development defaults when a value is absent — which is
+why the app runs without a `.env` at all.
+
+To customise (or to enable real email), copy the template and edit it:
+
+```bash
+cp .env.example .env
+```
+
+| Variable | Default | What it's for |
+|---|---|---|
+| `POSTGRES_DB` / `POSTGRES_USER` / `POSTGRES_PASSWORD` | `crimelens` | Database name / user / password (shared by the `db` and `app` containers). |
+| `SESSION_SECRET` | dev placeholder | Secret that signs login session cookies. Set a real random value (`openssl rand -hex 32`) for anything public. |
+| `PORT` | `3000` | Port the app listens on. |
+| `MAIL_MODE` | `console` | `console` = print sign-in codes to the logs (no email needed). `gmail` = send real emails. |
+| `GMAIL_FROM` | *(empty)* | The Gmail address that sends sign-in codes. **Required only when `MAIL_MODE=gmail`.** |
+| `GMAIL_APP_PASSWORD` | *(empty)* | 16-character Google **App Password** (not the normal Gmail password). **Required only when `MAIL_MODE=gmail`.** |
+
+> 🔒 **About the email password:** `GMAIL_APP_PASSWORD` is a real secret held only
+> in the team's private `.env` — it is **not** in this repository and is not shared
+> with the instructor. Without it the app automatically falls back to `console`
+> mode (codes printed to the logs), so the full sign-in flow is still gradeable.
+
+To enable real email, set in your `.env`:
+
+```ini
+MAIL_MODE=gmail
+GMAIL_FROM=youraddress@gmail.com
+GMAIL_APP_PASSWORD=your-16-char-app-password
+```
+
 ---
 
 ## Stopping & rebuilding
@@ -34,33 +76,6 @@ docker compose down           # stop (data preserved in pg_data volume)
 docker compose up -d --build  # rebuild after code changes
 docker compose down -v        # stop and wipe all data
 ```
-
----
-
-## Local development (without Docker)
-
-```bash
-# Prerequisites: Bun 1.x, Postgres + PostGIS running locally
-bun install
-cp .env.example .env   # fill in DATABASE_URL and SESSION_SECRET
-bun run db:migrate
-bun run db:seed
-bun run dev
-```
-
----
-
-## Commands
-
-| Command | What it does |
-|---|---|
-| `bun run dev` | Start dev server with hot-reload |
-| `bun run start` | Start production server |
-| `bun run db:migrate` | Apply pending migrations |
-| `bun run db:seed` | Load sample incidents |
-| `bun run check` | Lint + format check (Biome) |
-| `bun run format` | Auto-fix formatting |
-| `bun test` | Run integration tests |
 
 ---
 
@@ -82,19 +97,6 @@ bun run dev
 | Containerisation | Docker + Docker Compose |
 | Logging | pino |
 | Linting / formatting | Biome |
-
----
-
-## Environment variables
-
-All env vars are baked into `docker-compose.yml` for local development. When running outside Docker:
-
-| Variable | Required | Description |
-|---|---|---|
-| `DATABASE_URL` | **yes** | Postgres connection string |
-| `SESSION_SECRET` | **yes** | 32+ byte string for HMAC-signed session cookies |
-| `BASE_URL` | no | Public URL, default `http://localhost:3000` |
-| `PORT` | no | Server port, default `3000` |
 
 ---
 
