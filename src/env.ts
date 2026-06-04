@@ -18,5 +18,6 @@ export const env = {
   BASE_URL: process.env.BASE_URL ?? 'http://localhost:3000',
   PORT: Number(process.env.PORT ?? 3000),
   MAIL_MODE: requireMailMode(),
-  GMAIL_TOKEN: process.env.GMAIL_TOKEN,  // OAuth2 access token; provide when ready
+  GMAIL_FROM: process.env.GMAIL_FROM,          // e.g. yourname@gmail.com
+  GMAIL_APP_PASSWORD: process.env.GMAIL_APP_PASSWORD, // 16-char Google App Password
 } as const;

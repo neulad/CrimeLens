@@ -1,57 +1,44 @@
+import nodemailer from 'nodemailer';
 import { env } from '../env';
 import { logger } from './logger';
 
 // ---------------------------------------------------------------------------
 // sendOtpEmail
-// Sends a 6-digit sign-in code to the given address.
-//
-// Modes (controlled by env.MAIL_MODE):
-//   console (default) — log to stdout; no real email sent.
-//                       Safe for local dev / Docker without credentials.
-//   gmail             — send via Gmail API using env.GMAIL_TOKEN (OAuth2
-//                       access token provided by the team later).
+// MAIL_MODE=console  → prints code to stdout (dev default, no credentials needed)
+// MAIL_MODE=gmail    → sends via Gmail SMTP with an App Password
 // ---------------------------------------------------------------------------
 
 export async function sendOtpEmail(to: string, code: string): Promise<void> {
   if (env.MAIL_MODE !== 'gmail') {
-    // Console mode — print to server log so the dev can copy the code
     logger.info(
       `\n${'─'.repeat(60)}\n📧  OTP CODE (console mode — no real email sent)\n   To:   ${to}\n   Code: ${code}\n${'─'.repeat(60)}`,
     );
     return;
   }
 
-  // Gmail API mode — requires GMAIL_TOKEN (short-lived OAuth2 access token)
-  if (!env.GMAIL_TOKEN) {
-    throw new Error('GMAIL_TOKEN is required when MAIL_MODE=gmail');
+  if (!env.GMAIL_FROM || !env.GMAIL_APP_PASSWORD) {
+    throw new Error('GMAIL_FROM and GMAIL_APP_PASSWORD are required when MAIL_MODE=gmail');
   }
 
-  const subject = 'Your CrimeLens sign-in code';
-  const body = [
-    `Your CrimeLens sign-in code is: ${code}`,
-    '',
-    'It expires in 15 minutes. If you didn\'t request this, ignore this email.',
-  ].join('\n');
-
-  // RFC 2822 message, base64url encoded
-  const raw = btoa(
-    `To: ${to}\r\nSubject: ${subject}\r\nContent-Type: text/plain; charset=utf-8\r\n\r\n${body}`,
-  )
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/, '');
-
-  const res = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${env.GMAIL_TOKEN}`,
-      'Content-Type': 'application/json',
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: env.GMAIL_FROM,
+      pass: env.GMAIL_APP_PASSWORD,
     },
-    body: JSON.stringify({ raw }),
   });
 
-  if (!res.ok) {
-    const errBody = await res.text();
-    throw new Error(`Gmail API error ${res.status}: ${errBody}`);
-  }
+  await transporter.sendMail({
+    from: `CrimeLens <${env.GMAIL_FROM}>`,
+    to,
+    subject: 'Your CrimeLens sign-in code',
+    text: `Your CrimeLens sign-in code is: ${code}\n\nIt expires in 15 minutes. If you didn't request this, ignore this email.`,
+    html: `
+      <div style="font-family:system-ui,sans-serif;max-width:400px;margin:0 auto">
+        <h2 style="color:#111827">Your CrimeLens sign-in code</h2>
+        <p style="font-size:2rem;font-weight:700;letter-spacing:0.25em;color:#2563eb;background:#eff6ff;padding:0.75rem 1rem;border-radius:0.5rem;text-align:center">${code}</p>
+        <p style="color:#6b7280;font-size:0.875rem">This code expires in 15 minutes. If you didn't request it, you can safely ignore this email.</p>
+      </div>
+    `,
+  });
 }
