@@ -263,7 +263,9 @@
       iconSize: [40, 40],
       iconAnchor: [20, 20],
     });
-    userLocationLayer = L.marker([lat, lng], { icon, interactive: false, keyboard: false, zIndexOffset: 10000 }).addTo(map);
+    userLocationLayer = L.marker([lat, lng], { icon, zIndexOffset: 10000 })
+      .on('click', () => map.setView([lat, lng], Math.max(map.getZoom(), 15), { animate: true }))
+      .addTo(map);
   }
 
   if (navigator.geolocation) {
