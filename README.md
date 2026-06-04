@@ -1,12 +1,12 @@
 # CrimeLens
 
-Map-first crime-awareness web app showing pickpocketing and petty-theft hotspots in five European cities (Barcelona, Paris, Rome, Prague, Amsterdam).
+Map-first crime-awareness web app showing pickpocketing and petty-theft hotspots across 40 major European cities.
 
 - **Browse** clustered crime incidents on a full-screen interactive map
 - **Search** by city — the sidebar feed updates in real time as you navigate
 - **Live feed** — new incidents reported by other users appear instantly via WebSocket
 - **Report** incidents from the map (authenticated users)
-- **Lost & Found** board — post or search for lost items
+- **Edit / delete** your own reports inline on the incident detail page
 
 ---
 
@@ -18,7 +18,7 @@ The entire stack runs in Docker — no local Bun or Postgres installation needed
 git clone git@github.com:neulad/CrimeLens.git
 cd CrimeLens
 docker compose up -d
-docker compose exec app bun run db:seed   # first time only — loads ~500 sample incidents
+docker compose exec app bun run db:seed   # first time only — loads 446 sample incidents
 ```
 
 Open **http://localhost:3000**.
@@ -58,7 +58,6 @@ bun run dev
 | `bun run start` | Start production server |
 | `bun run db:migrate` | Apply pending migrations |
 | `bun run db:seed` | Load sample incidents |
-| `bun run db:generate` | Regenerate migration from schema changes |
 | `bun run check` | Lint + format check (Biome) |
 | `bun run format` | Auto-fix formatting |
 | `bun test` | Run integration tests |
@@ -73,13 +72,13 @@ bun run dev
 | Web framework | Elysia 1.x |
 | Templating | @kitajs/html (server-side JSX) |
 | Maps | Leaflet 1.9 + leaflet.markercluster |
-| Geocoding | Nominatim — city search autocomplete + reverse geocode on map pan |
-| Avatars | DiceBear `lorelei` (seeded from user ID, no storage needed) |
+| Geocoding | Photon (Komoot) — city search autocomplete, `place=city` results only |
+| Avatars | DiceBear `lorelei` (seeded from user ID, cached in `users.avatar_svg`) |
 | Real-time | Bun native WebSocket — live incident broadcast to all connected clients |
-| CSS | Pico.css v2 + custom app.css |
+| CSS | Custom `app.css` (Pico-style CSS variables) |
 | Database | PostgreSQL 16 + PostGIS 3.4 |
-| ORM / migrations | Drizzle ORM + Drizzle Kit |
-| Auth | Password-based (Bun.password bcrypt, HMAC-signed sessions) |
+| Migrations | Plain `.sql` files + a small custom runner (`src/db/migrate.ts`) — no ORM |
+| Auth | Passwordless email OTP (6-digit codes, bcrypt-hashed, HMAC-signed sessions) |
 | Containerisation | Docker + Docker Compose |
 | Logging | pino |
 | Linting / formatting | Biome |
@@ -117,20 +116,20 @@ All env vars are baked into `docker-compose.yml` for local development. When run
 src/
   app.ts               Elysia entry point + WebSocket /ws/incidents
   env.ts               Typed env loader
-  db/                  Drizzle client + schema
-  lib/                 Shared utilities (crypto, logger, ids)
+  db/                  Raw postgres client + migration runner
+  lib/                 Shared utilities (crypto, logger, ids, http helpers)
   modules/
     pages/             Root layout + map page (sidebar, filter bar)
-    auth/              Password auth (register, login, logout, session middleware)
+    auth/              Email OTP auth (send code, verify, logout, session middleware)
     incidents/         Incident CRUD, bbox query, city feed, live broadcast
-    lost-and-found/    Lost & found list + submit + delete
-seed/                  Seed script + incidents fixture (~500 incidents, 5 cities)
-drizzle/               Migration SQL
+    profile/           Profile editing, contacts, email change
+migrations/            Plain .sql migration files (applied in order by the runner)
+seed/                  Seed script + incidents fixture (446 incidents, 40 cities)
 public/
   css/app.css          All custom styles
   js/map.js            Map init, markers, city search, live WS feed
   img/                 Logo SVGs (logo.svg for dark bg, logo-dark.svg for light bg)
-test/                  Integration tests
+test/                  Integration test stubs
 docs/                  Architecture, API, setup, data model docs
 ```
 
