@@ -2,11 +2,9 @@
 
 
 
-\## Context documents (read these first, every session)
+\## About
 
-\- `docs/team-project-plan.pdf` — university grading rubric and deliverables from the professor. Non-negotiable.
-
-\- `docs/crimelens-idea.md` — the product idea and rough feature list.
+University project. CrimeLens is a map-first crime-awareness web app for major European cities: browse clustered incidents on an interactive map, filter by crime type and time, search by city, and (when signed in) report, edit, and delete incidents.
 
 
 
@@ -26,13 +24,11 @@
 
 2\. Stack preference: modern but stable open-source. Lightweight. No huge enterprise frameworks. Fast local setup. Must support interactive maps and geospatial queries.
 
-3\. Always optimize for the grading rubric in `docs/team-project-plan.pdf`: repo quality, clean commit history, technical documentation, working demo.
+3\. Always optimize for what a university project is graded on: repo quality, clean commit history, working demo.
 
 4\. Commit in small, frequent, well-messaged chunks. Never one giant commit per feature.
 
-5\. When a plan step is done, write the output to `docs/` as a markdown file so it survives across sessions.
-
-6\. Never ask "do you want me to…" — just do it and report what you did.
+5\. Never ask "do you want me to…" — just do it and report what you did.
 
 
 
