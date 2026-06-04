@@ -1,17 +1,10 @@
 import { Elysia, redirect, status, t } from 'elysia';
+import { cookieVal } from '../../lib/http';
 import { logger } from '../../lib/logger';
 import { loadUser, SESSION_COOKIE } from '../auth/middleware';
 import { updateProfile, requestEmailChange, confirmEmailChange } from '../auth/service';
 import { getProfile } from './service';
 import { ProfilePage } from './views';
-
-function cookieVal(
-  cookie: Record<string, { value: unknown } | undefined>,
-  name: string,
-): string | undefined {
-  const v = cookie[name]?.value;
-  return typeof v === 'string' ? v : undefined;
-}
 
 export const profileRoutes = new Elysia()
 
@@ -121,7 +114,7 @@ export const profileRoutes = new Elysia()
       // Email changed — session invalidated by confirmEmailChange, force re-login
       // biome-ignore lint/style/noNonNullAssertion: Elysia always provides this slot
       cookie[SESSION_COOKIE]!.remove();
-      return status(302, null, { Location: '/auth?email=' + encodeURIComponent(profile.pendingEmail ?? '') });
+      return redirect(`/auth?email=${encodeURIComponent(profile.pendingEmail ?? '')}`);
     },
     { body: t.Object({ code: t.String() }) },
   );

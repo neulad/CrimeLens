@@ -55,17 +55,18 @@ export async function sendOtp(email: string): Promise<{ error?: string }> {
 }
 
 // ---------------------------------------------------------------------------
-// verifyOtp — check code, upsert user, return signed session
+// consumeOtp — verify a code for an email and mark it consumed.
+// Pure auth check: NO user creation, NO session. Used by both the login flow
+// and the email-change flow. Enforces a per-OTP attempt limit.
 // ---------------------------------------------------------------------------
 
-export async function verifyOtp(
-  email: string,
-  code: string,
-): Promise<{ signedSession?: string; error?: string }> {
+const MAX_OTP_ATTEMPTS = 5;
+
+async function consumeOtp(email: string, code: string): Promise<{ error?: string }> {
   const normalized = email.trim().toLowerCase();
 
-  const [otp] = await sql<{ id: string; codeHash: string }[]>`
-    SELECT id, code_hash AS "codeHash"
+  const [otp] = await sql<{ id: string; codeHash: string; attempts: number }[]>`
+    SELECT id, code_hash AS "codeHash", attempts
     FROM email_otps
     WHERE email = ${normalized}
       AND expires_at > NOW()
@@ -76,11 +77,35 @@ export async function verifyOtp(
 
   if (!otp) return { error: 'Code expired or not found. Please request a new one.' };
 
+  // Lock the code once too many wrong guesses have been made.
+  if (otp.attempts >= MAX_OTP_ATTEMPTS) {
+    await sql`UPDATE email_otps SET consumed_at = NOW() WHERE id = ${otp.id}::uuid`;
+    return { error: 'Too many incorrect attempts. Please request a new code.' };
+  }
+
   const valid = await Bun.password.verify(code.trim(), otp.codeHash);
-  if (!valid) return { error: 'Incorrect code.' };
+  if (!valid) {
+    await sql`UPDATE email_otps SET attempts = attempts + 1 WHERE id = ${otp.id}::uuid`;
+    return { error: 'Incorrect code.' };
+  }
 
   // Mark consumed
   await sql`UPDATE email_otps SET consumed_at = NOW() WHERE id = ${otp.id}::uuid`;
+  return {};
+}
+
+// ---------------------------------------------------------------------------
+// verifyOtp — login flow: check code, upsert user, return signed session
+// ---------------------------------------------------------------------------
+
+export async function verifyOtp(
+  email: string,
+  code: string,
+): Promise<{ signedSession?: string; error?: string }> {
+  const normalized = email.trim().toLowerCase();
+
+  const result = await consumeOtp(normalized, code);
+  if (result.error) return { error: result.error };
 
   // Upsert user (creates account on first login)
   const [existing] = await sql<{ id: string }[]>`
@@ -104,12 +129,11 @@ export async function verifyOtp(
     } catch { /* non-fatal */ }
 
     await sql`
-      INSERT INTO users (id, email, first_name, last_name, password_hash, avatar_svg)
+      INSERT INTO users (id, email, first_name, last_name, avatar_svg)
       VALUES (
         ${userId}::uuid,
         ${normalized},
         ${capitalized},
-        '',
         '',
         ${avatarSvg}
       )
@@ -191,7 +215,10 @@ export async function confirmEmailChange(
   `;
   if (!user?.pendingEmail) return { error: 'No pending email change found.' };
 
-  const result = await verifyOtp(user.pendingEmail, code);
+  // Verify the code WITHOUT the login-flow side effect of creating a user.
+  // (The old code called verifyOtp here, which created a phantom account for
+  // the new address and then collided with the UNIQUE email constraint.)
+  const result = await consumeOtp(user.pendingEmail, code);
   if (result.error) return { error: result.error };
 
   await sql`
