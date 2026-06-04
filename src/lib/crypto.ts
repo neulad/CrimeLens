@@ -1,14 +1,4 @@
-import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
-
-/** Generate a cryptographically random token, base64url-encoded. */
-export function generateToken(bytes = 32): string {
-  return randomBytes(bytes).toString('base64url');
-}
-
-/** SHA-256 hash of a string. Returns hex string. */
-export function sha256(input: string): string {
-  return createHash('sha256').update(input).digest('hex');
-}
+import { createHmac, timingSafeEqual } from 'node:crypto';
 
 /** HMAC-SHA256 of a string with the given secret. Returns hex string. */
 export function hmac(secret: string, input: string): string {
