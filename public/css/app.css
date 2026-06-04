@@ -187,6 +187,11 @@ html.inner-page-body body {
   transform: translateX(-50%);
   z-index: 1000;
   pointer-events: auto;
+  transition: left 0.2s ease;
+}
+/* When detail panel is open (320px), re-center in the remaining space */
+#map-container.panel-open .filter-bar {
+  left: calc((100% - var(--sidebar-width) - 320px) / 2);
 }
 
 .filter-form {
@@ -209,7 +214,7 @@ html.inner-page-body body {
   letter-spacing: 0.01em;
   cursor: pointer;
   user-select: none;
-  border: 2px solid transparent;
+  border: none;
   transition: opacity 0.12s, box-shadow 0.12s;
   margin: 0;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
@@ -224,31 +229,11 @@ html.inner-page-body body {
 .pill:hover {
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.28);
 }
-.pill-pickpocketing {
-  background: var(--badge-pickpocketing-bg);
-  color: var(--badge-pickpocketing-fg);
-  border-color: var(--badge-pickpocketing-fg);
-}
-.pill-bicycle-stolen {
-  background: var(--badge-bicycle-stolen-bg);
-  color: var(--badge-bicycle-stolen-fg);
-  border-color: var(--badge-bicycle-stolen-fg);
-}
-.pill-street-fight {
-  background: var(--badge-street-fight-bg);
-  color: var(--badge-street-fight-fg);
-  border-color: var(--badge-street-fight-fg);
-}
-.pill-robbery {
-  background: var(--badge-robbery-bg);
-  color: var(--badge-robbery-fg);
-  border-color: var(--badge-robbery-fg);
-}
-.pill-street-scams {
-  background: var(--badge-street-scams-bg);
-  color: var(--badge-street-scams-fg);
-  border-color: var(--badge-street-scams-fg);
-}
+.pill-pickpocketing  { background: var(--badge-pickpocketing-bg);  color: var(--badge-pickpocketing-fg);  }
+.pill-bicycle-stolen { background: var(--badge-bicycle-stolen-bg); color: var(--badge-bicycle-stolen-fg); }
+.pill-street-fight   { background: var(--badge-street-fight-bg);   color: var(--badge-street-fight-fg);   }
+.pill-robbery        { background: var(--badge-robbery-bg);         color: var(--badge-robbery-fg);        }
+.pill-street-scams   { background: var(--badge-street-scams-bg);    color: var(--badge-street-scams-fg);   }
 
 /* ── Sidebar ──────────────────────────────────────────────────────────────── */
 .sidebar {

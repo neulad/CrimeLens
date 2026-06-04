@@ -87,25 +87,25 @@ export function ProfilePage({
 
           <label>
             <span style="display:flex;align-items:center;gap:0.4rem">
-              {Html.escapeHtml(CONTACT_ICONS.whatsapp)} WhatsApp (number with country code)
+              {Html.raw(CONTACT_ICONS.whatsapp)} WhatsApp (number with country code)
             </span>
             <input type="text" name="contactWhatsapp" placeholder="+421912345678" value={profile.contactWhatsapp ?? ''} safe />
           </label>
           <label>
             <span style="display:flex;align-items:center;gap:0.4rem">
-              {Html.escapeHtml(CONTACT_ICONS.telegram)} Telegram (username without @)
+              {Html.raw(CONTACT_ICONS.telegram)} Telegram (username without @)
             </span>
             <input type="text" name="contactTelegram" placeholder="username" value={profile.contactTelegram ?? ''} safe />
           </label>
           <label>
             <span style="display:flex;align-items:center;gap:0.4rem">
-              {Html.escapeHtml(CONTACT_ICONS.facebook)} Facebook (username or profile ID)
+              {Html.raw(CONTACT_ICONS.facebook)} Facebook (username or profile ID)
             </span>
             <input type="text" name="contactFacebook" placeholder="john.doe.123" value={profile.contactFacebook ?? ''} safe />
           </label>
           <label>
             <span style="display:flex;align-items:center;gap:0.4rem">
-              {Html.escapeHtml(CONTACT_ICONS.phone)} Phone number
+              {Html.raw(CONTACT_ICONS.phone)} Phone number
             </span>
             <input type="tel" name="contactPhone" placeholder="+421912345678" value={profile.contactPhone ?? ''} safe />
           </label>

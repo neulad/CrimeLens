@@ -69,52 +69,43 @@
   // Crime-type pin icons use Tabler Icons paths (MIT licence).
   // Each icon is a 24×24 stroke-based SVG embedded in a teardrop pin shape.
 
-  // Per-type SVG group transform — nudge icons that aren't visually centred on the 24×24 grid.
-  const TYPE_ICON_TRANSFORM = {
-    // hand-stop paths span x:8–20 (visual centre ~14 vs grid centre 12) → shift left 2px
-    pickpocketing: 'translate(2,4)',
-  };
-
-  // Tabler Icons paths (MIT licence), 24×24 stroke-based viewBox.
+  // All paths from Tabler Icons (MIT licence), exact SVG source, 24×24 viewBox.
   const TYPE_ICON_PATHS = {
-    // hand-stop — fingers raised, wallet being grabbed
+    // hand-stop
     pickpocketing: `
-      <path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V13"/>
-      <path d="M11 6.5V4a1.5 1.5 0 0 1 3 0v9"/>
-      <path d="M14 6a1.5 1.5 0 0 1 3 0v6"/>
-      <path d="M17 8a1.5 1.5 0 0 1 3 0v8a6 6 0 0 1-12 0v-3a1.5 1.5 0 0 1 3 0"/>`,
-    // bicycle — two wheels + frame
+      <path d="M8 13v-7.5a1.5 1.5 0 0 1 3 0v6.5"/>
+      <path d="M11 5.5v-2a1.5 1.5 0 1 1 3 0v8.5"/>
+      <path d="M14 5.5a1.5 1.5 0 0 1 3 0v6.5"/>
+      <path d="M17 7.5a1.5 1.5 0 0 1 3 0v8.5a6 6 0 0 1-6 6h-2h.208a6 6 0 0 1-5.012-2.7a69.74 69.74 0 0 1-.196-.3c-.312-.479-1.407-2.388-3.286-5.728a1.5 1.5 0 0 1 .536-2.022a1.867 1.867 0 0 1 2.28.28l1.47 1.47"/>`,
+    // bike
     bicycle_stolen: `
-      <path d="M5 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0"/>
-      <path d="M19 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0"/>
-      <path d="M7 18l3.5-7h5l3.5 7"/>
-      <path d="M10.5 11l1.5-4h3.5"/>
-      <path d="M11.5 7h4.5"/>`,
-    // sword — blade diagonal + guard + grip
+      <path d="M2 18a3 3 0 1 0 6 0a3 3 0 0 0-6 0"/>
+      <path d="M16 18a3 3 0 1 0 6 0a3 3 0 0 0-6 0"/>
+      <path d="M12 19v-4l-3-3l5-4l2 3h3"/>
+      <path d="M13.007 5a2 2 0 1 0 4 0a2 2 0 1 0-4 0"/>`,
+    // sword
     street_fight: `
-      <path d="M5 21l9-9"/>
-      <path d="M14.5 10.5l.5-7.5-7.5.5 2.5 2.5-5 5 3.5 3.5 5-5z"/>
-      <path d="M3.5 21.5l1-1"/>`,
-    // knife — curved blade + handle
+      <path d="M20 4v5l-9 7l-4 4l-3-3l4-4l7-9l5 0"/>
+      <path d="M6.5 11.5l6 6"/>`,
+    // wallet-off (wallet being taken)
     robbery: `
-      <path d="M14 10l-8.5 8.5a2.5 2.5 0 0 0 3.5 3.5L17.5 13C21 9.5 21 5 19 3s-6.5-2-10 1.5"/>
-      <path d="M3.5 20.5l1.5-1.5"/>`,
-    // masks-theater — comedy + tragedy masks
+      <path d="M17 8v-3a1 1 0 0 0-1-1h-8m-3.413.584a2 2 0 0 0 1.413 3.416h2m4 0h6a1 1 0 0 1 1 1v3"/>
+      <path d="M19 19a1 1 0 0 1-1 1h-12a2 2 0 0 1-2-2v-12"/>
+      <path d="M16 12h4v4m-4 0a2 2 0 0 1-2-2"/>
+      <path d="M3 3l18 18"/>`,
+    // eye-off (deception/scam)
     street_scams: `
-      <path d="M13 9c0-2 1.5-3.5 3.5-3.5S20 7 20 9c0 3.5-2.5 5-3.5 6.5"/>
-      <path d="M4 9c0-2 1.5-3.5 3.5-3.5S11 7 11 9c0 3.5-2.5 5-3.5 6.5"/>
-      <path d="M7.5 21c1.5 0 2.5-.75 3.5-2 1 1.25 2 2 3.5 2"/>
-      <path d="M6 13h.01"/>
-      <path d="M18 13h.01"/>`,
+      <path d="M10.585 10.587a2 2 0 0 0 2.829 2.828"/>
+      <path d="M16.681 16.673a8.717 8.717 0 0 1-4.681 1.327c-3.6 0-6.6-2-9-6c1.272-2.12 2.712-3.678 4.32-4.674m2.86-1.146a9.055 9.055 0 0 1 1.82-.18c3.6 0 6.6 2 9 6c-.666 1.11-1.379 2.067-2.138 2.87"/>
+      <path d="M3 3l18 18"/>`,
   };
 
   function crimeIcon(crimeType) {
-    const color = TYPE_COLOR[crimeType] ?? TYPE_COLOR.other;
-    const paths = TYPE_ICON_PATHS[crimeType] ?? TYPE_ICON_PATHS.other;
-    const transform = TYPE_ICON_TRANSFORM[crimeType] ?? 'translate(4,4)';
+    const color = TYPE_COLOR[crimeType] ?? '#9ca3af';
+    const paths = TYPE_ICON_PATHS[crimeType] ?? TYPE_ICON_PATHS.street_scams;
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="40" viewBox="0 0 32 40">
       <path d="M16 0C7.163 0 0 7.163 0 16 0 27 16 40 16 40S32 27 32 16C32 7.163 24.837 0 16 0Z" fill="${color}"/>
-      <g transform="${transform}" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <g transform="translate(4,4)" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
         ${paths}
       </g>
     </svg>`;
@@ -253,6 +244,7 @@
     panel.classList.remove('detail-panel--closed');
     panel.classList.add('detail-panel--open');
     panel.removeAttribute('aria-hidden');
+    document.getElementById('map-container')?.classList.add('panel-open');
   }
 
   function closeDetailPanel() {
@@ -260,6 +252,7 @@
     panel.classList.add('detail-panel--closed');
     panel.classList.remove('detail-panel--open');
     panel.setAttribute('aria-hidden', 'true');
+    document.getElementById('map-container')?.classList.remove('panel-open');
   }
 
   if (panelClose) {

@@ -30,7 +30,7 @@ export function Layout({ title = 'CrimeLens', head, children }: LayoutProps): st
           integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H"
           crossorigin="anonymous"
         />
-        <link rel="stylesheet" href="/css/app.css?v=50" />
+        <link rel="stylesheet" href="/css/app.css?v=52" />
         <link rel="icon" type="image/svg+xml" href="/img/logo.svg" />
 
         {head}
@@ -73,10 +73,12 @@ export function MapPage({
   userEmail,
   isAuthenticated,
   userId,
+  hasAvatar,
 }: {
   userEmail?: string | undefined;
   isAuthenticated?: boolean | undefined;
   userId?: string | undefined;
+  hasAvatar?: boolean | undefined;
 }): string {
   return (
     <Layout title="CrimeLens — Crime Map">
@@ -183,7 +185,9 @@ export function MapPage({
               <div class="user-row">
                 <a href="/profile" class="user-avatar-link" title="View profile">
                   <img
-                    src={userId ? `/api/avatar/${userId}` : `https://api.dicebear.com/9.x/lorelei/svg?seed=${encodeURIComponent(userEmail)}`}
+                    src={hasAvatar && userId
+                      ? `/api/avatar/${userId}`
+                      : `https://api.dicebear.com/9.x/lorelei/svg?seed=${userId ?? encodeURIComponent(userEmail ?? '')}`}
                     alt="Your profile"
                     class="user-avatar user-avatar--img"
                   />
@@ -216,7 +220,7 @@ export function MapPage({
         </aside>
       </div>
 
-      <script src="/js/map.js?v=42" defer />
+      <script src="/js/map.js?v=44" defer />
     </Layout>
   );
 }

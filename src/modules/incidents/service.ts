@@ -14,9 +14,10 @@ export interface ListByBboxParams {
 
 const VALID_CRIME_TYPES = new Set([
   'pickpocketing',
-  'bag_snatching',
-  'theft_from_vehicle',
-  'other',
+  'bicycle_stolen',
+  'street_fight',
+  'robbery',
+  'street_scams',
 ]);
 
 export function parseSince(since?: string): Date {
