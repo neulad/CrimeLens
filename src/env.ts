@@ -4,10 +4,10 @@ function requireEnv(key: string): string {
   return val;
 }
 
-function requireMailMode(): 'console' | 'resend' {
+function requireMailMode(): 'console' | 'gmail' {
   const val = process.env.MAIL_MODE ?? 'console';
-  if (val !== 'console' && val !== 'resend') {
-    throw new Error(`Invalid MAIL_MODE="${val}". Must be "console" or "resend".`);
+  if (val !== 'console' && val !== 'gmail') {
+    throw new Error(`Invalid MAIL_MODE="${val}". Must be "console" or "gmail".`);
   }
   return val;
 }
@@ -18,5 +18,5 @@ export const env = {
   BASE_URL: process.env.BASE_URL ?? 'http://localhost:3000',
   PORT: Number(process.env.PORT ?? 3000),
   MAIL_MODE: requireMailMode(),
-  RESEND_API_KEY: process.env.RESEND_API_KEY,
+  GMAIL_TOKEN: process.env.GMAIL_TOKEN,  // OAuth2 access token; provide when ready
 } as const;

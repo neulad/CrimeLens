@@ -3,124 +3,106 @@ import Html from '@kitajs/html';
 import { InnerPage } from '../pages/layout';
 
 // ---------------------------------------------------------------------------
-// Login page
+// LoginPage — step 1: enter email
 // ---------------------------------------------------------------------------
 
 export function LoginPage({
-  userEmail,
   error,
-}: {
-  userEmail?: string | undefined;
-  error?: string | undefined;
-}): string {
-  return (
-    <InnerPage title="Sign in | CrimeLens" userEmail={userEmail}>
-      <h2>Sign in</h2>
-      {error ? (
-        <p class="auth-error" safe>
-          {error}
-        </p>
-      ) : (
-        ''
-      )}
-      <form action="/auth/login" method="post" style="max-width: 380px">
-        <label>
-          Email
-          <input type="email" name="email" required autofocus autocomplete="email" />
-        </label>
-        <label>
-          Password
-          <input type="password" name="password" required autocomplete="current-password" />
-        </label>
-        <button type="submit" class="contrast">
-          Sign in
-        </button>
-      </form>
-      <p style="margin-top: 1rem; font-size: 0.875rem">
-        No account? <a href="/auth/register">Create one</a>
-      </p>
-    </InnerPage>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Register page
-// ---------------------------------------------------------------------------
-
-export function RegisterPage({
-  error,
-  prefill,
+  prefillEmail,
 }: {
   error?: string | undefined;
-  prefill?: { email?: string | undefined; firstName?: string | undefined; lastName?: string | undefined } | undefined;
+  prefillEmail?: string | undefined;
 }): string {
   return (
-    <InnerPage title="Create account | CrimeLens">
-      <h2>Create account</h2>
-      {error ? (
-        <p class="auth-error" safe>
-          {error}
+    <InnerPage title="Sign in | CrimeLens">
+      <div style="max-width:380px">
+        <h2>Sign in</h2>
+        <p style="color:#6b7280;font-size:0.9rem;margin-bottom:1.5rem">
+          Enter your email and we'll send you a sign-in code. No password needed.
         </p>
-      ) : (
-        ''
-      )}
-      <form action="/auth/register" method="post" style="max-width: 380px">
-        <div style="display: flex; gap: 0.75rem">
-          <label style="flex: 1">
-            First name
+
+        {error ? (
+          <p class="auth-error" safe>{error}</p>
+        ) : ''}
+
+        <form action="/auth/send-code" method="post">
+          <label>
+            Email address
             <input
-              type="text"
-              name="firstName"
+              type="email"
+              name="email"
               required
               autofocus
-              autocomplete="given-name"
-              value={prefill?.firstName ?? ''}
+              autocomplete="email"
+              value={prefillEmail ?? ''}
+              placeholder="you@example.com"
             />
           </label>
-          <label style="flex: 1">
-            Last name
-            <input
-              type="text"
-              name="lastName"
-              required
-              autocomplete="family-name"
-              value={prefill?.lastName ?? ''}
-            />
-          </label>
-        </div>
-        <label>
-          Email
-          <input
-            type="email"
-            name="email"
-            required
-            autocomplete="email"
-            value={prefill?.email ?? ''}
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            name="password"
-            required
-            autocomplete="new-password"
-            minlength="8"
-          />
-        </label>
-        <button type="submit" class="contrast">
-          Create account
-        </button>
-      </form>
-      <p style="margin-top: 1rem; font-size: 0.875rem">
-        Already have an account? <a href="/auth">Sign in</a>
-      </p>
+          <button type="submit" class="contrast" style="width:100%">
+            Send sign-in code
+          </button>
+        </form>
+      </div>
     </InnerPage>
   );
 }
 
 // ---------------------------------------------------------------------------
-// Generic auth error (for unexpected failures)
+// VerifyPage — step 2: enter the 6-digit code
+// ---------------------------------------------------------------------------
+
+export function VerifyPage({
+  email,
+  error,
+}: {
+  email: string;
+  error?: string | undefined;
+}): string {
+  return (
+    <InnerPage title="Enter code | CrimeLens">
+      <div style="max-width:380px">
+        <h2>Check your inbox</h2>
+        <p style="color:#6b7280;font-size:0.9rem;margin-bottom:1.5rem">
+          We sent a 6-digit code to <strong safe>{email}</strong>. It expires in 15 minutes.
+        </p>
+
+        {error ? (
+          <p class="auth-error" safe>{error}</p>
+        ) : ''}
+
+        <form action="/auth/verify" method="post">
+          <input type="hidden" name="email" value={email} />
+          <label>
+            Sign-in code
+            <input
+              type="text"
+              name="code"
+              required
+              autofocus
+              autocomplete="one-time-code"
+              inputmode="numeric"
+              pattern="[0-9]{6}"
+              maxlength="6"
+              placeholder="123456"
+              style="letter-spacing:0.25em;font-size:1.25rem;text-align:center"
+            />
+          </label>
+          <button type="submit" class="contrast" style="width:100%">
+            Sign in
+          </button>
+        </form>
+
+        <p style="margin-top:1rem;font-size:0.875rem;color:#6b7280">
+          Didn't receive it?{' '}
+          <a href={`/auth?email=${encodeURIComponent(email)}`}>Resend code</a>
+        </p>
+      </div>
+    </InnerPage>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// AuthErrorPage — unexpected failures
 // ---------------------------------------------------------------------------
 
 export function AuthErrorPage({ message }: { message: string }): string {

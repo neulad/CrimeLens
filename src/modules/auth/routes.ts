@@ -4,11 +4,11 @@ import { queryClient as sql } from '../../db/client';
 import { unsignSession } from '../../lib/crypto';
 import { logger } from '../../lib/logger';
 import { loadUser, SESSION_COOKIE } from './middleware';
-import { login, logout, register } from './service';
-import { AuthErrorPage, LoginPage, RegisterPage } from './views';
+import { sendOtp, verifyOtp, logout } from './service';
+import { AuthErrorPage, LoginPage, VerifyPage } from './views';
 
 // ---------------------------------------------------------------------------
-// Cookie settings
+// Cookie helpers
 // ---------------------------------------------------------------------------
 
 const COOKIE_MAX_AGE = 30 * 24 * 60 * 60; // 30 days in seconds
@@ -21,121 +21,99 @@ function cookieVal(
   return typeof v === 'string' ? v : undefined;
 }
 
+function setSessionCookie(
+  cookie: Record<string, { value: unknown; set: (opts: object) => void } | undefined>,
+  value: string,
+): void {
+  // biome-ignore lint/style/noNonNullAssertion: Elysia always provides this slot
+  cookie[SESSION_COOKIE]!.set({
+    value,
+    httpOnly: true,
+    sameSite: 'lax',
+    path: '/',
+    maxAge: COOKIE_MAX_AGE,
+    secure: env.BASE_URL.startsWith('https'),
+  });
+}
+
 // ---------------------------------------------------------------------------
 // Auth routes
-// GET  /auth           → login form
-// POST /auth/login     → verify credentials, create session
-// GET  /auth/register  → registration form
-// POST /auth/register  → create account
-// POST /auth/logout    → destroy session, clear cookie
+//
+// GET  /auth              → sign-in form (enter email)
+// POST /auth/send-code    → send OTP to email
+// GET  /auth/verify       → enter-code form (email passed via query)
+// POST /auth/verify       → verify OTP, create session
+// POST /auth/logout       → destroy session
 // ---------------------------------------------------------------------------
 
 export const authRoutes = new Elysia()
-  // ── GET /auth — login form ────────────────────────────────────────────────
-  .get('/auth', async ({ cookie }) => {
+
+  // ── GET /auth ─────────────────────────────────────────────────────────────
+  .get('/auth', async ({ query, cookie }) => {
     const user = await loadUser(cookieVal(cookie, SESSION_COOKIE));
-    if (user) return LoginPage({ userEmail: user.displayName });
-    return LoginPage({});
+    if (user) return redirect('/');
+    return LoginPage({ prefillEmail: query.email });
+  }, {
+    query: t.Object({ email: t.Optional(t.String()) }),
   })
 
-  // ── POST /auth/login — verify credentials ─────────────────────────────────
+  // ── POST /auth/send-code ──────────────────────────────────────────────────
   .post(
-    '/auth/login',
-    async ({ body, cookie }) => {
+    '/auth/send-code',
+    async ({ body }) => {
       const email = body.email.trim().toLowerCase();
-      const { password } = body;
 
-      let signedSession: string | null;
+      let result: { error?: string };
       try {
-        signedSession = await login(email, password);
+        result = await sendOtp(email);
       } catch (err) {
-        logger.error(err, 'Login error');
-        return AuthErrorPage({ message: 'Something went wrong. Please try again.' });
-      }
-
-      if (!signedSession) {
-        return LoginPage({ error: 'Incorrect email or password.' });
-      }
-
-      // biome-ignore lint/style/noNonNullAssertion: Elysia always provides this slot
-      cookie[SESSION_COOKIE]!.set({
-        value: signedSession,
-        httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
-        maxAge: COOKIE_MAX_AGE,
-        secure: env.BASE_URL.startsWith('https'),
-      });
-
-      return redirect('/');
-    },
-    { body: t.Object({ email: t.String(), password: t.String() }) },
-  )
-
-  // ── GET /auth/register — registration form ────────────────────────────────
-  .get('/auth/register', () => RegisterPage({}))
-
-  // ── POST /auth/register — create account ──────────────────────────────────
-  .post(
-    '/auth/register',
-    async ({ body, cookie }) => {
-      const email = body.email.trim().toLowerCase();
-      const firstName = body.firstName.trim();
-      const lastName = body.lastName.trim();
-      const { password } = body;
-
-      if (password.length < 8) {
-        return RegisterPage({
-          error: 'Password must be at least 8 characters.',
-          prefill: { email, firstName, lastName },
-        });
-      }
-
-      let result: { error?: string | undefined };
-      try {
-        result = await register({ email, firstName, lastName, password });
-      } catch (err) {
-        logger.error(err, 'Registration error');
-        return AuthErrorPage({ message: 'Something went wrong. Please try again.' });
+        logger.error(err, 'sendOtp error');
+        return AuthErrorPage({ message: 'Failed to send code. Please try again.' });
       }
 
       if (result.error) {
-        return RegisterPage({
-          error: result.error,
-          prefill: { email, firstName, lastName },
-        });
+        return LoginPage({ error: result.error, prefillEmail: email });
       }
 
-      // Auto-login after registration
-      const signedSession = await login(email, password);
-      if (!signedSession) {
-        // Shouldn't happen — just send them to sign in
-        return redirect('/auth');
-      }
-
-      // biome-ignore lint/style/noNonNullAssertion: Elysia always provides this slot
-      cookie[SESSION_COOKIE]!.set({
-        value: signedSession,
-        httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
-        maxAge: COOKIE_MAX_AGE,
-        secure: env.BASE_URL.startsWith('https'),
-      });
-
-      return redirect('/');
+      return VerifyPage({ email });
     },
-    {
-      body: t.Object({
-        email: t.String(),
-        firstName: t.String(),
-        lastName: t.String(),
-        password: t.String(),
-      }),
-    },
+    { body: t.Object({ email: t.String() }) },
   )
 
-  // ── POST /auth/logout — destroy session ───────────────────────────────────
+  // ── GET /auth/verify ──────────────────────────────────────────────────────
+  .get('/auth/verify', ({ query }) => {
+    if (!query.email) return redirect('/auth');
+    return VerifyPage({ email: query.email });
+  }, {
+    query: t.Object({ email: t.Optional(t.String()) }),
+  })
+
+  // ── POST /auth/verify ─────────────────────────────────────────────────────
+  .post(
+    '/auth/verify',
+    async ({ body, cookie }) => {
+      const email = body.email.trim().toLowerCase();
+      const code = body.code.trim();
+
+      let result: { signedSession?: string; error?: string };
+      try {
+        result = await verifyOtp(email, code);
+      } catch (err) {
+        logger.error(err, 'verifyOtp error');
+        return AuthErrorPage({ message: 'Something went wrong. Please try again.' });
+      }
+
+      if (result.error || !result.signedSession) {
+        return VerifyPage({ email, error: result.error ?? 'Verification failed.' });
+      }
+
+      setSessionCookie(cookie as Parameters<typeof setSessionCookie>[0], result.signedSession);
+      return redirect('/');
+    },
+    { body: t.Object({ email: t.String(), code: t.String() }) },
+  )
+
+  // ── POST /auth/logout ─────────────────────────────────────────────────────
   .post('/auth/logout', async ({ cookie }) => {
     const val = cookieVal(cookie, SESSION_COOKIE);
     if (val) {
