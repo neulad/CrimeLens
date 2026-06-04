@@ -9,6 +9,7 @@ import { getRecentIncidents } from './modules/incidents/queries';
 import { incidentsRoutes } from './modules/incidents/routes';
 import { lostFoundRoutes } from './modules/lost-and-found/routes';
 import { pagesRoutes } from './modules/pages/routes';
+import { profileRoutes } from './modules/profile/routes';
 
 const app = new Elysia()
   // Enable @kitajs/html JSX responses
@@ -20,6 +21,7 @@ const app = new Elysia()
   .use(authRoutes)
   .use(incidentsRoutes)
   .use(lostFoundRoutes)
+  .use(profileRoutes)
   .ws('/ws/incidents', {
     async open(ws) {
       addClient(ws);

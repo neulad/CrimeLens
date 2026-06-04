@@ -30,7 +30,7 @@ export function Layout({ title = 'CrimeLens', head, children }: LayoutProps): st
           integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H"
           crossorigin="anonymous"
         />
-        <link rel="stylesheet" href="/css/app.css?v=48" />
+        <link rel="stylesheet" href="/css/app.css?v=50" />
         <link rel="icon" type="image/svg+xml" href="/img/logo.svg" />
 
         {head}
@@ -80,7 +80,7 @@ export function MapPage({
 }): string {
   return (
     <Layout title="CrimeLens — Crime Map">
-      <div id="map-container">
+      <div id="map-container" data-user-id={userId ?? ''}>
         {/* Full-screen map */}
         <div id="map" />
         <div id="map-loading" class="map-loading-corner" aria-hidden="true">Loading…</div>
@@ -93,17 +93,21 @@ export function MapPage({
               <input type="checkbox" name="types" value="pickpocketing" checked />
               <span>Pickpocketing</span>
             </label>
-            <label class="pill pill-bag">
-              <input type="checkbox" name="types" value="bag_snatching" checked />
-              <span>Bag snatching</span>
+            <label class="pill pill-bicycle-stolen">
+              <input type="checkbox" name="types" value="bicycle_stolen" checked />
+              <span>Bicycle stolen</span>
             </label>
-            <label class="pill pill-vehicle">
-              <input type="checkbox" name="types" value="theft_from_vehicle" checked />
-              <span>Vehicle theft</span>
+            <label class="pill pill-street-fight">
+              <input type="checkbox" name="types" value="street_fight" checked />
+              <span>Street fight</span>
             </label>
-            <label class="pill pill-other">
-              <input type="checkbox" name="types" value="other" checked />
-              <span>Other</span>
+            <label class="pill pill-robbery">
+              <input type="checkbox" name="types" value="robbery" checked />
+              <span>Robbery</span>
+            </label>
+            <label class="pill pill-street-scams">
+              <input type="checkbox" name="types" value="street_scams" checked />
+              <span>Street scam</span>
             </label>
           </form>
         </div>
@@ -177,13 +181,14 @@ export function MapPage({
           <div class="sidebar-user">
             {userEmail ? (
               <div class="user-row">
-                <img
-                  src={userId ? `/api/avatar/${userId}` : `https://api.dicebear.com/9.x/lorelei/svg?seed=${encodeURIComponent(userEmail)}`}
-                  alt=""
-                  class="user-avatar user-avatar--img"
-                  aria-hidden="true"
-                />
-                <span class="user-name" safe>{userEmail}</span>
+                <a href="/profile" class="user-avatar-link" title="View profile">
+                  <img
+                    src={userId ? `/api/avatar/${userId}` : `https://api.dicebear.com/9.x/lorelei/svg?seed=${encodeURIComponent(userEmail)}`}
+                    alt="Your profile"
+                    class="user-avatar user-avatar--img"
+                  />
+                </a>
+                <a href="/profile" class="user-name" safe>{userEmail}</a>
                 <form action="/auth/logout" method="post" class="user-logout-form">
                   <button type="submit" class="user-logout-btn">Sign out</button>
                 </form>
@@ -211,7 +216,7 @@ export function MapPage({
         </aside>
       </div>
 
-      <script src="/js/map.js?v=40" defer />
+      <script src="/js/map.js?v=42" defer />
     </Layout>
   );
 }
@@ -248,12 +253,13 @@ export function InnerPage({
           )}
         </div>
       </nav>
-      <main class="container inner-page">
+      <main class="container inner-page" id="inner-page-main">
         <p>
           <a href="/" class="back-link">← Back to map</a>
         </p>
         {children}
       </main>
+      <script>{`document.documentElement.classList.add('inner-page-body');`}</script>
     </Layout>
   );
 }
