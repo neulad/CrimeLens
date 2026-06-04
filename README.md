@@ -98,18 +98,6 @@ All env vars are baked into `docker-compose.yml` for local development. When run
 
 ---
 
-## Documentation
-
-| File | Contents |
-|---|---|
-| [`docs/SETUP.md`](docs/SETUP.md) | Local setup, env vars, troubleshooting |
-| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Stack decisions, data flow, auth and incident flows |
-| [`docs/API.md`](docs/API.md) | HTTP routes with request/response examples |
-| [`docs/DATA-MODEL.md`](docs/DATA-MODEL.md) | Schema, ERD, indexes |
-| [`docs/team-project-plan.pdf`](docs/team-project-plan.pdf) | University grading rubric |
-
----
-
 ## Project structure
 
 ```
@@ -130,7 +118,6 @@ public/
   js/map.js            Map init, markers, city search, live WS feed
   img/                 Logo SVGs (logo.svg for dark bg, logo-dark.svg for light bg)
 test/                  Integration test stubs
-docs/                  Architecture, API, setup, data model docs
 ```
 
 ---
