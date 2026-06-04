@@ -1,11 +1,11 @@
 import { Elysia, status, t } from 'elysia';
 import { logger } from '../../lib/logger';
 import { loadUser, SESSION_COOKIE } from '../auth/middleware';
-import { createIncident, getCityIncidents, getIncidentById } from './queries';
+import { createIncident, deleteIncident, getCityIncidents, getIncidentById, updateIncident } from './queries';
 import { broadcastIncident } from './live';
 import { parseSince } from './service';
 import { listByBbox } from './service';
-import { IncidentDetailPage, IncidentNotFoundPage } from './views';
+import { IncidentDetailPage, IncidentEditPage, IncidentNotFoundPage } from './views';
 
 function cookieVal(cookie: Record<string, { value: unknown } | undefined>, name: string): string | undefined {
   const v = cookie[name]?.value;
@@ -33,7 +33,7 @@ export const incidentsRoutes = new Elysia()
           return status(404, user ? IncidentNotFoundPage({ userEmail: user.email }) : IncidentNotFoundPage({}));
         }
         return user
-          ? IncidentDetailPage({ incident, userEmail: user.email })
+          ? IncidentDetailPage({ incident, userEmail: user.email, userId: user.userId })
           : IncidentDetailPage({ incident });
       } catch (err) {
         logger.error(err, 'Failed to fetch incident detail');
@@ -96,7 +96,7 @@ export const incidentsRoutes = new Elysia()
       const city = query.city.trim();
       if (!city) return { items: [] };
 
-      const VALID_TYPES = new Set(['pickpocketing', 'bag_snatching', 'theft_from_vehicle', 'other']);
+      const VALID_TYPES = new Set(['pickpocketing', 'bicycle_stolen', 'street_fight', 'robbery', 'street_scams']);
       const types = query.types
         ? query.types.split(',').filter((t) => VALID_TYPES.has(t))
         : undefined;
@@ -165,4 +165,83 @@ export const incidentsRoutes = new Elysia()
         description: t.String(),
       }),
     },
+  )
+
+  // ── GET /incidents/:id/edit — edit form (owner only) ─────────────────────
+  .get(
+    '/incidents/:id/edit',
+    async ({ params, cookie }) => {
+      const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      if (!UUID_RE.test(params.id)) return status(404, IncidentNotFoundPage({}));
+
+      const [incident, user] = await Promise.all([
+        getIncidentById(params.id),
+        loadUser(cookieVal(cookie, SESSION_COOKIE)),
+      ]);
+
+      if (!incident) return status(404, IncidentNotFoundPage({ userEmail: user?.email }));
+      if (!user) return status(302, null, { Location: '/auth' });
+      if (incident.createdBy !== user.userId) return status(403, 'Forbidden');
+
+      return IncidentEditPage({ incident, userEmail: user.email });
+    },
+    { params: t.Object({ id: t.String() }) },
+  )
+
+  // ── POST /incidents/:id/edit — save edits (owner only) ───────────────────
+  .post(
+    '/incidents/:id/edit',
+    async ({ params, body, cookie }) => {
+      const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      if (!UUID_RE.test(params.id)) return status(404, IncidentNotFoundPage({}));
+
+      const user = await loadUser(cookieVal(cookie, SESSION_COOKIE));
+      if (!user) return status(302, null, { Location: '/auth' });
+
+      const incident = await getIncidentById(params.id);
+      if (!incident) return status(404, IncidentNotFoundPage({ userEmail: user.email }));
+      if (incident.createdBy !== user.userId) return status(403, 'Forbidden');
+
+      try {
+        await updateIncident(params.id, {
+          crimeType: body.crimeType,
+          description: body.description,
+          occurredAt: body.occurredAt,
+        });
+      } catch (err) {
+        logger.error(err, 'Failed to update incident');
+        return IncidentEditPage({ incident, userEmail: user.email, error: 'Something went wrong.' });
+      }
+
+      return status(302, null, { Location: `/incidents/${params.id}` });
+    },
+    {
+      params: t.Object({ id: t.String() }),
+      body: t.Object({ crimeType: t.String(), description: t.String(), occurredAt: t.String() }),
+    },
+  )
+
+  // ── POST /incidents/:id/delete — delete (owner only) ─────────────────────
+  .post(
+    '/incidents/:id/delete',
+    async ({ params, cookie }) => {
+      const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      if (!UUID_RE.test(params.id)) return status(404);
+
+      const user = await loadUser(cookieVal(cookie, SESSION_COOKIE));
+      if (!user) return status(302, null, { Location: '/auth' });
+
+      const incident = await getIncidentById(params.id);
+      if (!incident) return status(404, IncidentNotFoundPage({ userEmail: user.email }));
+      if (incident.createdBy !== user.userId) return status(403, 'Forbidden');
+
+      try {
+        await deleteIncident(params.id);
+      } catch (err) {
+        logger.error(err, 'Failed to delete incident');
+      }
+
+      return status(302, null, { Location: '/' });
+    },
+    { params: t.Object({ id: t.String() }) },
   );

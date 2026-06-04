@@ -9,6 +9,7 @@ export interface IncidentRow {
   source: string;
   lat: number;
   lng: number;
+  createdBy: string | null;
 }
 
 export interface BboxParams {
@@ -30,6 +31,7 @@ export async function getIncidentById(id: string): Promise<IncidentRow | null> {
       city,
       description,
       source,
+      created_by   AS "createdBy",
       ST_Y(location) AS lat,
       ST_X(location) AS lng
     FROM incidents
@@ -49,7 +51,7 @@ export interface CreateIncidentParams {
   userId: string;
 }
 
-const VALID_CRIME_TYPES = new Set(['pickpocketing', 'bag_snatching', 'theft_from_vehicle', 'other']);
+const VALID_CRIME_TYPES = new Set(['pickpocketing', 'bicycle_stolen', 'street_fight', 'robbery', 'street_scams']);
 
 export async function createIncident(params: CreateIncidentParams): Promise<string> {
   const { newId } = await import('../../lib/ids');
@@ -76,7 +78,7 @@ export async function getCityIncidents(city: string, types: string[] | undefined
   if (types && types.length > 0) {
     return sql<IncidentRow[]>`
       SELECT id, crime_type AS "crimeType", occurred_at AS "occurredAt",
-             city, description, source,
+             city, description, source, created_by AS "createdBy",
              ST_Y(location) AS lat, ST_X(location) AS lng
       FROM incidents
       WHERE LOWER(city) = LOWER(${city})
@@ -131,6 +133,7 @@ export async function getBboxIncidents(params: BboxParams): Promise<IncidentRow[
         city,
         description,
         source,
+        created_by   AS "createdBy",
         ST_Y(location) AS lat,
         ST_X(location) AS lng
       FROM incidents
@@ -164,4 +167,25 @@ export async function getBboxIncidents(params: BboxParams): Promise<IncidentRow[
     ORDER BY occurred_at DESC
     LIMIT ${limit}
   `;
+}
+
+export interface UpdateIncidentParams {
+  crimeType: string;
+  description: string;
+  occurredAt: string;
+}
+
+export async function updateIncident(id: string, params: UpdateIncidentParams): Promise<void> {
+  if (!VALID_CRIME_TYPES.has(params.crimeType)) throw new Error('Invalid crime type');
+  await sql`
+    UPDATE incidents
+    SET crime_type  = ${params.crimeType},
+        description = ${params.description.trim()},
+        occurred_at = ${params.occurredAt}::timestamptz
+    WHERE id = ${id}::uuid
+  `;
+}
+
+export async function deleteIncident(id: string): Promise<void> {
+  await sql`DELETE FROM incidents WHERE id = ${id}::uuid`;
 }

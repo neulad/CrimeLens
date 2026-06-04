@@ -8,17 +8,19 @@ import type { IncidentRow } from './queries';
 // ---------------------------------------------------------------------------
 
 const CRIME_LABEL: Record<string, string> = {
-  pickpocketing: 'Pickpocketing',
-  bag_snatching: 'Bag snatching',
-  theft_from_vehicle: 'Theft from vehicle',
-  other: 'Other',
+  pickpocketing:  'Pickpocketing',
+  bicycle_stolen: 'Bicycle stolen',
+  street_fight:   'Street fight',
+  robbery:        'Robbery',
+  street_scams:   'Street scam',
 };
 
 const CRIME_BADGE: Record<string, string> = {
-  pickpocketing: 'badge-pickpocketing',
-  bag_snatching: 'badge-bag-snatching',
-  theft_from_vehicle: 'badge-theft-from-vehicle',
-  other: 'badge-other',
+  pickpocketing:  'badge-pickpocketing',
+  bicycle_stolen: 'badge-bicycle-stolen',
+  street_fight:   'badge-street-fight',
+  robbery:        'badge-robbery',
+  street_scams:   'badge-street-scams',
 };
 
 const SOURCE_BADGE: Record<string, string> = {
@@ -38,10 +40,13 @@ const SOURCE_LABEL: Record<string, string> = {
 export function IncidentDetailPage({
   incident,
   userEmail,
+  userId,
 }: {
   incident: IncidentRow;
   userEmail?: string | undefined;
+  userId?: string | undefined;
 }): string {
+  const isOwner = !!userId && userId === incident.createdBy;
   const crimeLabel = CRIME_LABEL[incident.crimeType] ?? incident.crimeType;
   const badgeClass = `badge ${CRIME_BADGE[incident.crimeType] ?? 'badge-other'}`;
   const srcClass = `badge ${SOURCE_BADGE[incident.source] ?? 'badge-other'}`;
@@ -128,6 +133,103 @@ export function IncidentDetailPage({
             </code>
           </span>
         </div>
+      </div>
+
+      {/* ── Owner actions ────────────────────────────────────────────── */}
+      <div class="incident-actions">
+        {isOwner ? (
+          <>
+            <a href={`/incidents/${incident.id}/edit`} role="button" class="contrast incident-action-btn">
+              ✏️ Edit incident
+            </a>
+            <form action={`/incidents/${incident.id}/delete`} method="post" style="display:inline">
+              <button
+                type="submit"
+                class="outline secondary incident-action-btn incident-action-btn--danger"
+                onclick="return confirm('Delete this incident permanently?')"
+              >
+                🗑 Delete
+              </button>
+            </form>
+          </>
+        ) : (
+          <div class="incident-actions__locked" title="Only the reporter can edit this incident">
+            <span class="incident-action-btn incident-action-btn--disabled">✏️ Edit incident</span>
+            <span class="incident-action-btn incident-action-btn--disabled">🗑 Delete</span>
+            <span class="incident-actions__hint">
+              {userId
+                ? "You didn't report this incident."
+                : 'Sign in to manage your reports.'}
+            </span>
+          </div>
+        )}
+      </div>
+    </InnerPage>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// IncidentEditPage
+// ---------------------------------------------------------------------------
+
+const CRIME_OPTIONS = [
+  { value: 'pickpocketing',  label: 'Pickpocketing' },
+  { value: 'bicycle_stolen', label: 'Bicycle stolen' },
+  { value: 'street_fight',   label: 'Street fight' },
+  { value: 'robbery',        label: 'Robbery' },
+  { value: 'street_scams',   label: 'Street scam' },
+];
+
+export function IncidentEditPage({
+  incident,
+  userEmail,
+  error,
+}: {
+  incident: IncidentRow;
+  userEmail: string;
+  error?: string | undefined;
+}): string {
+  const occurredAtValue = new Date(incident.occurredAt).toISOString().slice(0, 10);
+
+  return (
+    <InnerPage title="Edit incident | CrimeLens" userEmail={userEmail}>
+      <div style="max-width:520px">
+        <a href={`/incidents/${incident.id}`} style="font-size:0.875rem">← Back to incident</a>
+        <h2 style="margin-top:1rem">Edit incident</h2>
+
+        {error ? <p class="auth-error" safe>{error}</p> : ''}
+
+        <form action={`/incidents/${incident.id}/edit`} method="post">
+          <label>
+            Crime type
+            <select name="crimeType" required>
+              {CRIME_OPTIONS.map((o) => (
+                <option value={o.value} selected={o.value === incident.crimeType ? 'true' : undefined}>
+                  {o.label}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label>
+            Date of incident
+            <input type="date" name="occurredAt" required value={occurredAtValue} />
+          </label>
+
+          <label>
+            Description
+            <textarea name="description" required rows="5" maxlength="1000" safe>
+              {incident.description}
+            </textarea>
+          </label>
+
+          <div style="display:flex;gap:0.75rem;margin-top:0.5rem">
+            <button type="submit" class="contrast">Save changes</button>
+            <a href={`/incidents/${incident.id}`} role="button" class="outline secondary">
+              Cancel
+            </a>
+          </div>
+        </form>
       </div>
     </InnerPage>
   );
