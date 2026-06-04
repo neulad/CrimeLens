@@ -25,7 +25,9 @@ services:
       DATABASE_URL: postgres://crimelens:crimelens@db:5432/crimelens
       SESSION_SECRET: crimelens-dev-secret-change-in-production-32chars
       PORT: 3000
-      MAIL_MODE: console
+      MAIL_MODE: ${MAIL_MODE:-console}
+      GMAIL_FROM: ${GMAIL_FROM:-}
+      GMAIL_APP_PASSWORD: ${GMAIL_APP_PASSWORD:-}
     depends_on:
       db:
         condition: service_healthy
