@@ -52,8 +52,6 @@
   L.tileLayer(TILE_URL, { maxZoom: 19, attribution: TILE_ATTR }).addTo(map);
   map.attributionControl.setPrefix(false);
 
-  const CLUSTER_COLOR = { s: '#2d3f6b', m: '#b45309', l: '#b91c1c' };
-
   const clusterGroup = L.markerClusterGroup({
     chunkedLoading: true,
     maxClusterRadius: 60,
@@ -65,18 +63,48 @@
   setTimeout(() => map.invalidateSize(), 100);
 
   // ── Marker icon factory ───────────────────────────────────────────────────
-  // Inner div uses position:absolute;inset:0 so it always fills the Leaflet
-  // container exactly — immune to any .marker-cluster div height overrides.
+  // Crime-type pin icons use Tabler Icons paths (MIT licence).
+  // Each icon is a 24×24 stroke-based SVG embedded in a teardrop pin shape.
+
+  const TYPE_ICON_PATHS = {
+    // hand-stop — wallet/hand being grabbed
+    pickpocketing: `
+      <path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V13"/>
+      <path d="M11 6.5V4a1.5 1.5 0 0 1 3 0v9"/>
+      <path d="M14 6a1.5 1.5 0 0 1 3 0v6"/>
+      <path d="M17 8a1.5 1.5 0 0 1 3 0v8a6 6 0 0 1-12 0v-3a1.5 1.5 0 0 1 3 0"/>`,
+    // briefcase
+    bag_snatching: `
+      <path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+      <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+      <path d="M3 13a20 20 0 0 0 18 0"/>`,
+    // car
+    theft_from_vehicle: `
+      <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0"/>
+      <path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0"/>
+      <path d="M5 17H3v-6l2-5h11l3 5h1a1 1 0 0 1 1 1v5h-1"/>
+      <path d="M5 11h14"/>`,
+    // alert-triangle
+    other: `
+      <path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636-2.871l-8.106-13.534a1.914 1.914 0 0 0-3.274 0z"/>
+      <path d="M12 9v4"/>
+      <path d="M12 16h.01"/>`,
+  };
+
+  function crimeIcon(crimeType) {
+    const color = TYPE_COLOR[crimeType] ?? TYPE_COLOR.other;
+    const paths = TYPE_ICON_PATHS[crimeType] ?? TYPE_ICON_PATHS.other;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="40" viewBox="0 0 32 40">
+      <path d="M16 0C7.163 0 0 7.163 0 16 0 27 16 40 16 40S32 27 32 16C32 7.163 24.837 0 16 0Z" fill="${color}"/>
+      <g transform="translate(4,4)" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        ${paths}
+      </g>
+    </svg>`;
+    return L.divIcon({ html: svg, className: '', iconSize: [32, 40], iconAnchor: [16, 40] });
+  }
 
   function pinMarker(lat, lng, crimeType) {
-    return L.circleMarker([lat, lng], {
-      radius: 8,
-      fillColor: TYPE_COLOR[crimeType] ?? TYPE_COLOR.other,
-      color: '#fff',
-      weight: 2,
-      fillOpacity: 0.92,
-      interactive: true,
-    });
+    return L.marker([lat, lng], { icon: crimeIcon(crimeType) });
   }
 
   function tempPinIcon() {
@@ -220,20 +248,15 @@
 
   function showUserLocation(lat, lng) {
     if (userLocationLayer) map.removeLayer(userLocationLayer);
-    userLocationLayer = L.layerGroup([
-      // Pulse ring (animated via CSS on the SVG circle)
-      L.circleMarker([lat, lng], {
-        radius: 9, className: 'user-pulse-ring',
-        fillColor: 'transparent', color: '#1d4ed8',
-        weight: 2, fillOpacity: 0, interactive: false,
-      }),
-      // Solid blue dot
-      L.circleMarker([lat, lng], {
-        radius: 9,
-        fillColor: '#1d4ed8', color: '#fff',
-        weight: 3, fillOpacity: 1, interactive: false,
-      }),
-    ]).addTo(map);
+    // divIcon so the pulse animation runs entirely in CSS (circleMarker renders
+    // as SVG <path>, not <circle>, so CSS :animate selectors can't target it).
+    const icon = L.divIcon({
+      html: '<div class="user-dot"><div class="user-dot__pulse"></div><div class="user-dot__core"></div></div>',
+      className: '',
+      iconSize: [40, 40],
+      iconAnchor: [20, 20],
+    });
+    userLocationLayer = L.marker([lat, lng], { icon, interactive: false, keyboard: false }).addTo(map);
   }
 
   if (navigator.geolocation) {
